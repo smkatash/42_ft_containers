@@ -1,0 +1,22 @@
+Prvate vs Public Inheritance
+
+With public inheritance, the public methods of the base class 
+become public methods of the derived class. In other words, 
+the derived class inherits the base-class interface 
+(the interface is still visible to outside and can use it). 
+This is the is-a relationship. But with the private inheritance, 
+the public methods of the base class become private methods of
+ the derived class, even if they were protected or public in the base 
+ class. So, the derived class does not inherit the base-class interface.
+
+
+
+Vector: 
+size:
+Returns the number of elements in the vector container.
+
+capacity:
+Returns the size of the allocated storage space for the elements of the vector container
+
+max_size:
+Returns the maximum number of elements that the vector container can hold.
