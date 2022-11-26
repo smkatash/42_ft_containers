@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   vector.hpp                                         :+:      :+:    :+:   */
+/*   Vector.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: kanykei <kanykei@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 18:18:23 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/11/25 19:44:13 by ktashbae         ###   ########.fr       */
+/*   Updated: 2022/11/26 12:17:35 by kanykei          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,24 +15,6 @@
 
 #include <memory>
 
-/** The vector base class serves two purposes.  
- * 1. Its constructor and destructor allocate (but don't initialize) storage.
- * This makes exception safety easier.
- * 2. The base class encapsulates all of the differences between 
- * SGI-style allocators and standard-conforming allocators.
-*/
-
-template <class _Tp, class _Allocator = = std::allocator<_Tp>()>
-class __vector_base
-{
-	
-}
-
-
-
-
-
-
 namespace ft
 {
 /**
@@ -40,7 +22,7 @@ namespace ft
  * class Allocator = new_allocator<T> : The allocator used for 
  * all internal memory management
  */
-	template <class T, class Allocator = allocator<T> >
+	template <class T, class Allocator = std::allocator<T> >
 	class vector
 	{
 		public:
@@ -59,11 +41,9 @@ namespace ft
  * which defines the simplest memory allocation model and is value-independent.
  * Aliased as member type vector::allocator_type.
  * 
- * //Just an example.
  * template <class T, class Alloc = allocator<T> >
  * class vector
  * {
- * //...
  * };
  * 
  * An allocator *type* is supposed to be passed as a template argument. 
@@ -119,26 +99,30 @@ namespace ft
  */
 		//(1) empty container constructor (default constructor)
 		explicit vector(const allocator_type& alloc = allocator_type()) :
-			_alloc(alloc), _val(NULL), _max_size(0), _size(0) { }
+			_alloc(alloc), _elem(NULL), _capacity(0), _size(0) { }
 		
 		// (2) fill constructor : constructs a container with n elements. Each element is a copy of val.
+		// void insert (iterator position, size_type n, const value_type& val);
 		explicit vector(size_type n, const value_type& val = value_type(), const allocator_type& alloc = allocator_type()) :
-			_alloc(alloc), _val(NULL), _max_size(0), _size()
+			_alloc(alloc), _elem(NULL), _capacity(0), _size(0) {
+				insert(begin(), n, val);
+			}
 		
 		// (3) range constructor : constructs a container with as many elements as the range [first,last), 
 		// with each element constructed from its corresponding element in that range, in the same order.
-		template <class InputIterator> vector(InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type());
+		template <class InputIterator> 
+		vector(InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type());
 		
 		// (4) copy constructor : constructs a container with a copy of each of the elements in x, in the same order.
 		vector(const vector& x);
 	
 
-
+		
 
 		private:
 			allocator_type	_alloc;
-			value_type		*_val;
-			size_type		_max_size;
+			value_type		*_elem;
+			size_type		_capacity;
 			size_type		_size;
 	};
 };

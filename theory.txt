@@ -20,3 +20,21 @@ Returns the size of the allocated storage space for the elements of the vector c
 
 max_size:
 Returns the maximum number of elements that the vector container can hold.
+
+_RequireInputIter is
+ template<typename _InIter>
+    using _RequireInputIter = typename
+      enable_if<is_convertible<typename
+        iterator_traits<_InIter>::iterator_category,
+                   input_iterator_tag>::value>::type;
+
+/*
+ * Enable-if
+ * It is used to allow function overloading based on 
+ * arbitrary properties of type. Relies on SFINE
+ * (if invalid argument or return type is formed during 
+ * instantiation of function template, the instantiation 
+ * is removed instead of compilation error).
+ * Often used in C++ template metaprogramming, 
+ * Boost libraries, and C++ STL.
+ */
