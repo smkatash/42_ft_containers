@@ -28,13 +28,261 @@ _RequireInputIter is
         iterator_traits<_InIter>::iterator_category,
                    input_iterator_tag>::value>::type;
 
-/*
- * Enable-if
- * It is used to allow function overloading based on 
- * arbitrary properties of type. Relies on SFINE
- * (if invalid argument or return type is formed during 
- * instantiation of function template, the instantiation 
- * is removed instead of compilation error).
- * Often used in C++ template metaprogramming, 
- * Boost libraries, and C++ STL.
- */
+
+Use of Iterators in C++
+An iterator in C++ serves the following major purposes:
+
+The primary objective of an iterator is to access the STL container elements and perform certain operations on them. 
+The internal structure of a container does not matter, since the iterators provide common usage for all of them.
+Iterator algorithms are not dependent on the container type.
+An iterator can be used to iterate over the container elements. It can also provide access to those elements to modify their values.
+Iterators follow a generic approach for STL container classes. This way, the programmers don’t need to learn about different iterators 
+for different containers.
+
+Iterators:
+Iterators are used to point to the memory addresses of the STL containers. Apart from that, an iterator is also used to iterate over the data structures. It can access or assign values that a pointer is unable to do. 
+
+Pointers in C++ can also point to functions, whereas the iterators just serve the purpose of performing operations on the STL containers.
+
+___________________________
+Categories of Iterators
+
+****************************
+1. Input Iterators in C++
+The input iterator is the simplest and least used iterator among the five main iterators of C++. 
+It sequentially uses this iterator for input operations. In other words, you can say that it is used to read the values from the container. It is a one-way iterator. Once you have read a value, you are only allowed to increment the iterator. 
+You can not decrement the input iterator in any way.
+
+Salient Features
+The input iterator in C++ has the following salient features: 
+
+Equality and Inequality operator: You can compare the equality of two input iterators. Two iterators are said to be equal if both of them are pointing towards the same location. Otherwise, they are considered unequal.
+In the expression shown below, consider it1 and it2 as two input iterators:
+
+it1 == it2  //Using equality operator
+
+it1 != it2  //Using inequality operator
+
+Usability: Input iterators are one-way iterators. This means that you can use them to iterate only in one direction at a time. These iterators work on a “single-pass algorithm”. 
+Dereferencing: Dereferencing is used to access the data whose address is being pointed to by a pointer. The asterisk (*) is used alongside the pointer variable name for dereferencing a pointer variable.
+In the expression shown below, consider it as an input iterator:
+
+*it     // Dereferencing it using the asterisk(*)
+
+Incrementable: Since input iterators are one-way iterators, you can increment them in the forward direction. These iterators can be incremented either in a pre-increment manner or post-increment manner.
+In the expression shown below, consider it as an input iterator:
+
+it++   // Using post increment operator
+
+++it   // Using pre increment operator
+
+Swappable: The values of the two input iterators that are pointing to different positions can be easily swapped or exchanged with each other.
+
+Limitations
+The following are some of the major limitations of the input iterators in C++:
+
+Input iterators are read-only. They can only read the data of the location to which the pointer points, they can not be used to assign the values.
+As mentioned earlier, these iterators are unidirectional. They can only move in a forward direction i.e., they can only be incremented. You can not decrement them.
+You can not use these iterators in a multi-pass algorithm where you have to move in both directions inside a container.
+Except for equality and inequality operators, you can not implement any other relational operator on these iterators.
+Like relational operators, you cannot implement arithmetic operators on the input iterators.
+
+
+****************************
+2. Output Iterators in C++
+
+Output iterators serve exactly the opposite purpose as the input iterators. This iterator is sequentially used for output operations. 
+In other words, you can say that it is used to assign the values. But it can not access the values. It is complementary to the input iterators where you can access the values, 
+but can not assign them. Like the input iterator, it is a one-way iterator. Once you have assigned a value, you are only allowed to increment the iterator, and you can not decrement the output iterator in any way.
+
+Salient Features
+The output iterator in C++ has the following salient features: 
+
+Equality and Inequality operator: Just like the input iterators, you can compare the equality of two output iterators. Two iterators are said to be equal if both of them are pointing towards the same location. 
+Otherwise, they are considered unequal.
+In the expression shown below, consider it1 and it2 as two output iterators:
+
+it1 == it2  // Using equality operator
+
+it1 != it2  // Using inequality operator
+
+Usability: Output iterators also work with single-pass algorithms where you can visit an element only once at most. 
+You can assign the value only once.
+
+Dereferencing: You can dereference an output iterator as an lvalue to get the position for storing the value. 
+The method of dereferencing is the same as for the input iterators.
+In the expression shown below, consider it as an output iterator:
+
+*it   // Dereferencing it using the asterisk(*)
+
+Incrementable: Just like input iterators, output iterators are one-way iterators too, and you can increment them in the forward direction. 
+These iterators can be incremented either in a pre-increment manner or post-increment manner.
+In the expression shown below, consider it as an output iterator:
+
+it++   // Using post increment operator
+
+++it   // Using pre increment operator
+
+Swappable: The value of the two output iterators that are pointing to different positions can be easily swapped or exchanged with each other.
+Limitations
+The following are some of the major limitations of the output iterators in C++:
+
+You can not access the values using output iterators. These iterators can only be used to assign the values.
+As mentioned earlier, these iterators are unidirectional. They only move in a forward direction i.e., they can only be incremented. You can not decrement them.
+You can not use these iterators in a multi-pass algorithm where you have to move in both directions inside a container.
+Just like in input iterators, except for equality and inequality operators, you can not implement any other relational operator on output iterators.
+Like relational operators, arithmetic operators can not be implemented on the output iterators.
+
+
+**************************
+3. Forward Iterators in C++
+
+Forward iterators serve the purpose of both the input and output iterators. 
+That’s why these iterators are said to be the combination of input and output operators. 
+You can access the values (functionality of input iterators) as well as assign the values
+(functionality of output iterators). As the name suggests, these iterators are one-way iterators. 
+You can only traverse in the forward direction. Also, Bidirectional and Random Access iterators 
+are considered valid forward iterators.
+
+Salient Features
+The forward iterator in C++ has the following salient features: 
+
+Equality and Inequality operator: Just like the other two iterators mentioned above, 
+you can compare the equality of two output iterators. Two iterators are said to be equal 
+if both of them are pointing towards the same location. Otherwise, they are considered unequal.
+In the expression shown below, consider it1 and it2 as two forward iterators:
+
+it1 == it2  // Using equality operator
+
+it1 != it2  // Using inequality operator
+
+Usability: Forward iterator is the only iterator category that is used by every STL container class. 
+It is the only iterator among the 5 types of iterators that provides the functionality of the simplest
+kind of loop through a container.
+
+Dereferencing: Since input iterators are dereferenced as an rvalue and output iterators are dereferenced 
+as an lvalue, and forward iterators are the combination of these iterators, you can use both rvalue and lvalue.
+Incrementable: Forward iterators unidirectional iterators and you can increment them in the forward direction. 
+These iterators can be incremented either in a pre-increment manner or post-increment manner.
+In the expression shown below, consider it as a forward iterator:
+
+it++   // Using post increment operator
+
+++it   // Using pre increment operator
+
+Swappable: The value of the two forward iterators that are pointing to different positions can be easily 
+swapped or exchanged with each other.
+
+Limitations
+The following are some of the major limitations of the forward iterators in C++:
+
+The offset dereference operator ([]) is not supported by the forward iterators. 
+So you can not use the offset operator to dereference a forward iterator.
+As mentioned earlier, these iterators are unidirectional. They only move in a forward direction i.e., 
+they can only be incremented. You can not decrement them.
+Just like in input and output iterators, except for equality and inequality operators, you can not 
+implement any other relational operator on the forward iterators.
+Like relational operators, arithmetic operators can not be implemented on the forward iterators.
+
+**************************
+4. Bidirectional Iterators in C++
+
+Bidirectional iterators can iterate in either direction. They are considered as the forward iterators 
+with two decrement operators because they offer the same functionality as the forward iterators, 
+except that they can move in both directions. The containers like list, set, and multimap supports 
+bidirectional iterators. The random access iterators are also considered valid bidirectional iterators. 
+
+Salient Features
+The bidirectional iterator in C++ has the following salient features: 
+
+Equality and Inequality operator: Two bidirectional iterators can be compared as to whether they 
+are equal or not. Two iterators are said to be equal if both of them are pointing towards the same 
+location. Otherwise, they are considered unequal.
+In the expression shown below, consider it1 and it2 as two bidirectional iterators:
+
+it1 == it2  //Using equality operator
+
+it1 != it2  //Using inequality operator
+
+Usability: Forward iterators are used for multi-pass algorithms (the algorithms that may need the read 
+and write operations multiple times). Therefore, bidirectional operators can also be used for multi-pass 
+algorithms.
+Dereferencing: Since input iterators are dereferenced as rvalue and output iterators are dereferenced 
+as an lvalue and forward iterators are the combination of these iterators, you can use both rvalue and 
+lvalue. So, bidirectional iterators can also be used for the same purpose.
+Incrementable/Decrementable: Bidirectional iterators are valid forward iterators and forward iterators 
+are unidirectional. But bidirectional iterators can move in either way. You can increment your iterator 
+pointer as well as decrement it. That is why they are named bidirectional.
+In the expression shown below, consider it as a bidirectional iterator:
+
+//********Incrementing the iterator********//
+
+it++   // Using post increment operator
+
+++it   // Using pre increment operator
+
+//********Decrementing the iterator********//
+
+it--   // Using post decrement operator
+
+--it   // Using pre decrement operator
+
+Swappable: The value of the two bidirectional iterators that are pointing to different positions 
+can be easily swapped or exchanged with each other.
+Limitations
+The following are some of the major limitations of the bidirectional iterators in C++:
+
+The offset dereference operator ([]) is not supported by the bidirectional iterators. You can not 
+use the offset operator to dereference a bidirectional iterator.
+Just like in the forward iterators, except for equality and inequality operators, you can not implement 
+any other relational operator on the bidirectional iterators.
+Like relational operators, arithmetic operators can not be implemented on the bidirectional iterators.
+
+
+**************************
+5. Random-Access Iterators in C++
+
+5. Random-Access Iterators in C++
+Random Access iterators are considered to be the most completed iterators among all the five iterators. 
+These iterators are also stated as bidirectional iterators with random access.
+
+Salient Features
+The random-access iterator in C++ has the following salient features: 
+
+Equality and Inequality operator: Two random access iterators can be compared to see whether they are equal 
+or not. Two iterators are said to be equal if both of them are pointing towards the same location. 
+Otherwise, they are considered unequal.
+In the expression shown below, consider it1 and it2 as two random-access iterators:
+
+it1 == it2  //Using equality operator
+
+it1 != it2  //Using inequality operator
+
+Usability: Just like bidirectional iterators, random access iterators can also be used in multi-pass algorithms.
+Dereferencing: Bidirectional iterators are dereferenced as rvalue as well as an lvalue. 
+Therefore, random access iterators can also be used for the same purpose.
+Incremental/Decremental: Random access iterators can be incremented as well as decremented, 
+as they are multi-directional.
+In the expression shown below, consider it as a random access iterator:
+
+//********Incrementing the iterator********//
+
+it++   // Using post increment operator
+
+++it   // Using pre increment operator
+
+//********Decrementing the iterator********//
+
+it--   // Using post decrement operator
+
+--it   // Using pre decrement operator
+
+Swappable: The value of the two random-access iterators that are pointing to different positions can 
+be easily swapped or exchanged with each other.
+Relational Operators: Unlike other iterators, random access supports all the relational operators.
+Arithmetic Operators: Just like relational operators, arithmetic operators can be implemented on the 
+random access iterators.
+Offset dereference operator: The offset dereference operator ([]) is supported by the random access iterators. 
+You can use the offset operator to dereference a random-access iterator.
+
+

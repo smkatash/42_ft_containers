@@ -3,12 +3,14 @@
 
 namespace ft
 {
+	// enable_if ===================================================//
 	template <bool value, class T = void>
 	struct enable_if 			{ };
 
 	template<class T>
 	struct enable_if<true, T>	{ typedef T type; };
 
+	// integral_constant ===========================================//
 	// src: https://en.cppreference.com/w/cpp/types/integral_constant
 /**
 * This template is designed to provide compile-time constants as types.
@@ -88,6 +90,6 @@ namespace ft
 	
 	template <> 
 	struct is_integral<bool>				:	public true_type		{};
-}; // namespace ft
+}; // end of namespace ft
 
 #endif
