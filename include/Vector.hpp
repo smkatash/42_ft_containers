@@ -6,7 +6,7 @@
 /*   By: kanykei <kanykei@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 18:18:23 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/11/26 12:17:35 by kanykei          ###   ########.fr       */
+/*   Updated: 2022/11/27 21:15:16 by kanykei          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,5 +125,5 @@ namespace ft
 			size_type		_capacity;
 			size_type		_size;
 	};
-};
+}; // end of namespace ft
 #endif

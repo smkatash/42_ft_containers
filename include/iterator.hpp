@@ -3,8 +3,7 @@
 
 #include "enable_if.hpp"
 
-namespace ft
-{
+namespace ft {
 	// Iterator_traits ===================================================//
 	// src: https://www.codeproject.com/Articles/36530/An-Introduction-to-Iterator-Traits
 /**
@@ -75,8 +74,7 @@ namespace ft
 	// Iterators ===================================================//
 
 	template <class T>
-	class iterator
-	{
+	class iterator {
 		public:
 			typedef T									value_type;
 			typedef ptrdiff_t							difference_type;
@@ -96,8 +94,7 @@ namespace ft
 				return _it;
 			};
 
-			/** Assignment operators
-			 */
+			/** Assignment operators */
 			iterator		operator=(const iterator& rhs)			{
 				this->_it = rhs.base();
 				return *this;
@@ -113,8 +110,7 @@ namespace ft
 				return *this;
 			};
 
-			/** Arithmetic operators
-			 */
+			/** Arithmetic operators */
 			iterator		operator+(difference_type diff) const	{
 				return iterator(base() + diff);
 			};
@@ -123,8 +119,7 @@ namespace ft
 				return iterator(base() - diff);
 			};
 
-			/** Increment and Decrement operators
-			 */
+			/** Increment and Decrement operators */
 			iterator&		operator++()							{
 				this->_it += 1;
 				return *this;
@@ -147,8 +142,7 @@ namespace ft
 				return tmp;
 			};
 
-			/** Dereference operators
-			 */
+			/** Dereference operators */
 			reference		operator*()								{
 				return *(this->_it);
 			};
@@ -157,8 +151,7 @@ namespace ft
 				return *(this->_it);
 			};
 
-			/** Pointer operators
-			 */
+			/** Pointer operators */
 			pointer			operator->()							{
 				return &(operator*());
 			}
@@ -167,8 +160,7 @@ namespace ft
 				return &(operator*());
 			}
 
-			/** Array Index Operator
-			 */
+			/** Array Index Operators */
 			reference		operator[] (difference_type n)			{
 				return base()[n];
 			};
@@ -177,8 +169,7 @@ namespace ft
 				return base()[n];
 			};
 
-			/** Const Iterator
-			 */
+			/** Const Iterator */
 			operator		const_iterator () const					{
 				return const_iterator(this->_it);
 			};
@@ -186,6 +177,6 @@ namespace ft
 		private:
 			pointer	_it;
 	};
-}
+}; // end of namespace ft
 
 #endif
