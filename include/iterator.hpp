@@ -63,12 +63,12 @@ namespace ft {
 	typename iterator_traits<InputIterator>::difference_type distance(InputIterator first, InputIterator last, \
 	typename ft::enable_if<!ft::is_integral<InputIterator>::value>::type* = nullptr)
 	{
-		typename iterator_traits<InputIterator>::difference_type diff = 0;
+		typename iterator_traits<InputIterator>::difference_type n = 0;
 		while (first != last) {
 			++first;
-			++diff;
+			++n;
 		};
-		return diff;
+		return n;
 	}
 
 	// Iterators ===================================================//
@@ -85,38 +85,38 @@ namespace ft {
 			typedef const T&							const_reference;
 			typedef iterator <const T>					const_iterator;
 
-			iterator(void) : 				_it()			{};
-			iterator(pointer it) : 			_it(it)			{};
-			iterator(const iterator& it) : _it(it._it)		{};
-			~iterator(void)									{};
+			iterator(void) : 					_it()				{};
+			iterator(pointer it) : 				_it(it)				{};
+			iterator(const iterator& other) : 	_it(other._it)		{};
+			~iterator(void)											{};
 
-			pointer			base() const { 
+			pointer	base() const {
 				return _it;
 			};
 
 			/** Assignment operators */
-			iterator		operator=(const iterator& rhs)			{
-				this->_it = rhs.base();
+			iterator		operator=(const iterator& other)		{
+				this->_it = other.base();
 				return *this;
 			};
 
-			iterator&		operator+=(difference_type diff)		{
-				this->_it += diff;
+			iterator&		operator+=(difference_type n)			{
+				this->_it += n;
 				return *this;
 			};
 
-			iterator&		operator-=(difference_type diff)		{
-				this->_it -= diff;
+			iterator&		operator-=(difference_type n)			{
+				this->_it -= n;
 				return *this;
 			};
 
 			/** Arithmetic operators */
-			iterator		operator+(difference_type diff) const	{
-				return iterator(base() + diff);
+			iterator		operator+(difference_type n) const		{
+				return iterator(base() + n);
 			};
 
-			iterator		operator-(difference_type diff) const	{
-				return iterator(base() - diff);
+			iterator		operator-(difference_type n) const		{
+				return iterator(base() - n);
 			};
 
 			/** Increment and Decrement operators */
