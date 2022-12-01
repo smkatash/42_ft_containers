@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Vector.hpp                                         :+:      :+:    :+:   */
+/*   vector.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kanykei <kanykei@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 18:18:23 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/11/27 21:15:16 by kanykei          ###   ########.fr       */
+/*   Updated: 2022/12/01 17:22:45 by ktashbae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,9 @@
 #define VECTOR_HPP
 
 #include <memory>
+#include "utils/iterator.hpp"
+#include "utils/enable_if.hpp"
+#include "utils/reverse_iterator.hpp"
 
 namespace ft
 {
@@ -92,33 +95,57 @@ namespace ft
 		typedef typename iterator_traits<iterator>::difference_type		difference_type;
 
 
-		// Constructors ======================================================================//
+		// Member Functions ======================================================================//
 /**
  * The explicit function specifier controls unwanted implicit type conversions. It can only be used 
  * in declarations of constructors within a class declaration.
  */
 		//(1) empty container constructor (default constructor)
 		explicit vector(const allocator_type& alloc = allocator_type()) :
-			_alloc(alloc), _elem(NULL), _capacity(0), _size(0) { }
+			_alloc(alloc), _elem(NULL), _capacity(0), _size(0)		{ }
 		
 		// (2) fill constructor : constructs a container with n elements. Each element is a copy of val.
 		// void insert (iterator position, size_type n, const value_type& val);
 		explicit vector(size_type n, const value_type& val = value_type(), const allocator_type& alloc = allocator_type()) :
-			_alloc(alloc), _elem(NULL), _capacity(0), _size(0) {
+			_alloc(alloc), _elem(NULL), _capacity(0), _size(0)		{
 				insert(begin(), n, val);
 			}
 		
 		// (3) range constructor : constructs a container with as many elements as the range [first,last), 
 		// with each element constructed from its corresponding element in that range, in the same order.
 		template <class InputIterator> 
-		vector(InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type());
+		vector(InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type(), \
+			typename ft::enable_if<!ft::is_integral<InputIterator>::value::type* = nullptr) :
+				_alloc(alloc), _elem(NULL), _capacity(0) {
+					//to write Insert!!!!
+				}
+			
 		
 		// (4) copy constructor : constructs a container with a copy of each of the elements in x, in the same order.
 		vector(const vector& x);
+		//to write Assign!!!!
 	
+		~vector()													{
+			clear();
+			_alloc.deallocate(_elem, _capacity);
+		};
 
+		template<class InputIterator>
+		void	assign(InputIterator first, InputIterator last, \
+				typename ft::enable_if<!ft::is_integral<InputIterator>::value::type* = nullptr)	{
+			size_type	n = ft::distance(first, last);
+			
+		};
+		
+		vector&	operator=(const vector& x)							{
+			if (this != &x)
+				assign(x.begin(), x.end());
+			return *this;
+		};
 		
 
+		// Member Functions ======================================================================//
+		
 		private:
 			allocator_type	_alloc;
 			value_type		*_elem;
@@ -126,4 +153,5 @@ namespace ft
 			size_type		_size;
 	};
 }; // end of namespace ft
+
 #endif
