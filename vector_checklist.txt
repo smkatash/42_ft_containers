@@ -1,0 +1,66 @@
+***Constructors***
+1. explicit vector (const allocator_type& alloc = allocator_type());
+2. explicit vector (size_type n, const value_type& val = value_type(), const allocator_type& alloc = allocator_type());
+3. template <class InputIterator> vector(InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type());
+
+______________________________
+***Destructor***
+1. ~vector();
+DONE
+______________________________
+
+***Member Functions***
+1. assign
+template <class InputIterator>  void assign (InputIterator first, InputIterator last);	
+void assign (size_type n, const value_type& val);
+2. at
+reference at (size_type n);const_reference at (size_type n) const;
+3. begin, rbegin, end, rend 
+4. capacity
+size_type capacity() const;
+4. clear
+void clear();
+5. empty
+bool empty() const;
+TODO 6. erase
+iterator erase (iterator position);
+iterator erase (iterator first, iterator last);
+7. front 
+reference front();
+const_reference front() const;
+8. get_allocator
+allocator_type get_allocator() const;
+9. insert
+iterator insert (iterator position, const value_type& val);
+void insert (iterator position, size_type n, const value_type& val);
+template <class InputIterator>  void insert (iterator position, InputIterator first, InputIterator last);
+10. max_size
+size_type max_size() const;
+11. operator[]
+reference operator[] (size_type n);const_reference operator[] (size_type n) const;
+12. operator=
+vector& operator= (const vector& x);
+TODO 13. pop_back
+void pop_back();
+TODO 14. push_back
+void push_back (const value_type& val);
+15. reserve
+void reserve (size_type n);
+TODO 16. resize
+void resize (size_type n, value_type val = value_type());
+17. size
+size_type size() const;
+TODO 18. swap
+void swap (vector& x);
+
+***Non-member overloads***
+TODO std::relational operators (vector)
+(1)	template <class T, class Alloc>  bool operator== (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs);
+(2)	template <class T, class Alloc>  bool operator!= (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs);
+(3)	template <class T, class Alloc>  bool operator<  (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs);
+(4)	template <class T, class Alloc>  bool operator<= (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs);
+(5)	template <class T, class Alloc>  bool operator>  (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs);
+(6)	template <class T, class Alloc>  bool operator>= (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs);
+
+std:swap
+template <class T, class Alloc>  void swap (vector<T,Alloc>& x, vector<T,Alloc>& y);
