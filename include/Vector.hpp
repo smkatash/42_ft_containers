@@ -22,12 +22,11 @@ namespace ft
 {
 /**
  * class (typename) T: The type of object that is stored in the vector
- * class Allocator = new_allocator<T> : The allocator used for 
+ * class Alloc = new_allocator<T> : The allocator used for 
  * all internal memory management
  */
-	template <class T, class Allocator = std::allocator<T> >
-	class vector
-	{
+	template <class T, class Alloc = std::allocator<T> >
+	class vector {
 		public:
 /**
  * The first template parameter (T). Type of the elements.
@@ -53,13 +52,13 @@ namespace ft
  * Not an allocator class template. So, if you need an
  * allocator for a different type from inside vector, your only choice is
  * to use the rebind member.
- * Allocator object:
+ * Alloc object:
  - The container keeps and uses an internal copy of this allocator.
  - Member type allocator_type is the internal allocator type used by the container, 
  	defined in vector as an alias of its second template parameter (Alloc).
  - If allocator_type is an instantiation of the default allocator (which has no state).
  */
-		typedef Allocator												allocator_type;
+		typedef Alloc													allocator_type;
 
 /**
  * Reference  for the default allocator: value_type&
@@ -87,7 +86,7 @@ namespace ft
 		typedef typename allocator_type::size_type						size_type;
 
 
-		// Iterators =========================================================================//
+		// Iterators [random access iterator] ====================================================//
 		typedef ft::iterator<T>											iterator;
 		typedef ft::iterator<const T>									const_iterator;
 		typedef ft::reverse_iterator<iterator>							reverse_iterator;
@@ -118,7 +117,7 @@ namespace ft
 			typename ft::enable_if<!ft::is_integral<InputIterator>::value::type* = nullptr) :
 				_alloc(alloc), _elem(NULL), _capacity(0) {
 					//to write Insert!!!!
-				}
+			}
 			
 		
 		// (4) copy constructor : constructs a container with a copy of each of the elements in x, in the same order.
@@ -143,14 +142,79 @@ namespace ft
 			return *this;
 		};
 		
+		// Iterators  ===================================================================================//
 
-		// Member Functions ======================================================================//
+		iterator				begin() 			{ return iterator(_elem);			 		};
+		const_iterator			begin() const 		{ return const_iterator(_elem);				};
+		iterator				end() 				{ return iterator(_elem + _size);			};
+		const_iterator			end() const 		{ return const_iterator(_elem + _size);		};
+		reverse_iterator		rbegin()			{ return reverse_iterator(end());			};
+		const_reverse_iterator	rbegin() const		{ return const_reverse_iterator(end());		};
+		reverse_iterator		rend()				{ return reverse_iterator(begin());			};
+		const_reverse_iterator	rend() const		{ return const_reverse_iterator(begin());	};
+
+		// (1) single element
+		iterator	insert(iterator position, const value_type& val) 			{
+			size_type	i = position - begin();
+
+			insert(position, 1, val);
+			return begin() + i;
+		}
+		// (2) fill
+		void 		insert(iterator position, size_type n, const value_type& val) {
+			size_type	i = position - begin();
+
+			if (_size + n > _capacity)
+				reserve(_new_capacity(_size + n));
+			for (size_type)
+
+		// (3) range
+		template <class InputIterator>
+		void insert (iterator position, InputIterator first, InputIterator last) {
+
+		}
+			
+		}
+
+		// Capacity  =====================================================================================//
+		size_type	size() 		const	{ return _size;					};
+		size_type	max_size() 	const	{ return _alloc.max_size();		};
+		size_type	capacity() 	const	{ return _capacity;				};
+		bool		empty()		const	{ return _size == 0;			};
+/**
+ * class length_error : defines a type of object to be thrown as exception. 
+ * It reports errors that result from attempts to exceed implementation defined 
+ * length limits for some object.
+ */		
+		void	reserve(size_type n) 	{
+			if (n <= _capacity) return ;
+			if (n > max_size())
+				throw std::length_error("resize failed");
+			T	*new_vector = _alloc.allocate(n);
+			for (size_type i = 0; i < _size; i++) {
+				_alloc.construct(&new_vector[i], _elem[i]);
+				_alloc.destroy(&_elem[i]);
+			}
+			_alloc.deallocate(_elem, _capacity);
+			_elem = new_vector;
+			_capacity = n;
+		}
+
+		// Private Member Functions ======================================================================//
 		
 		private:
 			allocator_type	_alloc;
 			value_type		*_elem;
 			size_type		_capacity;
 			size_type		_size;
+			size_type		_new_capacity(size_type size) {
+				size_type	n;
+
+				n = 1;
+				while (size > n)
+					n *= 2;
+				return n;
+			}
 	};
 }; // end of namespace ft
 
