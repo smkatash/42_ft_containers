@@ -6,7 +6,7 @@
 /*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 14:41:54 by ktashbae          #+#    #+#             */
-/*   Updated: 2023/01/02 14:41:56 by ktashbae         ###   ########.fr       */
+/*   Updated: 2023/01/02 16:19:01 by ktashbae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,14 @@ namespace ft
 	
 	template <> 
 	struct is_integral<bool>				:	public true_type		{};
+
+	template<typename T>
+	void	swap(T &x, T& y)
+	{
+		T	tmp = x;
+		x = y;
+		y = tmp;
+	};
 }; // end of namespace ft
 
 #endif

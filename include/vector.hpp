@@ -6,7 +6,7 @@
 /*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 14:42:56 by ktashbae          #+#    #+#             */
-/*   Updated: 2023/01/02 14:43:18 by ktashbae         ###   ########.fr       */
+/*   Updated: 2023/01/02 17:31:45 by ktashbae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 #define VECTOR_HPP
 
 #include <memory>
-#include "utils/iterator.hpp"
-#include "utils/enable_if.hpp"
+#include "utils/pair.hpp"
+#include "utils/equal.hpp"
 #include "utils/reverse_iterator.hpp"
 
 namespace ft {
@@ -114,7 +114,7 @@ namespace ft {
 		// with each element constructed from its corresponding element in that range, in the same order.
 		template <class InputIterator> 
 		vector(InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type(), \
-			typename ft::enable_if<!ft::is_integral<InputIterator>::value::type* = nullptr) :
+			typename ft::enable_if<!ft::is_integral<InputIterator>::value>::type* = nullptr) :
 				_alloc(alloc), _elem(NULL), _capacity(0) {
 					insert(begin(), first, last);
 		}
@@ -143,14 +143,14 @@ namespace ft {
  */
 		template<class InputIterator>
 		void	assign(InputIterator first, InputIterator last, \
-				typename ft::enable_if<!ft::is_integral<InputIterator>::value::type* = nullptr)	{
+				typename ft::enable_if<!ft::is_integral<InputIterator>::value>::type* = nullptr)	{
 			size_type	n = ft::distance(first, last);
 			clear();
 			if (n > _capacity)
 				reserve(n);
 			_size = n;
 			for (size_type i = 0; i < n; i++) {
-				_alloc.construct(_elem + i; *first);
+				_alloc.construct(_elem + i, *first);
 				first++;
 			}
 		}
@@ -164,7 +164,7 @@ namespace ft {
 				reserve(n);
 			_size = n;
 			for (size_type i = 0; i < n; i++) {
-				_alloc.construct(_elem + i; val);
+				_alloc.construct(_elem + i, val);
 			}
 		}
 
@@ -221,8 +221,8 @@ namespace ft {
 			size_type	end = _size + n - 1;
 			size_type	start = i + n - 1;
 			for (size_type j = end; j > start; j--) {
-				_alloc.construct(&_elem[j], &_elem[j - n]);
-				_alloc.destroy( &_elem[j - n]);
+				_alloc.construct(&_elem[j], _elem[j - n]);
+				_alloc.destroy(&_elem[j - n]);
 			}
 			for (size_type j = i; j < i + n; j++) {
 				_alloc.construct(&_elem[j], val);
@@ -240,7 +240,7 @@ namespace ft {
 			size_type	end = _size + n - 1;
 			size_type	start = i + n - 1;
 			for (size_type j = end; j > start; j--) {
-				_alloc.construct(&_elem[j], &_elem[j - n]);
+				_alloc.construct(&_elem[j], _elem[j - n]);
 				_alloc.destroy( &_elem[j - n]);
 			}
 			for (size_type j = i; j < i + n; j++) {
@@ -329,7 +329,7 @@ namespace ft {
 		// a non-member function exists with the same name, swap, 
 		// overloading that algorithm with an optimization that 
 		// behaves like this member function.
-		void swap (vector& x) {
+		void swap(vector& x) {
 			ft::swap(_alloc, x._alloc);
 			ft::swap(_elem, x._elem);
 			ft::swap(_capacity, x._capacity);
@@ -354,6 +354,49 @@ namespace ft {
 				return n;
 			}
 	};
+	// Member Functions ======================================================================//
+/**
+ * src: https://cplusplus.com/reference/vector/vector/operators/
+ * The equality comparison (operator==) is performed by first comparing sizes, 
+ * and if they match, the elements are compared sequentially using operator==, 
+ * stopping at the first mismatch
+ */
+	template <class T, class Alloc>
+	bool operator== (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs) {
+		if (lhs.size() != rhs.size())
+			return false;
+		return ft::equal(lhs.begin(), lhs.end(), rhs.begin());
+	}
+
+	template <class T, class Alloc>
+	bool operator!=(const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs) {
+		return !(lhs == rhs);
+	}
+
+	template <class T, class Alloc>
+	bool operator<(const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs) {
+		return ft::lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end());
+	}
+
+	template <class T, class Alloc>
+	bool operator>(const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs) {
+		return rhs < lhs;
+	}
+
+	template <class T, class Alloc>
+	bool operator<=(const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs) {
+		return !(rhs < lhs);
+	}
+
+	template <class T, class Alloc>
+	bool operator>= (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs) {
+		return !(lhs < rhs);
+	}
+
+	template <class T, class Alloc>
+	void swap(vector<T,Alloc>& x, vector<T,Alloc>& y) {
+		x.swap(y);
+	}
 }; // end of namespace ft
 
 #endif

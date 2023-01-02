@@ -6,7 +6,7 @@
 /*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 14:41:48 by ktashbae          #+#    #+#             */
-/*   Updated: 2023/01/02 14:41:49 by ktashbae         ###   ########.fr       */
+/*   Updated: 2023/01/02 17:28:31 by ktashbae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,64 +104,64 @@ namespace ft {
 
 			pointer	base() const {
 				return _it;
-			};
+			}
 
 			/** Assignment operators */
 			iterator		operator=(const iterator& other)		{
-				this->_it = other.base();
+				_it = other.base();
 				return *this;
-			};
+			}
 
 			iterator&		operator+=(difference_type n)			{
-				this->_it += n;
+				_it += n;
 				return *this;
-			};
+			}
 
 			iterator&		operator-=(difference_type n)			{
-				this->_it -= n;
+				_it -= n;
 				return *this;
-			};
+			}
 
 			/** Arithmetic operators */
 			iterator		operator+(difference_type n) const		{
 				return iterator(base() + n);
-			};
+			}
 
 			iterator		operator-(difference_type n) const		{
 				return iterator(base() - n);
-			};
+			}
 
 			/** Increment and Decrement operators */
 			iterator&		operator++()							{
-				this->_it += 1;
+				_it += 1;
 				return *this;
-			};
+			}
 
 			iterator&		operator--()							{
-				this->_it -= 1;
+				_it -= 1;
 				return *this;
-			};
+			}
 
 			iterator		operator++(int)							{
 				iterator	tmp(*this);
-				this->_it += 1;
+				_it += 1;
 				return tmp;
-			};
+			}
 
 			iterator		operator--(int)							{
 				iterator	tmp(*this);
-				this->_it -= 1;
+				_it -= 1;
 				return tmp;
-			};
+			}
 
 			/** Dereference operators */
 			reference		operator*()								{
-				return *(this->_it);
-			};
+				return *(_it);
+			}
 
 			const_reference	operator*() const 						{
-				return *(this->_it);
-			};
+				return *(_it);
+			}
 
 			/** Pointer operators */
 			pointer			operator->()							{
@@ -175,20 +175,40 @@ namespace ft {
 			/** Array Index Operators */
 			reference		operator[] (difference_type n)			{
 				return base()[n];
-			};
+			}
 
 			const_reference	operator[] (difference_type n) const	{
 				return base()[n];
-			};
+			}
 
 			/** Const Iterator */
 			operator		const_iterator () const					{
-				return const_iterator(this->_it);
-			};
+				return const_iterator(_it);
+			}
+
+			friend bool		operator ==(const iterator& lhs, const iterator& rhs)		{	return  lhs.base() == rhs.base();	}
+			friend bool		operator !=(const iterator& lhs, const iterator& rhs)		{	return  lhs.base() != rhs.base();	}
+			friend bool		operator >(const iterator& lhs, const iterator& rhs)		{	return  lhs.base() > rhs.base();	}
+			friend bool		operator <(const iterator& lhs, const iterator& rhs)		{	return  lhs.base() < rhs.base();	}
+			friend bool		operator <=(const iterator& lhs, const iterator& rhs)		{	return  lhs.base() <= rhs.base();	}
+			friend bool 	operator >=(const iterator& lhs, const iterator& rhs)		{	return  lhs.base() >= rhs.base();	}
 
 		private:
 			pointer	_it;
 	};
+	/** Non-member functions */
+	template<class Iter>
+	iterator<Iter>	operator+(typename iterator<Iter>::difference_type n, \
+					const iterator<Iter>& it) {
+		return it + n;
+	}
+
+	template<class Iter1, class Iter2>
+	typename iterator<Iter1>::difference_type	operator-(const iterator<Iter1>& lhs, \
+												const iterator<Iter2>& rhs) {
+		return lhs.base() - rhs.base();
+	}
+
 }; // end of namespace ft
 
 #endif

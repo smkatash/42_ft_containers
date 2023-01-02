@@ -6,7 +6,7 @@
 /*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 14:42:01 by ktashbae          #+#    #+#             */
-/*   Updated: 2023/01/02 14:42:03 by ktashbae         ###   ########.fr       */
+/*   Updated: 2023/01/02 16:14:22 by ktashbae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ namespace ft {
 			/** copy / type-cast constructor */
 			template<class Iter>
 			reverse_iterator(const reverse_iterator<Iter>& other): _it(other.base())	{};
-			~iterator(void)																{};
+			~reverse_iterator(void)														{};
 
 			iterator_type	base() const  {
 				return _it;
