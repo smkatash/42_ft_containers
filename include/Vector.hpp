@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Vector.hpp                                         :+:      :+:    :+:   */
+/*   vector.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kanykei <kanykei@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/24 18:18:23 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/12/27 15:54:53 by kanykei          ###   ########.fr       */
+/*   Created: 2023/01/02 14:42:56 by ktashbae          #+#    #+#             */
+/*   Updated: 2023/01/02 14:43:18 by ktashbae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -252,6 +252,7 @@ namespace ft {
 			
 		// Capacity  =====================================================================================//
 		size_type	size() 		const	{ return _size;					}
+		// max_size: maximum number of elements that the vector can hold
 		size_type	max_size() 	const	{ return _alloc.max_size();		}
 		size_type	capacity() 	const	{ return _capacity;				}
 		bool		empty()		const	{ return _size == 0;			}
@@ -286,22 +287,56 @@ namespace ft {
 			return iterator(&_elem[n]);
 		}
 
+		//!! index of iterator is iterator + n
 		iterator erase (iterator first, iterator last)		{
 			size_type	n = last - first;
 			iterator	n_end = end() - n;
 		
+			_size -= n;
 			while (first != n_end) {
 				*first = first[n];
 				++first;
 			}
 			while (first != end()) {
-				
+				_alloc.destroy(&(*first));
+				++first;
 			}
+			return last - n;
 		}
-		void	clear()					{ erase(begin(), end()); };
+
+		void	clear()					{ erase(begin(), end()); }
+
+		// Removes the last element in the vector, effectively reducing the container size by one.
+		// This destroys the removed element.
+		void	pop_back() {
+			_alloc.destroy(&_elem[--_size]);
+		}
+
+		void push_back(const value_type& val) {
+			if (_size + 1 > _capacity)
+				reserve(_new_capacity(_size + 1));
+			_alloc.construct(_elem + _size, val);
+			_size++;
+		}
+
+		void resize (size_type n, value_type val = value_type()) {
+			while (n < _size)
+				pop_back();
+			while (n > _size)
+				push_back(val);
+		}
+
+		// a non-member function exists with the same name, swap, 
+		// overloading that algorithm with an optimization that 
+		// behaves like this member function.
+		void swap (vector& x) {
+			ft::swap(_alloc, x._alloc);
+			ft::swap(_elem, x._elem);
+			ft::swap(_capacity, x._capacity);
+			ft::swap(_size, x._size);
+		}
 
 		allocator_type	get_allocator() const	{		return _alloc;		};
-
 
 		// Private Member Functions ======================================================================//
 		

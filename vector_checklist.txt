@@ -6,7 +6,6 @@
 ______________________________
 ***Destructor***
 1. ~vector();
-DONE
 ______________________________
 
 ***Member Functions***
@@ -22,7 +21,7 @@ size_type capacity() const;
 void clear();
 5. empty
 bool empty() const;
-TODO 6. erase
+6. erase
 iterator erase (iterator position);
 iterator erase (iterator first, iterator last);
 7. front 
@@ -40,17 +39,17 @@ size_type max_size() const;
 reference operator[] (size_type n);const_reference operator[] (size_type n) const;
 12. operator=
 vector& operator= (const vector& x);
-TODO 13. pop_back
+13. pop_back
 void pop_back();
-TODO 14. push_back
+14. push_back
 void push_back (const value_type& val);
 15. reserve
 void reserve (size_type n);
-TODO 16. resize
+16. resize
 void resize (size_type n, value_type val = value_type());
 17. size
 size_type size() const;
-TODO 18. swap
+18. swap
 void swap (vector& x);
 
 ***Non-member overloads***
