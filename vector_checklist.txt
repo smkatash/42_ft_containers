@@ -53,7 +53,7 @@ size_type size() const;
 void swap (vector& x);
 
 ***Non-member overloads***
-TODO std::relational operators (vector)
+std::relational operators (vector)
 (1)	template <class T, class Alloc>  bool operator== (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs);
 (2)	template <class T, class Alloc>  bool operator!= (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs);
 (3)	template <class T, class Alloc>  bool operator<  (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs);
