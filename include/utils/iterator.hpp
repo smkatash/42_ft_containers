@@ -6,7 +6,7 @@
 /*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 14:41:48 by ktashbae          #+#    #+#             */
-/*   Updated: 2023/01/02 17:28:31 by ktashbae         ###   ########.fr       */
+/*   Updated: 2023/01/04 17:18:13 by ktashbae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,7 @@ namespace ft {
 	template <class T>
 	class iterator {
 		public:
+			/** Member types */
 			typedef T									value_type;
 			typedef ptrdiff_t							difference_type;
 			typedef std::random_access_iterator_tag		iterator_category;
@@ -186,6 +187,7 @@ namespace ft {
 				return const_iterator(_it);
 			}
 
+			// FIXME is it non-member for sure ?????
 			friend bool		operator ==(const iterator& lhs, const iterator& rhs)		{	return  lhs.base() == rhs.base();	}
 			friend bool		operator !=(const iterator& lhs, const iterator& rhs)		{	return  lhs.base() != rhs.base();	}
 			friend bool		operator >(const iterator& lhs, const iterator& rhs)		{	return  lhs.base() > rhs.base();	}

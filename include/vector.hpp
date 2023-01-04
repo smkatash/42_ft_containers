@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Vector.hpp                                         :+:      :+:    :+:   */
+/*   vector.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kanykei <kanykei@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 14:42:56 by ktashbae          #+#    #+#             */
-/*   Updated: 2023/01/03 14:16:47 by kanykei          ###   ########.fr       */
+/*   Updated: 2023/01/04 12:48:10 by ktashbae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -356,7 +356,7 @@ namespace ft {
 				return n;
 			}
 	};
-	// Member Functions ======================================================================//
+	// Non-Member Functions ======================================================================//
 /**
  * src: https://cplusplus.com/reference/vector/vector/operators/
  * The equality comparison (operator==) is performed by first comparing sizes, 
