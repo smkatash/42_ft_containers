@@ -6,7 +6,7 @@
 /*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 14:21:50 by ktashbae          #+#    #+#             */
-/*   Updated: 2023/01/04 17:38:35 by ktashbae         ###   ########.fr       */
+/*   Updated: 2023/01/07 12:00:34 by ktashbae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,12 @@
 # define BIDIRECTIONAL_ITERATOR_HPP
 # include <iostream>
 # include <memory>
+# include "rbtree.hpp"
 
 // TODO 
-template<typename T>
-class BidirectionalIterator {
+namespace ft {
+	template<typename T>
+	class bidirectionalIterator {
 	public:
 		/** Member types */
 		typedef T												value_type;
@@ -29,14 +31,14 @@ class BidirectionalIterator {
 		typedef std::bidirectional_iterator_tag					iterator_category;
 		typedef Node<value_type>								node;
 		typedef Node<const value_type>							const_node;
-		typedef BidirectionalIterator<T>						iterator;
-		typedef BidirectionalIterator<const T>					const_iterator;
+		typedef bidirectionalIterator<T>						iterator;
+		typedef bidirectionalIterator<const T>					const_iterator;
 
-		BidirectionalIterator()			:	_current(NULL)								{}
-		BidirectionalIterator(node* N)	:	_current(N)									{}
-		BidirectionalIterator(BidirectionalIterator const& it)	: _current(it.base())	{}
+		bidirectionalIterator()			:	_current(NULL)								{}
+		bidirectionalIterator(node* N)	:	_current(N)									{}
+		bidirectionalIterator(bidirectionalIterator const& it)	: _current(it.base())	{}
 
-		BidirectionalIterator& operator=(BidirectionalIterator const& it)				{
+		bidirectionalIterator& operator=(bidirectionalIterator const& it)				{
 			_current = it.base();
 			return *this;
 		}
@@ -52,17 +54,17 @@ class BidirectionalIterator {
 		
 		// TODO  to write operators: ++(), --(), ++(int), --(int)
 		
-		bool	operator==(BidirectionalIterator const& it) 		{	return  _current == it._current;	}
-		bool	operator!=(BidirectionalIterator const& it)			{	return  _current != it._current;	}
-		bool	operator>(BidirectionalIterator const& it) 			{	return  _current > it._current;		}
-		bool	operator<=(BidirectionalIterator const& it) 		{	return  _current <= it._current;	}
-		bool	operator<(BidirectionalIterator const& it) 			{	return  _current < it._current;		}
-		bool	operator>=(BidirectionalIterator const& it) 		{	return  _current >= it._current;	}
+		bool	operator==(bidirectionalIterator const& it) 		{	return  _current == it._current;	}
+		bool	operator!=(bidirectionalIterator const& it)			{	return  _current != it._current;	}
+		bool	operator>(bidirectionalIterator const& it) 			{	return  _current > it._current;		}
+		bool	operator<=(bidirectionalIterator const& it) 		{	return  _current <= it._current;	}
+		bool	operator<(bidirectionalIterator const& it) 			{	return  _current < it._current;		}
+		bool	operator>=(bidirectionalIterator const& it) 		{	return  _current >= it._current;	}
 
 	private:
 		node*	_current;
-
-
+	};
 };
+
 
 #endif
