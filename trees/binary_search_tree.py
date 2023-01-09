@@ -1,4 +1,4 @@
-class bstNode:
+class BStree:
 	# constructor
 	def __init__(self, val=None):
 		self.left = None
@@ -15,12 +15,12 @@ class bstNode:
 			if self.left:
 				self.left.insert(val)
 				return
-			self.left = bstNode(val)
+			self.left = BStree(val)
 			return
 		if self.right:
 			self.right.insert(val)
 			return
-		self.right = bstNode(val)
+		self.right = BStree(val)
 	# min / max element
 	def get_min(self):
 		node = self
@@ -94,7 +94,7 @@ class bstNode:
 
 def main():
 	nums = [12, 6, 18, 19, 21, 11, 3, 5, 4, 24, 18]
-	bst = bstNode()
+	bst = BStree()
 	for num in nums:
 		bst.insert(num)
 	print("preorder:")
