@@ -210,7 +210,7 @@ namespace ft {
 				return lower;
 			}
 
-			node	*upper_bound(value_type const& val) const {
+			node	*upper_bound(const value_type& val) const {
 				node	*upper = _nil;
 				node	*current = _root;
 				while (current != _nil) {
@@ -233,7 +233,7 @@ namespace ft {
 				ft::swap(_size, rhs._size);
 			}
 
-			size_type	erase(value_type const &val) {
+			size_type	erase(const value_type& val) {
 				node	*n = search(_root, val);
 				if (n != nullptr) {
 					erase(n);
@@ -315,7 +315,7 @@ namespace ft {
 			allocator_node	_alloc_node;
 			size_type		_size;
 
-			node	*newNode(value_type const& val, node *parent, std::size_t cnt) {
+			node	*newNode(const value_type& val, node *parent, std::size_t cnt) {
 				node *new_node = _alloc_node.allocate(1);
 				_alloc.construct((&new_node->_value), val);
 				new_node->_parent = parent;
