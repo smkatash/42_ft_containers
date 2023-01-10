@@ -164,7 +164,7 @@ namespace ft {
 				return iterator(current);
 			}
 
-			const_iterator	begin() const{
+			const_iterator	begin() const {
 				if (_root == _nil)
 					return iterator(_nil);
 				node *current = _root;
@@ -173,19 +173,22 @@ namespace ft {
 				return iterator(current);
 			}
 
-			iterator				end()				{ return iterator(maximum(_root));			}
-			const_iterator			end() const			{ return iterator(maximum(_root));			}
-			reverse_iterator		rbegin()			{ return reverse_iterator(end());			}
-			const_reverse_iterator	rbegin() const		{ return reverse_iterator(end());			}
-			reverse_iterator		rend()				{ return reverse_iterator(begin());			}
-			const_reverse_iterator	rend() const		{ return reverse_iterator(begin());			}
+			iterator				end()						{ return iterator(maximum(_root));			}
+			const_iterator			end() const					{ return iterator(maximum(_root));			}
+			reverse_iterator		rbegin()					{ return reverse_iterator(end());			}
+			const_reverse_iterator	rbegin() const				{ return reverse_iterator(end());			}
+			reverse_iterator		rend()						{ return reverse_iterator(begin());			}
+			const_reverse_iterator	rend() const				{ return reverse_iterator(begin());			}
+
+			allocator_type			get_allocator(void) const	{ return _alloc; 							}
+			node					*get_root() const			{ return _root;								}
 
 			// TODO check if correct comparison
 			node	*lower_bound(value_type const& val) const {
 				node	*lower = _nil;
 				node	*current = _root;
 				while (current != _nil) {
-					if (_comp(val, current->_value)) {
+					if (!_comp(current->_value, val)) {
 						lower = current;
 						current = current->_left;
 					}
@@ -195,7 +198,84 @@ namespace ft {
 				return lower;
 			}
 
-			
+			node	*upper_bound(value_type const& val) const {
+				node	*upper = _nil;
+				node	*current = _root;
+				while (current != _nil) {
+					if (_comp(val, current->_value)) {
+						upper = current;
+						current = current->_left;
+					}
+					else
+						current = current->_right;
+				}
+				return upper;
+			}
+
+			void	swap(RedBlackTree &rhs) {
+				ft::swap(_nil, rhs._nil);
+				ft::swap(_root, rhs._root);
+				ft::swap(_alloc, rhs._alloc);
+				ft::swap(_alloc_node, rhs._alloc_node);
+				ft::swap(_comp, rhs._comp);
+				ft::swap(_size, rhs._size);
+			}
+
+			size_type	erase(value_type const &val) {
+				node	*n = search(_root, val);
+				if (n != nullptr) {
+					erase(n);
+					return 1;
+				}
+				return 0;
+			}
+
+			void		erase(node *n) {
+				node *todelete = n;
+				node *replace;
+				int color = n->_color;
+				if (n->_left == _nil) {
+					replace = n->_right;
+					transplantNode(n, n->_right);
+				} else if (n->_right == _nil) {
+					replace = n->_left;
+					transplantNode(n, n->_left);
+				} else {
+					todelete = minimum(n->_right);
+					color = todelete->_color;
+					replace = todelete->_right;
+					if (todelete->_parent == n) 
+						replace->_parent = todelete;
+					else {
+						transplantNode(todelete, todelete->_right);
+						todelete->_right = n->_right;
+						todelete->_right->_parent = todelete;
+					}
+					transplantNode(n, todelete);
+					todelete->_left = n->_left;
+					todelete->_left->_parent = todelete;
+					todelete->_color = n->_color;
+				}
+				if (color == BLACK)
+					deleteFixup(replace);
+				destroyNode(n);
+			}
+
+			void 	erase(iterator first, iterator last) {
+				while (first != last) {
+					erase(*first);
+					first++;
+				}
+			}
+
+			void	clear(node *n) {
+				if (n && n->size) {
+					clear(n->_left);
+					clear(n->_right);
+					destroyNode(n);
+				}
+				_root = _nil;
+			}
 /**
  * @brief General rules of RBTree
  * 1. Every node is Black / Red
@@ -410,13 +490,13 @@ namespace ft {
 			}
 
 			node	*replaceNode(node *n) {
-				if (!n || (!n->_left && !n->right))
+				if (!n || (!n->_left && !n->_right))
 					return nullptr;
-				if (n->_left && n->right)
+				if (n->_left && n->_right)
 					return successor(n);
-				if (n->right)
+				if (n->_right)
 					return n->_left;
-				return n->right;
+				return n->_right;
 			};
 
 			node *minimum(node *n) {
