@@ -501,16 +501,6 @@ namespace ft {
 				v->_parent = u->_parent;
 			}
 
-			node	*replaceNode(node *n) {
-				if (!n || (!n->_left && !n->_right))
-					return nullptr;
-				if (n->_left && n->_right)
-					return successor(n);
-				if (n->_right)
-					return n->_left;
-				return n->_right;
-			};
-
 			node *minimum(node *n) {
 				while (n->_left != _nil)
 					n = n->_left;
@@ -523,27 +513,37 @@ namespace ft {
 				return n;
 			}
 
-			node *successor(node *x) {
-				if (x->_right != _nil)
-					return minimum(x->_right);
-				node *y = x->_parent;
-				while (y != _nil && x == y->_right) {
-					x = y;
-					y = y->_parent;
-				}
-				return y;
-			}
+			// node	*replaceNode(node *n) {
+			// 	if (!n || (!n->_left && !n->_right))
+			// 		return nullptr;
+			// 	if (n->_left && n->_right)
+			// 		return successor(n);
+			// 	if (n->_right)
+			// 		return n->_left;
+			// 	return n->_right;
+			// }
 
-			node *predecessor(node *x) {
-				if (x->_left != _nil)
-					return maximum(x->_left);
-				node *y = x->_parent;
-				while (y != _nil && x == y->_left) {
-					x = y;
-					y = y->_parent;
-				}
-				return y;
-			}
+			// node *successor(node *x) {
+			// 	if (x->_right != _nil)
+			// 		return minimum(x->_right);
+			// 	node *y = x->_parent;
+			// 	while (y != _nil && x == y->_right) {
+			// 		x = y;
+			// 		y = y->_parent;
+			// 	}
+			// 	return y;
+			// }
+
+			// node *predecessor(node *x) {
+			// 	if (x->_left != _nil)
+			// 		return maximum(x->_left);
+			// 	node *y = x->_parent;
+			// 	while (y != _nil && x == y->_left) {
+			// 		x = y;
+			// 		y = y->_parent;
+			// 	}
+			// 	return y;
+			// }
 
 	};
 }; // namespace ft
