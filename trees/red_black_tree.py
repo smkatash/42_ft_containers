@@ -43,10 +43,8 @@ class RBtree:
 			parent = current
 			if new_node.val < current.val:
 				current = current.left
-			elif new_node.val > current.val:
-				current = current.right
 			else:
-				return
+				current = current.right
 		# Set the parent and insert the new node
 		new_node.parent = parent
 		if parent == None:
@@ -261,8 +259,10 @@ def main():
 	tree = RBtree()
 	for x in range(1, 10):
 		tree.insert(x)
-	#print(tree)
-	tree.delete(4)
+	print(tree)
+	print("*******************")
+	#tree.delete(4)
+	tree.insert(4)
 	print(tree)
 
 

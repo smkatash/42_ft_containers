@@ -1,7 +1,7 @@
 #ifndef RBTREE_HPP
 # define RBTREE_HPP
-# define red 0
-# define black 1
+# define RED 0
+# define BLACK 1
 # include <memory>
 # include "enable_if.hpp"
 # include "iterator.hpp"
@@ -18,10 +18,10 @@ struct Node {
 	int					_color;
 	std::size_t			_cnt;
 
-	Node(): _value(0), _parent(nullptr), _left(nullptr), _right(nullptr), _color(red), _cnt(0) {}
+	Node(): _value(0), _parent(nullptr), _left(nullptr), _right(nullptr), _color(RED), _cnt(0) {}
 
 	explicit Node(T const& value, Node *parent, std::size_t size):	\
-		_value(value), _parent(parent), _left(nullptr), _right(nullptr), _color(red), _cnt(size) {}
+		_value(value), _parent(parent), _left(nullptr), _right(nullptr), _color(RED), _cnt(size) {}
 
 	Node(Node const& curr): _value(curr._value), \
 							_parent(curr._parent), \
@@ -44,7 +44,7 @@ struct Node {
 
 namespace ft {
 	template <class T, class Compare = std::less<T>, class Alloc = std::allocator<T> >
-	class rbtree {
+	class RedBlackTree {
 		public:
 			// Member Types ======================================================================//
 			typedef T														mapped_type;
@@ -64,33 +64,138 @@ namespace ft {
 			typedef typename Alloc::template rebind <node>::other			allocator_node;
 
 			// Member Functions ==================================================================//
-			explicit rbtree(const value_compare	&comp, const allocator_type &alloc): _child(reserve()),
+			explicit RedBlackTree(const value_compare	&comp, const allocator_type &alloc): _nil(nilNode()),
 																					_comp(comp), \
 																					_alloc(alloc), \
 																					_size(0) {
-					_child->_color = black;
-					_root = _child;
+					_nil->_color = BLACK;
+					_root = _nil;
 			}
 			
-			rbtree(rbtree const& curr): _child(reserve()), \
-										_root(_child), \
+			RedBlackTree(RedBlackTree const& curr): _nil(nilNode()), \
+										_root(_nil), \
 										_comp(curr._comp), \
 										_alloc(curr._alloc) {
 				TODO 
 				insert(curr.begin(), curr.end());
 			}
 
-			node	*reserve() {
+			node	*nilNode() {
 				node	*new_node = _alloc_node.allocate(1);
 				new_node->_parent = nullptr;
-				new_node->_left = _child;
-				new_node->_right = _child;
-				new_node->_color = black;
+				new_node->_left = _nil;
+				new_node->_right = _nil;
+				new_node->_color = BLACK;
 				new_node->_cnt = 0;
 				return new_node;
 			}
-			TODO
 
+			ft::pair<iterator, bool> insert(value_type const& val) {
+				if (_root == _nil) {
+					_root = newNode(val, _nil, 2);
+					_root->_color = BLACK;
+					// balanced tree ->true, iterator (node *_current)
+					return ft::make_pair(iterator(_root), true);
+				}
+				node	*current = _root;
+				node	*parent = _nil;
+				while (current != _nil) {
+					parent = current;
+					if (_comp(val, current->_value))
+						current = current->_left;
+					else if (_comp(current->_value, val))
+						current = current->_right;
+					else
+						// duplicate are not allowed in map
+						// tree is not balanced, did not reach insertFixup
+						return ft::make_pair(iterator(current), false);
+				}
+				current = newNode(val, parent, 1);
+				if (_comp(parent->_value, val))
+					parent->_right = current;
+				else
+					parent->_left = current;
+				insertFixup(current);
+				return ft::make_pair(iterator(current), true);
+			}
+
+			iterator	insert(iterator position, value_type const& val) {
+				void(position);
+				return insert(val).first;
+			}
+
+			template<class InputIterator>
+			void	insert(InputIterator first, InputIterator last) {
+				while (first != last) {
+					insert(*first);
+					first++;
+				}
+			}
+
+			node	*search(node *x, value_type const& val) const {
+				while (x != _nil) {
+					if (_comp(val, x->_value))
+						x = x->_left;
+					else if (_comp(x->_value, val))
+						x = x->_right;
+					else
+						return x;
+				}
+				return nullptr;
+			}
+
+			iterator	find(value_type const& val) const {
+				node *x = search(_root, val);
+				if (x != nullptr)
+					return iterator(x);
+				return iterator(maximum(_root));
+			}
+
+			bool			empty() const			{ return _size == 0;							}
+			size_type		size() const			{ return _size;									}
+			size_type		max_size() const		{ return _node_alloc.max_size();				}
+
+			iterator	begin() {
+				if (_root == _nil)
+					return iterator(_nil);
+				node *current = _root;
+				while (current != nullptr && current->_nil)
+					current = current->_left;
+				return iterator(current);
+			}
+
+			const_iterator	begin() const{
+				if (_root == _nil)
+					return iterator(_nil);
+				node *current = _root;
+				while (current != nullptr && current->_nil)
+					current = current->_left;
+				return iterator(current);
+			}
+
+			iterator				end()				{ return iterator(maximum(_root));			}
+			const_iterator			end() const			{ return iterator(maximum(_root));			}
+			reverse_iterator		rbegin()			{ return reverse_iterator(end());			}
+			const_reverse_iterator	rbegin() const		{ return reverse_iterator(end());			}
+			reverse_iterator		rend()				{ return reverse_iterator(begin());			}
+			const_reverse_iterator	rend() const		{ return reverse_iterator(begin());			}
+
+			// TODO check if correct comparison
+			node	*lower_bound(value_type const& val) const {
+				node	*lower = _nil;
+				node	*current = _root;
+				while (current != _nil) {
+					if (_comp(val, current->_value)) {
+						lower = current;
+						current = current->_left;
+					}
+					else
+						current = current->_right;
+				}
+				return lower;
+			}
+
+			
 /**
  * @brief General rules of RBTree
  * 1. Every node is Black / Red
@@ -112,22 +217,32 @@ namespace ft {
  */
 		private:
 			node			*_root;
-			node			*_child;
+			node			*_nil;
 			Compare			_comp;
 			allocator_type	_alloc;
 			allocator_node	_alloc_node;
 			size_type		_size;
 
-			node	*nnode(value_type const& val, node *parent, std::size_t cnt) {
+			node	*newNode(value_type const& val, node *parent, std::size_t cnt) {
 				node *new_node = _alloc_node.allocate(1);
 				_alloc.construct((&new_node->_value), val);
 				new_node->_parent = parent;
-				new_node->_left = left;
-				new_node->_right = right;
-				new_node->_color = red;
+				new_node->_left = _nil;
+				new_node->_right = _nil;
+				new_node->_color = RED;
 				new_node->_cnt = cnt;
 				_size++;
 				return new_node;
+			}
+
+			void freeNode(node *n) {
+				_node_alloc.deallocate(n, 1); 
+				_size--;
+			}
+
+			void destroyNode(node *n) {
+				_alloc.destroy(&(n->_value));  
+				freeNode(n);
 			}
 
 			// All the rotation operation are performed
@@ -137,16 +252,17 @@ namespace ft {
 			void	rotateRight(node *x) {
 				node	*y = x->_left;
 				x->_left = y->_right;
-				if (y->_right != nullptr) {
+				if (y->_right != _nil) {
 					y->_right->_parent = x;
 				}
-				if (x->_parent != nullptr && x->_parent->_right == x) {
+				y->_parent = x->_parent;
+				if (x->_parent == nullptr ) {
+					this->_root = y;
+				} else if (x->_parent->_left == x) {
+					x->_parent->_left = y;
+				} else {
 					x->_parent->_right = y;
 				}
-				else if (x->_parent != nullptr && x->_parent->_left == x) {
-					x->_parent->_left = y;
-				}
-				y->_parent = x->_parent;
 				y->_right = x;
 				x->_parent = y;
 			}
@@ -156,140 +272,186 @@ namespace ft {
 			void	rotateLeft(node *x) {
 				node	*y = x->_right;
 				x->_right = y->_left;
-				if (y->_left != nullptr) {
+				if (y->_left != _nil) {
 					y->_left->_parent = x;
 				}
-				if (x->_parent != nullptr && x->_parent->_left == x) {
+				y->_parent = x->_parent;
+				if (x->_parent == nullptr)
+					this->_root = y;
+				else if (x->_parent->_left == x) {
 					x->_parent->_left = y;
-				}
-				else if (x->_parent != nullptr && x->_parent->_right == x) {
+				} else {
 					x->_parent->_right = y;
 				}
-				y->_parent = x->_parent;
 				y->_left = x;
 				x->_parent = y;
 			}
 
-			void	colorFlip(node *x) {
-				x->_color = !x->_color;
-			}
 /**
- * @attention In the insert operation, we check the color of the aunt to decide the appropriate case. 
- * In the delete operation, we check the color of the sibling to decide the appropriate case.
- *  insert -> rebalance
+ * @attention In the insert operation, we check the _color of the aunt to decide the appropriate case. 
+ * In the delete operation, we check the _color of the sibling to decide the appropriate case.
+ *  insert -> insert_fixup
  *  delete -> delete_fixup
  */
-			void rebalance(node *current) {
-				while (current != _root && current->_parent->_color == red) {
-					node *gparent = current->_parent->_parent;
-					// path on the rhs
-					if (current->_parent == gparent->_right) {
-						node *aunt = gparent->_left;
-						// red aunt -> colorflip: red : black : black
-						if (aunt->_color == red) {
-							gparent->_color = red;
-							aunt->_color = black;
-							current->_parent->_color = black;
-							current = gparent;
-						}
-						// black aunt -> rotate
-						// after rotation: black : red : red
-						else {
-							// path on lhs
-							if (current == current->_parent->_left) {
-								current = current->_parent;
-								rotateRight(current);
+			void insertFixup(node *n) {
+				node *aunt;
+				while (n != _root && n->_parent->_color == RED) {
+					if (n->_parent == n->_parent->_parent->_right) {
+						aunt = n->_parent->_parent->_left;
+						// aunt.RED -> colorflip
+						if (aunt->_color == RED) {
+							aunt->_color = BLACK;
+							n->_parent->_parent->_color = RED;
+							n = n->_parent->_parent;
+						} else {
+							// aunt.BLACK -> rotate
+							if (n == n->_parent->_left) {
+								n = n->_parent;
+								rotateRight(n);
 							}
-							current->_parent->_color = black;
-							gparent->_color = red;
-							rotateLeft(gparent);
+							n->_parent->_color = BLACK;
+							n->_parent->_parent->_color = RED;
+							rotateLeft(n->_parent->_parent);
+						}
+					} else {
+						aunt = n->_parent->_parent->_right;
+						// aunt.RED -> colorflip
+						if (aunt->_color == RED) {
+							aunt->_color = BLACK;
+							n->_parent->_parent->_color = RED;
+							n = n->_parent->_parent;
+						} else {
+							// aunt.BLACK -> rotate
+							if (n == n->_parent->_right) {
+								n = n->_parent;
+								rotateLeft(n);
+							} else {
+								n->_parent->_color = BLACK;
+								n->_parent->_parent->_color = RED;
+								rotateRight(n->_parent->_parent);
+							}
 						}
 					}
-					else {
-						// path on lhs
-						node *aunt = gparent->_right;
-						// red aunt -> color flip
-						if (aunt->_color == red) {
-							gparent->_color = red;
-							aunt->_color = black;
-							current->_parent->_color = black;
-							current = gparent;
-						}
-						// black aunt -> rotate
-						else {
-							current->_parent->_color = black;
-							gparent->_color = red;
-							rotateRight(gparent);
-						}
-					}
+					_root->_color = BLACK;
 				}
-				// root is always black
-				_root->_color = black;
 			}
 
-			void	delete_fixup(node *current) {
-				while (node != _root && current->_color == black) {
+			void	deleteFixup(node *current) {
+				node	*sibling;
+				while (node != _root && current->_color == BLACK) {
 					// lhs path
 					if (current == current->_parent->_left) {
-						node	*sibling = current->_parent->_right;
-						// deletion requires double black
-						if (sibling->_color == red) {
-							colorFlip(sibling);
-							current->_parent->_color = red;
+						sibling = current->_parent->_right;
+						// deletion requires double BLACK
+						if (sibling->_color == RED) {
+							sibling->_color = BLACK;
+							current->_parent->_color = RED;
 							rotateLeft(current->_parent);
 							sibling = current->_parent->_right;
 						}
-						if (sibling->_left->_color == black && \
-							sibling->_right->_color == black) {
-								sibling->_color = red;
+						if (sibling->_left->_color == BLACK && \
+							sibling->_right->_color == BLACK) {
+								sibling->_color = RED;
 								current = current->_parent;
 						} else {
-							if (sibling->_right->_color == black) {
-								sibling->_left->_color = black;
-								sibling->_color = red;
+							if (sibling->_right->_color == BLACK) {
+								sibling->_left->_color = BLACK;
+								sibling->_color = RED;
 								rotateRight(sibling);
 								sibling = current->_parent->_right;
 							}
 							sibling->_color = current->_parent->_color;
-							current->_parent->_color = black;
-							sibling->_right->_color = black;
+							current->_parent->_color = BLACK;
+							sibling->_right->_color = BLACK;
 							rotateLeft(current->_parent);
 							current = _root;
 						}
 						// rhs path
 					} else {
-						node *sibling = current->_parent->_left;
-						if (sibling->_color == red) {
-							colorFlip(sibling);
-							current->_parent->_color = red;
+						sibling = current->_parent->_left;
+						if (sibling->_color == RED) {
+							sibling->_color = BLACK;
+							current->_parent->_color = RED;
 							rotateRight(current->_parent);
 							sibling = current->_parent->_left;
 						}
-						if (sibling->_right->_color == black && \
-							sibling->_left->_color == black) {
-								sibling->_color = red;
+						if (sibling->_right->_color == BLACK && \
+							sibling->_left->_color == BLACK) {
+								sibling->_color = RED;
 								current = current->_parent;
 						} else {
-							if (sibling->_left->_color == black) {
-								sibling->_right->_color = black;
-								sibling->_color = red;
+							if (sibling->_left->_color == BLACK) {
+								sibling->_right->_color = BLACK;
+								sibling->_color = RED;
 								rotateLeft(sibling);
 								sibling = current->_parent->_left;
 							}
 							sibling->_color = current->_parent->_color;
-							current->_parent->_color = black;
-							sibling->_left->_color = black;
+							current->_parent->_color = BLACK;
+							sibling->_left->_color = BLACK;
 							rotateRight(current->_parent);
 							current = _root;
 						}
 					}
 				}
-				current->_color = black;
+				current->_color = BLACK;
 			}
 
-		// TODO transplant etc
+			// switch two nodes
+			void transplantNode(node *u, node *v) {
+				if (u->_parent == nullptr) {
+					_root = v;
+				} else if (u == u->_parent->_left) {
+					u->_parent->_left = v;
+				} else {
+					u->_parent->_right = v;
+				}
+				v->_parent = u->_parent;
+			}
 
+			node	*replaceNode(node *n) {
+				if (!n || (!n->_left && !n->right))
+					return nullptr;
+				if (n->_left && n->right)
+					return successor(n);
+				if (n->right)
+					return n->_left;
+				return n->right;
+			};
 
+			node *minimum(node *n) {
+				while (n->_left != _nil)
+					n = n->_left;
+				return n;
+			}
+
+			node *maximum(node *n) {
+				while (n->_right != _nil)
+					n = n->_right;
+				return n;
+			}
+
+			node *successor(node *x) {
+				if (x->_right != _nil)
+					return minimum(x->_right);
+				node *y = x->_parent;
+				while (y != _nil && x == y->_right) {
+					x = y;
+					y = y->_parent;
+				}
+				return y;
+			}
+
+			node *predecessor(node *x) {
+				if (x->_left != _nil)
+					return maximum(x->_left);
+				node *y = x->_parent;
+				while (y != _nil && x == y->_left) {
+					x = y;
+					y = y->_parent;
+				}
+				return y;
+			}
 
 	};
 }; // namespace ft
