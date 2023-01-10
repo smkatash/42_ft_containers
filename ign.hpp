@@ -90,31 +90,31 @@ class RBTree
         //     return 0;
         // }
 
-        // ft::pair< iterator, bool>    insert( value_type const& value )
-        // {
-        //     if (_root == NIL) { _root = newNode( value, NIL, 2 );
-        //                         _root->color = BLACK;
-        //                         return ft::make_pair(iterator(_root), true); }
-        //     treeNode    *parent = NIL;
-        //     treeNode    *curr = _root;
-        //     while (curr != NIL)
-        //     { 
-        //         parent = curr;
-        //         if (_comp(value, curr->value))              
-        //             curr = curr->left;
-        //         else if (_comp(curr->value, value))
-        //             curr = curr->right;
-        //         else                                        
-        //             return ft::make_pair(iterator(curr), false);                         
-        //     }
-        //     curr = newNode( value, parent, 1 );
-        //     if (_comp(value, parent->value))             parent->left = curr;
-        //     else                                         parent->right = curr;
-        //     curr->left->parent  = curr;
-        //     curr->right->parent = curr;
-        //     rebalanceTree4insert(curr);
-        //     return ft::make_pair(iterator(curr), true);
-        // };
+        ft::pair< iterator, bool>    insert( value_type const& value )
+        {
+            if (_root == NIL) { _root = newNode( value, NIL, 2 );
+                                _root->color = BLACK;
+                                return ft::make_pair(iterator(_root), true); }
+            treeNode    *parent = NIL;
+            treeNode    *curr = _root;
+            while (curr != NIL)
+            { 
+                parent = curr;
+                if (_comp(value, curr->value))              
+                    curr = curr->left;
+                else if (_comp(curr->value, value))
+                    curr = curr->right;
+                else                                        
+                    return ft::make_pair(iterator(curr), false);                         
+            }
+            curr = newNode( value, parent, 1 );
+            if (_comp(value, parent->value))             parent->left = curr;
+            else                                         parent->right = curr;
+            curr->left->parent  = curr;
+            curr->right->parent = curr;
+            rebalanceTree4insert(curr);
+            return ft::make_pair(iterator(curr), true);
+        };
 
         // iterator 				insert(iterator position, const value_type& value)      {       return insert(value).first; (void)position;                     };
 		

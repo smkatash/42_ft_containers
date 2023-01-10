@@ -64,7 +64,7 @@ namespace ft {
 			typedef typename Alloc::template rebind <node>::other			allocator_node;
 
 			// Member Functions ==================================================================//
-			explicit RedBlackTree(const value_compare	&comp, const allocator_type &alloc): _nil(nilNode()),
+			explicit RedBlackTree(const value_compare& comp, const allocator_type& alloc): _nil(nilNode()),
 																					_comp(comp), \
 																					_alloc(alloc), \
 																					_size(0) {
@@ -75,9 +75,21 @@ namespace ft {
 			RedBlackTree(RedBlackTree const& curr): _nil(nilNode()), \
 										_root(_nil), \
 										_comp(curr._comp), \
-										_alloc(curr._alloc) {
-				TODO 
-				insert(curr.begin(), curr.end());
+										_alloc(curr._alloc) { insert(curr.begin(), curr.end());	}
+
+			RedBlackTree& operator=(const RedBlackTree& tree) {
+				if (this != &tree) {
+					clear(_root);
+					_comp = tree._comp;
+					_alloc = tree._alloc;
+					insert(tree.begin(), tree.end());
+				}
+				return *this;
+			}
+
+			~RedBlackTree() {
+				clear(_root);
+				freeNode(_nil);
 			}
 
 			node	*nilNode() {
@@ -90,7 +102,7 @@ namespace ft {
 				return new_node;
 			}
 
-			ft::pair<iterator, bool> insert(value_type const& val) {
+			ft::pair<iterator, bool> insert(const value_type& val) {
 				if (_root == _nil) {
 					_root = newNode(val, _nil, 2);
 					_root->_color = BLACK;
@@ -119,7 +131,7 @@ namespace ft {
 				return ft::make_pair(iterator(current), true);
 			}
 
-			iterator	insert(iterator position, value_type const& val) {
+			iterator	insert(iterator position, const value_type& val) {
 				void(position);
 				return insert(val).first;
 			}
@@ -132,7 +144,7 @@ namespace ft {
 				}
 			}
 
-			node	*search(node *x, value_type const& val) const {
+			node	*search(node *x, const value_type& val) const {
 				while (x != _nil) {
 					if (_comp(val, x->_value))
 						x = x->_left;
@@ -144,7 +156,7 @@ namespace ft {
 				return nullptr;
 			}
 
-			iterator	find(value_type const& val) const {
+			iterator	find(const value_type& val) const {
 				node *x = search(_root, val);
 				if (x != nullptr)
 					return iterator(x);
@@ -164,7 +176,7 @@ namespace ft {
 				return iterator(current);
 			}
 
-			const_iterator	begin() const{
+			const_iterator	begin() const {
 				if (_root == _nil)
 					return iterator(_nil);
 				node *current = _root;
@@ -181,7 +193,7 @@ namespace ft {
 			const_reverse_iterator	rend() const		{ return reverse_iterator(begin());			}
 
 			// TODO check if correct comparison
-			node	*lower_bound(value_type const& val) const {
+			node	*lower_bound(const value_type& val) const {
 				node	*lower = _nil;
 				node	*current = _root;
 				while (current != _nil) {
