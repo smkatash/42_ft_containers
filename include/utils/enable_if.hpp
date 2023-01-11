@@ -6,15 +6,14 @@
 /*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 14:41:54 by ktashbae          #+#    #+#             */
-/*   Updated: 2023/01/02 16:19:01 by ktashbae         ###   ########.fr       */
+/*   Updated: 2023/01/11 11:31:02 by ktashbae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef ENABLE_IF
 # define ENABLE_IF
 
-namespace ft
-{
+namespace ft {
 	// enable_if ===================================================//
 	template <bool value, class T = void>
 	struct enable_if 			{ };

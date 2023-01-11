@@ -6,24 +6,18 @@
 /*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 12:50:14 by kanykei           #+#    #+#             */
-/*   Updated: 2023/01/04 17:41:17 by ktashbae         ###   ########.fr       */
+/*   Updated: 2023/01/11 15:02:45 by ktashbae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MAP_HPP
 # define MAP_HPP
-# include <memory>
-# include "utils/enable_if.hpp"
-# include "utils/iterator.hpp"
-# include "utils/reverse_iterator.hpp"
-# include "utils/equal.hpp"
-# include "utils/pair.hpp"
-// TODO
-# include "utils/rbtree.hpp"
+# include "./utils/utils.hpp"
+# include "./utils/rbtree.hpp"
 
 namespace ft {
 	template<class Key, class T, class Compare = std::less<Key>, \
-			class Allocator = std::allocator<std::pair<const Key, T> > >
+			class Allocator = std::allocator<ft::pair<const Key, T> > >
 	class map {
 		public:
 			// Member Types ======================================================================//
@@ -36,13 +30,6 @@ namespace ft {
 			typedef typename allocator_type::const_reference				const_reference;
 			typedef typename allocator_type::pointer						pointer;
 			typedef typename allocator_type::const_pointer					const_pointer;
-			typedef typename rbtree::iterator								iterator;
-			typedef typename rbtree::const_iterator							const_iterator;
-			typedef ft::reverse_iterator<iterator>							reverse_iterator;
-			typedef ft::reverse_iterator<const_iterator>					const_reverse_iterator;
-			typedef typename iterator_traits<iterator>::difference_type		difference_type;
-			typedef	std::size_t												size_type;
-			typedef	node<value_type>										node_type;
 			// *** Member Class ***
 			class	value_compare {
 				friend class map;
@@ -60,14 +47,25 @@ namespace ft {
 			};
 		// Private Member Functions ======================================================================//
 		private:
-			typedef rbtree<value_type, value_compare, allocator_type>	rbtree;
-			rbtree														_tree;
-			key_compare													_comp;
-			allocator_type												_alloc;
-			void inorder() 									{	_tree.inorder(_tree.get_root());			}
+			typedef RedBlackTree<value_type, value_compare, allocator_type>	rbtree;
+			rbtree															_tree;
+			key_compare														_comp;
+			allocator_type													_alloc;
+			// TODO
+			//void inorder() 									{	_tree.inorder(_tree.get_root());			}
 			value_type	get_type(const key_type& k) const	{	return ft::make_pair(k, mapped_type());		}
 
+		public:
+			typedef typename rbtree::iterator								iterator;
+			typedef typename rbtree::const_iterator							const_iterator;
+			typedef ft::reverse_iterator<iterator>							reverse_iterator;
+			typedef ft::reverse_iterator<const_iterator>					const_reverse_iterator;
+			typedef typename iterator_traits<iterator>::difference_type		difference_type;
+			typedef	std::size_t												size_type;
+			typedef	Node<value_type>										node_type;
+
 		// Member Functions ============================================================//
+		public:
 /**
  * (1) empty container constructor (default constructor).
  * Constructs an empty container, with no elements.
@@ -87,7 +85,7 @@ namespace ft {
 /**
  * (3) copy constructor. Constructs a container with a copy of each of the elements in x.
  */
-			map (const map& x): _tree(x._tree), _comp(x._comp), _alloc(x._alloc) {}
+			map(const map& x): _tree(x._tree), _comp(x._comp), _alloc(x._alloc) {}
 /**
  * assignment operator. Copies all the elements from x into the container, changing its size accordingly.
  * The container preserves its current allocator, which is used to allocate additional storage if needed.
@@ -136,10 +134,10 @@ namespace ft {
 				ft::make_pair(lower_bound(k), upper_bound(k));
 			}
 
-			iterator lower_bound(key_type const & k)		{	return _tree.lower_bound(get_type(k));		}
-			iterator lower_bound(key_type const & k) const	{	return _tree.lower_bound(get_type(k));		}
-			iterator upper_bound(key_type const & k)		{	return _tree.upper_bound(get_type(k));		}
-			iterator upper_bound(key_type const & k) const	{	return _tree.upper_bound(get_type(k));		}
+			iterator lower_bound(key_type const& k)			{	return _tree.lower_bound(get_type(k));		}
+			iterator lower_bound(key_type const& k) const	{	return _tree.lower_bound(get_type(k));		}
+			iterator upper_bound(key_type const& k)			{	return _tree.upper_bound(get_type(k));		}
+			iterator upper_bound(key_type const& k) const	{	return _tree.upper_bound(get_type(k));		}
 
 			void erase(iterator position)					{	_tree.erase(position.base());					}
 			size_type erase(const key_type& k)				{	_tree.erase(get_type(k));					}
@@ -153,8 +151,8 @@ namespace ft {
 				//BUG *(insert(ft::make_pair( k, mapped_type())).first)).second;
 			}
 
-			ft::pair<iterator,bool> insert(const value_type& val)		{	_tree.insert(val);					}
-			iterator insert(iterator position, const value_type& val)	{	_tree.insert(position, val);		}
+			ft::pair<iterator,bool> insert(value_type const& val)		{	return _tree.insert(val);					}
+			iterator insert(iterator position, value_type const& val)	{	return _tree.insert(position, val);		}
 			
 			template <class InputIterator>
 			void insert(InputIterator first, InputIterator last)		{	_tree.insert(first, last);			}

@@ -6,18 +6,15 @@
 /*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 14:42:01 by ktashbae          #+#    #+#             */
-/*   Updated: 2023/01/02 16:14:22 by ktashbae         ###   ########.fr       */
+/*   Updated: 2023/01/11 11:30:24 by ktashbae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef REVERSE_ITERATOR_HPP
 # define REVERSE_ITERATOR_HPP
-
-#include "enable_if.hpp"
-#include "iterator.hpp"
+# include "utils.hpp"
 
 namespace ft {
-
 /**
  * Iterator adaptor that reverses the direction of a given iterator. 
  * In other words, when provided with a bidirectional iterator, 

@@ -6,17 +6,14 @@
 /*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 14:42:56 by ktashbae          #+#    #+#             */
-/*   Updated: 2023/01/04 12:48:10 by ktashbae         ###   ########.fr       */
+/*   Updated: 2023/01/11 11:32:15 by ktashbae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef VECTOR_HPP
 #define VECTOR_HPP
 
-#include <memory>
-#include "utils/pair.hpp"
-#include "utils/equal.hpp"
-#include "utils/reverse_iterator.hpp"
+# include "utils/utils.hpp"
 
 namespace ft {
 /**

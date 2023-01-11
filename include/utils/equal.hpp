@@ -6,7 +6,7 @@
 /*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 14:41:51 by ktashbae          #+#    #+#             */
-/*   Updated: 2023/01/02 15:30:17 by ktashbae         ###   ########.fr       */
+/*   Updated: 2023/01/11 11:30:56 by ktashbae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 # define EQUAL_HPP
 
 namespace ft {
-
 	// Equality comparison ===================================//
 	template <class InputIterator1, class InputIterator2>
 /**

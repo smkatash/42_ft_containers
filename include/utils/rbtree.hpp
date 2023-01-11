@@ -1,69 +1,39 @@
 #ifndef RBTREE_HPP
 # define RBTREE_HPP
+# include "utils.hpp"
+# include "bidirectional_iterator.hpp"
 # define RED 0
 # define BLACK 1
-# include <memory>
-# include "enable_if.hpp"
-# include "iterator.hpp"
-# include "reverse_iterator.hpp"
-# include "bidirectional_iterator.hpp"
-# include "equal.hpp"
-# include "pair.hpp"
 
-template<typename T>
-struct Node {
-	typedef T			value_type;
-	value_type			_value;
-	Node				*_parent, *_left, *_right;
-	int					_color;
-	std::size_t			_cnt;
-
-	Node(): _value(0), _parent(nullptr), _left(nullptr), _right(nullptr), _color(RED), _cnt(0) {}
-
-	explicit Node(T const& value, Node *parent, std::size_t size):	\
-		_value(value), _parent(parent), _left(nullptr), _right(nullptr), _color(RED), _cnt(size) {}
-
-	Node(Node const& curr): _value(curr._value), \
-							_parent(curr._parent), \
-							_left(curr._left), \
-							_right(curr._right), \
-							_color(curr._color), \
-							_cnt(curr._cnt) {}
-	~Node() {}
-
-	Node& operator=(Node const& curr) {
-		this->_value = curr._value;
-		this->_parent = curr._parent;
-		this->_left = curr._left;
-		this->_right = curr._right;
-		this->_color = curr._color;
-		this->_cnt = curr._cnt;
-		return *this;
-	}
-};
-
-namespace ft {
-	template <class T, class Compare = std::less<T>, class Alloc = std::allocator<T> >
-	class RedBlackTree {
+template <class T, class Compare = std::less<T>, class Allocator = std::allocator<T> >
+class RedBlackTree {
 		public:
 			// Member Types ======================================================================//
-			typedef T														mapped_type;
+			typedef T														value_type;
 			typedef Compare													value_compare;
-			typedef Allocator												allocator_type;
-			typedef typename allocator_type::reference						reference;
-			typedef typename allocator_type::const_reference				const_reference;
+			typedef Allocator													allocator_type;
 			typedef typename allocator_type::pointer						pointer;
 			typedef typename allocator_type::const_pointer					const_pointer;
+			typedef typename allocator_type::reference						reference;
+			typedef typename allocator_type::const_reference				const_reference;
 			typedef ft::bidirectionalIterator<T>							iterator;
 			typedef ft::bidirectionalIterator<const T>						const_iterator;
 			typedef ft::reverse_iterator<iterator>							reverse_iterator;
 			typedef ft::reverse_iterator<const_iterator>					const_reverse_iterator;
 			typedef	std::size_t												size_type;
-			// The rebind member allows a container to construct an allocator for some arbitrary type out of the allocator type provided as a template parameter. 
 			typedef	Node<value_type>										node;
-			typedef typename Alloc::template rebind <node>::other			allocator_node;
+			// The rebind member allows a container to construct an allocator for some arbitrary type out of the allocator type provided as a template parameter. 
+			typedef typename Allocator::template rebind<node>::other		allocator_node;
 
+		private:
+			node			*_root;
+			node			*_nil;
+			Compare			_comp;
+			allocator_type	_alloc;
+			allocator_node	_alloc_node;
+			size_type		_size;
 			// Member Functions ==================================================================//
+		public:
 			explicit RedBlackTree(const value_compare& comp, const allocator_type& alloc): _nil(nilNode()),
 																					_comp(comp), \
 																					_alloc(alloc), \
@@ -75,9 +45,9 @@ namespace ft {
 			RedBlackTree(RedBlackTree const& curr): _nil(nilNode()), \
 										_root(_nil), \
 										_comp(curr._comp), \
-										_alloc(curr._alloc) { insert(curr.begin(), curr.end());	}
+										_alloc(curr._alloc)		{ insert(curr.begin(), curr.end());	}
 
-			RedBlackTree& operator=(const RedBlackTree& tree) {
+			RedBlackTree& operator=(const RedBlackTree& tree)	{
 				if (this != &tree) {
 					clear(_root);
 					_comp = tree._comp;
@@ -132,7 +102,7 @@ namespace ft {
 			}
 
 			iterator	insert(iterator position, const value_type& val) {
-				void(position);
+				(void)position;
 				return insert(val).first;
 			}
 
@@ -165,7 +135,7 @@ namespace ft {
 
 			bool			empty() const			{ return _size == 0;							}
 			size_type		size() const			{ return _size;									}
-			size_type		max_size() const		{ return _node_alloc.max_size();				}
+			size_type		max_size() const		{ return _alloc_node.max_size();				}
 
 			iterator	begin() {
 				if (_root == _nil)
@@ -281,7 +251,7 @@ namespace ft {
 			}
 
 			void	clear(node *n) {
-				if (n && n->size) {
+				if (n && n->_cnt) {
 					clear(n->_left);
 					clear(n->_right);
 					destroyNode(n);
@@ -308,16 +278,9 @@ namespace ft {
  * Red root -> 2 Black leaves
  */
 		private:
-			node			*_root;
-			node			*_nil;
-			Compare			_comp;
-			allocator_type	_alloc;
-			allocator_node	_alloc_node;
-			size_type		_size;
-
 			node	*newNode(const value_type& val, node *parent, std::size_t cnt) {
 				node *new_node = _alloc_node.allocate(1);
-				_alloc.construct((&new_node->_value), val);
+				_alloc.construct(&(new_node->_value), val);
 				new_node->_parent = parent;
 				new_node->_left = _nil;
 				new_node->_right = _nil;
@@ -328,12 +291,12 @@ namespace ft {
 			}
 
 			void freeNode(node *n) {
-				_node_alloc.deallocate(n, 1); 
+				_alloc_node.deallocate(n, 1); 
 				_size--;
 			}
 
 			void destroyNode(node *n) {
-				_alloc.destroy(&(n->_value));  
+				_alloc.destroy(&(n->_value));
 				freeNode(n);
 			}
 
@@ -430,7 +393,7 @@ namespace ft {
 
 			void	deleteFixup(node *current) {
 				node	*sibling;
-				while (node != _root && current->_color == BLACK) {
+				while (current != _root && current->_color == BLACK) {
 					// lhs path
 					if (current == current->_parent->_left) {
 						sibling = current->_parent->_right;
@@ -545,8 +508,7 @@ namespace ft {
 			// 	return y;
 			// }
 
-	};
-}; // namespace ft
+}; // namespace RBT
 
 
 
