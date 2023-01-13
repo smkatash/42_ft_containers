@@ -165,7 +165,6 @@ void	allocation() {
 
 void access() {
 	vector<int> myvector (10);   // 10 zero-initialized ints
-
 	// assign some values:
 	for (unsigned i = 0; i < myvector.size(); i++)
 		myvector.at(i) = i;
@@ -178,9 +177,138 @@ void access() {
 	vector<std::string> vat;
 	std::string h = "hello";
 	vat.push_back(h);
-	std::cout << "end" << std::endl;
 	std::cout << vat.at(0) << std::endl;
-	std::cout << vat.at(1) << std::endl;
+	try {
+		std::cout << vat.at(1) << std::endl;
+	} catch (std::out_of_range &r) {
+		std::cerr << r.what();
+	}
+	std::cout << std::endl << "---------------------------" << std::endl;
+}
+
+void access2() {
+	
+	vector<int> vec;
+	for (int i = 0; i < 20; i++) {
+		vec.push_back(i + 1);
+	}
+	std::cout << vec.back() << std::endl;
+	std::cout << vec.front() << std::endl;
+	std::cout << *vec.begin() << std::endl;
+	std::cout << *(vec.end() - 1) << std::endl;
+	std::cout << *vec.rbegin() << std::endl;
+	std::cout << *(vec.rend() - 1) << std::endl;
+
+	std::cout << std::endl << "---------------------------" << std::endl;
+	std::cout << std::boolalpha << vec.empty() << std::endl;
+	vec.clear();
+	std::cout << std::boolalpha << vec.empty() << std::endl;
+	std::cout << std::endl << "---------------------------" << std::endl;
+}
+
+
+void	modification() {
+	vector<int> v;
+
+	for (int i = 0; i < 20; i++) {
+		v.push_back(i + 1);
+	}
+	vector<int>::iterator it = v.begin();
+	v.erase(it, it + 9);
+
+	for (; it != v.end(); it++) {
+		std::cout << *it << " ";
+	}
+	std::cout << std::endl << "---------------------------" << std::endl;
+}
+
+void	get_allocator() {
+	vector<int> myvector;
+	int * p;
+	unsigned int i;
+
+	// allocate an array with space for 5 elements using vector's allocator:
+	p = myvector.get_allocator().allocate(5);
+
+	// construct values in-place on the array:
+	for (i=0; i<5; i++) myvector.get_allocator().construct(&p[i],i);
+
+	std::cout << "The allocated array contains:";
+	for (i=0; i<5; i++) std::cout << ' ' << p[i];
+	std::cout << '\n';
+
+	// destroy and deallocate:
+	for (i=0; i<5; i++) myvector.get_allocator().destroy(&p[i]);
+	myvector.get_allocator().deallocate(p,5);
+}
+
+void inserter() {
+	vector<int> myvector (3,100);
+	vector<int>::iterator it;
+
+	it = myvector.begin();
+	it = myvector.insert ( it , 200 );
+
+	myvector.insert (it,2,300);
+
+	// "it" no longer valid, get a new one:
+	it = myvector.begin();
+
+	vector<int> anothervector (2,400);
+	myvector.insert (it+2,anothervector.begin(),anothervector.end());
+
+	int myarray [] = { 501,502,503 };
+	myvector.insert (myvector.begin(), myarray, myarray+3);
+
+	std::cout << "myvector contains:";
+	for (it=myvector.begin(); it<myvector.end(); it++)
+		std::cout << ' ' << *it;
+	std::cout << '\n';
+
+	std::cout << std::endl << "---------------------------" << std::endl;
+
+	vector<int> foo (3,0);
+	vector<int> bar (5,0);
+
+	bar = foo;
+	foo = vector<int>();
+
+	std::cout << "Size of foo: " << int(foo.size()) << '\n';
+	std::cout << "Size of bar: " << int(bar.size()) << '\n';
+}
+
+void utils() {
+	vector<int> v1;
+
+	for (int i = 0; i < 20; i++) {
+		v1.push_back(i * 2);
+	}
+	std::cout << v1.size() << std::endl;
+	v1.pop_back();
+	v1.pop_back();
+	v1.pop_back();
+	v1.pop_back();
+	v1.pop_back();
+	vector<int>::iterator it = v1.begin();
+	for (; it != v1.end(); it++) {
+		std::cout << *it << " ";
+	}
+	std::cout << std::endl;
+	std::cout << v1.size() << std::endl;
+
+	std::cout << std::endl << "---------------------------" << std::endl;
+	vector<int> myvector;
+	// set some initial content:
+	for (int i=1;i<10;i++) myvector.push_back(i);
+
+	myvector.resize(5);
+	myvector.resize(8,100);
+	myvector.resize(12);
+
+	std::cout << "myvector contains:";
+	for (int i=0;i<myvector.size();i++)
+		std::cout << ' ' << myvector[i];
+	std::cout << '\n';
 
 }
 
@@ -191,6 +319,11 @@ int main() {
 	assign();
 	allocation();
 	access();
+	access2();
+	modification();
+	get_allocator();
+	inserter();
+	utils();
 	// atexit(checkLeaks);
 	return 0;
 }
