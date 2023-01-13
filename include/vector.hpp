@@ -6,14 +6,14 @@
 /*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 14:42:56 by ktashbae          #+#    #+#             */
-/*   Updated: 2023/01/11 11:32:15 by ktashbae         ###   ########.fr       */
+/*   Updated: 2023/01/13 15:52:35 by ktashbae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef VECTOR_HPP
 #define VECTOR_HPP
 
-# include "utils/utils.hpp"
+# include "./utils/utils.hpp"
 
 namespace ft {
 /**
@@ -114,7 +114,7 @@ namespace ft {
 		template <class InputIterator> 
 		vector(InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type(), \
 			typename ft::enable_if<!ft::is_integral<InputIterator>::value>::type* = nullptr) :
-				_alloc(alloc), _elem(NULL), _capacity(0) {
+				_alloc(alloc), _elem(NULL), _size(0), _capacity(0) {
 					insert(begin(), first, last);
 		}
 			
@@ -147,11 +147,11 @@ namespace ft {
 			clear();
 			if (n > _capacity)
 				reserve(n);
-			_size = n;
 			for (size_type i = 0; i < n; i++) {
 				_alloc.construct(_elem + i, *first);
 				first++;
 			}
+			_size = n;
 		}
 
 /**
@@ -161,10 +161,10 @@ namespace ft {
 			clear();
 			if (n > _capacity)
 				reserve(n);
-			_size = n;
 			for (size_type i = 0; i < n; i++) {
 				_alloc.construct(_elem + i, val);
 			}
+			_size = n;
 		}
 
 		reference				operator[](size_type n)			{ return _elem[n];			}
@@ -179,13 +179,15 @@ namespace ft {
 		reference				at(size_type n)					{
 			if (n < _size) 
 				return _elem[n];
-			throw std::out_of_range("element out of range");
+			else
+				throw std::out_of_range("element out of range");
 		}
 
 		const_reference			at(size_type n) const			{
 			if (n < _size)
 				return _elem[n];
-			throw std::out_of_range("element out of range");
+			else
+				throw std::out_of_range("element out of range");
 		}
 
 		// Iterators  ===================================================================================//
@@ -234,8 +236,9 @@ namespace ft {
 			typename ft::enable_if<!ft::is_integral<InputIterator>::value>::type* = nullptr) {
 			size_type	i = position - begin();
 			size_type	n = ft::distance(first, last);
-			if (_size + n > _capacity)
+			if (_size + n > _capacity) {
 				reserve(_new_capacity(_size + n));
+			}
 			size_type	end = _size + n - 1;
 			size_type	start = i + n - 1;
 			for (size_type j = end; j > start; j--) {
@@ -252,6 +255,7 @@ namespace ft {
 		// Capacity  =====================================================================================//
 		size_type	size() 		const	{ return _size;					}
 		// max_size: maximum number of elements that the vector can hold
+		// allocator : !!! std::numeric_limits<size_type>::max() / sizeof(value_type)
 		size_type	max_size() 	const	{ return _alloc.max_size();		}
 		size_type	capacity() 	const	{ return _capacity;				}
 		bool		empty()		const	{ return _size == 0;			}
@@ -261,10 +265,16 @@ namespace ft {
  * length limits for some object.
  */		
 		void	reserve(size_type n) 	{
-			if (n <= _capacity) return ;
+			if (n <= _capacity) 
+				return ;
 			if (n > max_size())
 				throw std::length_error("resize failed");
-			T	*new_vector = _alloc.allocate(n);
+			T	*new_vector;
+			try {
+				new_vector = _alloc.allocate(n);
+			}	catch (const std::bad_alloc& e) {
+				std::cerr << "Allocation failed: " << e.what() << std::endl;
+			}
 			for (size_type i = 0; i < _size; i++) {
 				_alloc.construct(&new_vector[i], _elem[i]);
 				_alloc.destroy(&_elem[i]);
@@ -312,7 +322,7 @@ namespace ft {
 		}
 
 		void push_back(const value_type& val) {
-			if (_size + 1 > _capacity)
+			if (_size == _capacity)
 				reserve(_new_capacity(_size + 1));
 			_alloc.construct(_elem + _size, val);
 			_size++;
@@ -345,12 +355,8 @@ namespace ft {
 			size_type		_capacity;
 			size_type		_size;
 			size_type		_new_capacity(size_type size) {
-				size_type	n;
-
-				n = 1;
-				while (size > n)
-					n *= 2;
-				return n;
+				size *= 2;
+				return size;
 			}
 	};
 	// Non-Member Functions ======================================================================//
@@ -361,7 +367,7 @@ namespace ft {
  * stopping at the first mismatch
  */
 	template <class T, class Alloc>
-	bool operator== (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs) {
+	bool operator==(const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs) {
 		if (lhs.size() != rhs.size())
 			return false;
 		return ft::equal(lhs.begin(), lhs.end(), rhs.begin());
