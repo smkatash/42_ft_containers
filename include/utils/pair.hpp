@@ -6,7 +6,7 @@
 /*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 14:41:57 by ktashbae          #+#    #+#             */
-/*   Updated: 2023/01/02 14:41:59 by ktashbae         ###   ########.fr       */
+/*   Updated: 2023/01/14 19:49:13 by ktashbae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,12 @@ namespace ft
 	{
 		public:
 			/** Member types */
-			typedef T1 first_type;
-			typedef T2 second_type;
+			typedef T1 		first_type;
+			typedef T2 		second_type;
 
 			/** Member objects */
-			first_type	first;
-			second_type	second;
+			first_type		first;
+			second_type		second;
 
 			/** Member functions */
 			pair(void): first(), second()				{};
@@ -48,6 +48,7 @@ namespace ft
 					first = pr.first;
 					second = pr.second;
 				}
+				return *this;
 			};
 	};
 	

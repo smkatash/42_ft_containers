@@ -1,4 +1,4 @@
-#include "./include/vector.hpp"
+#include "../include/vector.hpp"
 #include <iostream>
 #include <unistd.h>
 #include <vector>
@@ -7,7 +7,6 @@ using namespace ft;
 void checkLeaks() {
 	system("leaks a.out");
 }
-
 
 void	iterators()
 {

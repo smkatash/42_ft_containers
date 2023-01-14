@@ -6,7 +6,7 @@
 /*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 14:21:50 by ktashbae          #+#    #+#             */
-/*   Updated: 2023/01/11 14:20:11 by ktashbae         ###   ########.fr       */
+/*   Updated: 2023/01/14 20:27:30 by ktashbae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,9 @@ struct Node {
 	}
 };
 
-namespace ft {
-	template<typename T>
-	class bidirectionalIterator {
-		public:
+template<typename T>
+class bidirectionalIterator {
+	public:
 			/** Member types */
 			typedef T												value_type;
 			typedef T*												pointer;
@@ -66,7 +65,7 @@ namespace ft {
 			typedef bidirectionalIterator<T>						iterator;
 			typedef bidirectionalIterator<const T>					const_iterator;
 
-			bidirectionalIterator(void)			:	_current(NULL)								{}
+			bidirectionalIterator(void)			:	_current(nullptr)								{}
 			bidirectionalIterator(node* N)		:	_current(N)									{}
 			bidirectionalIterator(bidirectionalIterator const& it)	: _current(it.base())		{}
 
@@ -74,21 +73,20 @@ namespace ft {
 				_current = it.base();
 				return *this;
 			}
-			
-			// TODO const_iterator ???
+
 
 			node	*base() const										{	return _current;					}
-
+			operator			const_iterator() const					{	return const_iterator(reinterpret_cast<const_node *>(_current));	}
 			reference			operator*()								{	return _current->_value;				}
 			const_reference		operator*() const						{	return _current->_value;				}
 			pointer				operator->()							{	return &_current->_value;			}
 			const_pointer		operator->() const						{	return &_current->_value;			}
 			
 			bidirectionalIterator& operator++(void)	{
-				if (_current->_cnt > 0) {
+				if (_current->_cnt) {
 					if (_current && _current->_right && _current->_right->_cnt) {
 						_current = _current->_right;
-						while (_current && _current->_left && _current->_cnt) {
+						while (_current && _current->_left && _current->_left->_cnt) {
 							_current = _current->_left;
 						}
 					} else {
@@ -148,7 +146,5 @@ namespace ft {
 		private:
 			node*	_current;
 	};
-};
-
 
 #endif

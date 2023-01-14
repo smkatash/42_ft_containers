@@ -6,7 +6,7 @@
 /*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 12:50:14 by kanykei           #+#    #+#             */
-/*   Updated: 2023/01/11 15:02:45 by ktashbae         ###   ########.fr       */
+/*   Updated: 2023/01/14 19:50:26 by ktashbae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,25 +134,26 @@ namespace ft {
 				ft::make_pair(lower_bound(k), upper_bound(k));
 			}
 
-			iterator lower_bound(key_type const& k)			{	return _tree.lower_bound(get_type(k));		}
-			iterator lower_bound(key_type const& k) const	{	return _tree.lower_bound(get_type(k));		}
-			iterator upper_bound(key_type const& k)			{	return _tree.upper_bound(get_type(k));		}
-			iterator upper_bound(key_type const& k) const	{	return _tree.upper_bound(get_type(k));		}
+			iterator lower_bound(key_type const& k)			{	return _tree.lower_bound(get_type(k));			}
+			iterator lower_bound(key_type const& k) const	{	return _tree.lower_bound(get_type(k));			}
+			iterator upper_bound(key_type const& k)			{	return _tree.upper_bound(get_type(k));			}
+			iterator upper_bound(key_type const& k) const	{	return _tree.upper_bound(get_type(k));			}
 
 			void erase(iterator position)					{	_tree.erase(position.base());					}
-			size_type erase(const key_type& k)				{	_tree.erase(get_type(k));					}
+			size_type erase(const key_type& k)				{	_tree.erase(get_type(k));						}
 			void erase(iterator first, iterator last)		{	_tree.erase(first, last);						}
 
-			iterator find(const key_type& k)				{	_tree.find(getvaluetype(k));					}
-			const_iterator find(const key_type& k) const	{	_tree.find(getvaluetype(k));					}
+			iterator find(const key_type& k)				{	return _tree.find(get_type(k));					}
+			const_iterator find(const key_type& k) const	{	return _tree.find(get_type(k));					}
 
 			mapped_type& operator[] (const key_type& k)		{
-				return insert(ft::make_pair(k, mapped_type())).first->second;
-				//BUG *(insert(ft::make_pair( k, mapped_type())).first)).second;
+				return (*(insert(ft::make_pair( k, mapped_type())).first)).second;
 			}
 
-			ft::pair<iterator,bool> insert(value_type const& val)		{	return _tree.insert(val);					}
-			iterator insert(iterator position, value_type const& val)	{	return _tree.insert(position, val);		}
+			ft::pair<iterator,bool> insert(const value_type& val)		{	
+				return _tree.insert(val);					}
+	
+			iterator insert(iterator position, const value_type& val)	{	return _tree.insert(position, val);		}
 			
 			template <class InputIterator>
 			void insert(InputIterator first, InputIterator last)		{	_tree.insert(first, last);			}

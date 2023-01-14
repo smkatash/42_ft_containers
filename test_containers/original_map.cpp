@@ -1,6 +1,6 @@
-# include "../include/map.hpp"
+# include <map>
 # include <iostream>
-using namespace ft;
+using namespace std;
 
 
 	bool fncomp (char lhs, char rhs) {return lhs<rhs;}
@@ -9,7 +9,6 @@ using namespace ft;
 	bool operator() (const char& lhs, const char& rhs) const
 	{return lhs<rhs;}
 	};
-
 
 void	insertion() {
 
@@ -31,19 +30,12 @@ void	insertion() {
 	mymap.insert (it, pair<char,int>('b',300));  // max efficiency inserting
 	mymap.insert (it, pair<char,int>('c',400));  // no max efficiency inserting
 
-
-	std::cout << "mymap contains:\n";
-	// third insert function version (range insertion):
-	map<char,int> anothermap;
-	anothermap.insert(mymap.begin(),mymap.find('c'));
-
-	// showing contents:
-	for (it=mymap.begin(); it!=mymap.end(); ++it)
-		std::cout << it->first << " => " << it->second << '\n';
-
-	std::cout << "anothermap contains:\n";
-	for (it=anothermap.begin(); it!=anothermap.end(); ++it)
-		std::cout << it->first << " => " << it->second << '\n';
+	std::cout << "done" << std::endl;
+	map<char,int>::iterator it2 = mymap.begin();
+	for (; it2 != mymap.end(); it2++) {
+		std::cout << (*it2).first << " ";
+		std::cout << (*it2).second << std::endl;
+	}
 }
 
 
@@ -56,11 +48,6 @@ int main ()
 	// first['b']=30;
 	// first['c']=50;
 	// first['d']=70;
-
-	// std::cout << first['a'] << " ";
-	// std::cout << first['b'] << " ";
-	// std::cout << first['c'] << " ";
-	// std::cout << first['d'] << " ";
 
 	// map<char, int>::iterator it = first.begin();
 	// for (; it != first.end(); it++) {

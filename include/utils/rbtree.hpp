@@ -11,13 +11,13 @@ class RedBlackTree {
 			// Member Types ======================================================================//
 			typedef T														value_type;
 			typedef Compare													value_compare;
-			typedef Allocator													allocator_type;
+			typedef Allocator												allocator_type;
 			typedef typename allocator_type::pointer						pointer;
 			typedef typename allocator_type::const_pointer					const_pointer;
 			typedef typename allocator_type::reference						reference;
 			typedef typename allocator_type::const_reference				const_reference;
-			typedef ft::bidirectionalIterator<T>							iterator;
-			typedef ft::bidirectionalIterator<const T>						const_iterator;
+			typedef bidirectionalIterator<T>								iterator;
+			typedef bidirectionalIterator<const T>							const_iterator;
 			typedef ft::reverse_iterator<iterator>							reverse_iterator;
 			typedef ft::reverse_iterator<const_iterator>					const_reverse_iterator;
 			typedef	std::size_t												size_type;
@@ -34,6 +34,15 @@ class RedBlackTree {
 			size_type		_size;
 			// Member Functions ==================================================================//
 		public:
+			// !!! debugging
+			void getfullNode(void) {
+					std::cout << "value f " << this->_root->_value.first << " ";
+					std::cout << "value s " << this->_root->_value.second << " ";
+					std::cout << "root " << this->_root->_color << " ";
+					std::cout << "nil " << this->_nil->_color << " ";
+					std::cout << this->_size << " ";
+			}
+
 			explicit RedBlackTree(const value_compare& comp, const allocator_type& alloc): _nil(nilNode()),
 																					_comp(comp), \
 																					_alloc(alloc), \
@@ -88,18 +97,21 @@ class RedBlackTree {
 					else if (_comp(current->_value, val))
 						current = current->_right;
 					else
+						return ft::make_pair(iterator(current), false);
 						// duplicate are not allowed in map
 						// tree is not balanced, did not reach insertFixup
-						return ft::make_pair(iterator(current), false);
 				}
 				current = newNode(val, parent, 1);
 				if (_comp(parent->_value, val))
 					parent->_right = current;
 				else
 					parent->_left = current;
+				current->_left->_parent = current;
+				current->_right->_parent = current;
 				insertFixup(current);
 				return ft::make_pair(iterator(current), true);
 			}
+
 
 			iterator	insert(iterator position, const value_type& val) {
 				(void)position;
@@ -128,7 +140,7 @@ class RedBlackTree {
 
 			iterator	find(const value_type& val) const {
 				node *x = search(_root, val);
-				if (x != nullptr)
+				if (x)
 					return iterator(x);
 				return iterator(maximum(_root));
 			}
@@ -141,7 +153,7 @@ class RedBlackTree {
 				if (_root == _nil)
 					return iterator(_nil);
 				node *current = _root;
-				while (current != nullptr && current->_nil)
+				while (current != nullptr && current != _nil)
 					current = current->_left;
 				return iterator(current);
 			}
@@ -278,6 +290,17 @@ class RedBlackTree {
  * Red root -> 2 Black leaves
  */
 		private:
+
+			void inorder(node* n)
+			{
+				if (n != _nil)
+				{
+					inorder(n->_left);
+					std::cout << n->_value.second << " ";
+					inorder(n->_right);          
+				}
+			}
+
 			node	*newNode(const value_type& val, node *parent, std::size_t cnt) {
 				node *new_node = _alloc_node.allocate(1);
 				_alloc.construct(&(new_node->_value), val);
@@ -311,8 +334,8 @@ class RedBlackTree {
 					y->_right->_parent = x;
 				}
 				y->_parent = x->_parent;
-				if (x->_parent == nullptr ) {
-					this->_root = y;
+				if (x->_parent == _nil) {
+					_root = y;
 				} else if (x->_parent->_left == x) {
 					x->_parent->_left = y;
 				} else {
@@ -331,8 +354,8 @@ class RedBlackTree {
 					y->_left->_parent = x;
 				}
 				y->_parent = x->_parent;
-				if (x->_parent == nullptr)
-					this->_root = y;
+				if (x->_parent == _nil)
+					_root = y;
 				else if (x->_parent->_left == x) {
 					x->_parent->_left = y;
 				} else {
@@ -464,14 +487,14 @@ class RedBlackTree {
 				v->_parent = u->_parent;
 			}
 
-			node *minimum(node *n) {
+			node *minimum(node *n) const {
 				while (n->_left != _nil)
 					n = n->_left;
 				return n;
 			}
 
-			node *maximum(node *n) {
-				while (n->_right != _nil)
+			node *maximum(node *n) const {
+				while (n && n->_cnt)
 					n = n->_right;
 				return n;
 			}
