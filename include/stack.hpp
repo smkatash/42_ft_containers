@@ -6,7 +6,7 @@
 /*   By: kanykei <kanykei@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 14:56:46 by kanykei           #+#    #+#             */
-/*   Updated: 2023/01/12 15:15:07 by kanykei          ###   ########.fr       */
+/*   Updated: 2023/01/16 07:32:34 by kanykei          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,12 @@ namespace ft {
 			typedef Container		container_type;
 			typedef size_t			size_type;
 
-			explicit stack (const container_type& ctnr = container_type()): _vector(cntr) {}
+			explicit stack (const container_type& ctnr = container_type()): _vector(ctnr) {}
 
-			bool			empty() const	{ return _vector.empty();			}
-			size_type		size() const	{ return _vector.size();			}
-			value_type&		top()			{ return _vector.back();			}
-			const value_type&	top() const	{ return _vector.back();			}
+			bool				empty() const	{ return _vector.empty();			}
+			size_type			size() const	{ return _vector.size();			}
+			value_type&			top()			{ return _vector.back();			}
+			const value_type&	top() const		{ return _vector.back();			}
 
 			void	push(const value_type& val) { _vector.push_back(val);		}
 			void	pop()						{ _vector.pop_back();			}

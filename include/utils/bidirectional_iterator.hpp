@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bidirectional_iterator.hpp                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: kanykei <kanykei@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 14:21:50 by ktashbae          #+#    #+#             */
-/*   Updated: 2023/01/14 20:27:30 by ktashbae         ###   ########.fr       */
+/*   Updated: 2023/01/15 13:16:33 by kanykei          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ class bidirectionalIterator {
 			typedef bidirectionalIterator<T>						iterator;
 			typedef bidirectionalIterator<const T>					const_iterator;
 
-			bidirectionalIterator(void)			:	_current(nullptr)								{}
+			bidirectionalIterator(void)			:	_current(nullptr)							{}
 			bidirectionalIterator(node* N)		:	_current(N)									{}
 			bidirectionalIterator(bidirectionalIterator const& it)	: _current(it.base())		{}
 

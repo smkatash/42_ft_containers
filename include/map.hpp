@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map.hpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: kanykei <kanykei@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 12:50:14 by kanykei           #+#    #+#             */
-/*   Updated: 2023/01/14 19:50:26 by ktashbae         ###   ########.fr       */
+/*   Updated: 2023/01/15 11:59:41 by kanykei          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,7 @@ namespace ft {
 			rbtree															_tree;
 			key_compare														_comp;
 			allocator_type													_alloc;
-			// TODO
-			//void inorder() 									{	_tree.inorder(_tree.get_root());			}
+			void inorder() 									{	_tree.inorder(_tree.get_root());			}
 			value_type	get_type(const key_type& k) const	{	return ft::make_pair(k, mapped_type());		}
 
 		public:

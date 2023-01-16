@@ -26,8 +26,8 @@ class RedBlackTree {
 			typedef typename Allocator::template rebind<node>::other		allocator_node;
 
 		private:
-			node			*_root;
 			node			*_nil;
+			node			*_root;
 			Compare			_comp;
 			allocator_type	_alloc;
 			allocator_node	_alloc_node;
@@ -51,10 +51,9 @@ class RedBlackTree {
 					_root = _nil;
 			}
 			
-			RedBlackTree(RedBlackTree const& curr): _nil(nilNode()), \
-										_root(_nil), \
-										_comp(curr._comp), \
-										_alloc(curr._alloc)		{ insert(curr.begin(), curr.end());	}
+			RedBlackTree(RedBlackTree const& curr): _nil(nilNode()), _root(_nil), _comp(curr._comp), _alloc(curr._alloc) { 
+				insert(curr.begin(), curr.end());	
+			}
 
 			RedBlackTree& operator=(const RedBlackTree& tree)	{
 				if (this != &tree) {
@@ -71,11 +70,11 @@ class RedBlackTree {
 				freeNode(_nil);
 			}
 
-			node	*nilNode() {
+			node	*nilNode(void) {
 				node	*new_node = _alloc_node.allocate(1);
-				new_node->_parent = nullptr;
 				new_node->_left = _nil;
 				new_node->_right = _nil;
+				new_node->_parent = nullptr;
 				new_node->_color = BLACK;
 				new_node->_cnt = 0;
 				return new_node;
@@ -153,7 +152,7 @@ class RedBlackTree {
 				if (_root == _nil)
 					return iterator(_nil);
 				node *current = _root;
-				while (current != nullptr && current != _nil)
+				while (current && current->_left != _nil)
 					current = current->_left;
 				return iterator(current);
 			}
@@ -162,7 +161,7 @@ class RedBlackTree {
 				if (_root == _nil)
 					return iterator(_nil);
 				node *current = _root;
-				while (current != nullptr && current->_nil)
+				while (current  && current->_left != _nil)
 					current = current->_left;
 				return iterator(current);
 			}
@@ -365,6 +364,17 @@ class RedBlackTree {
 				x->_parent = y;
 			}
 
+			// switch two nodes
+			void transplantNode(node *u, node *v) {
+				if (u->_parent == _nil) {
+					_root = v;
+				} else if (u == u->_parent->_left) {
+					u->_parent->_left = v;
+				} else {
+					u->_parent->_right = v;
+				}
+				v->_parent = u->_parent;
+			}
 /**
  * @attention In the insert operation, we check the _color of the aunt to decide the appropriate case. 
  * In the delete operation, we check the _color of the sibling to decide the appropriate case.
@@ -379,6 +389,7 @@ class RedBlackTree {
 						// aunt.RED -> colorflip
 						if (aunt->_color == RED) {
 							aunt->_color = BLACK;
+							n->_parent->_color = BLACK;
 							n->_parent->_parent->_color = RED;
 							n = n->_parent->_parent;
 						} else {
@@ -396,6 +407,7 @@ class RedBlackTree {
 						// aunt.RED -> colorflip
 						if (aunt->_color == RED) {
 							aunt->_color = BLACK;
+							n->_parent->_color = BLACK;
 							n->_parent->_parent->_color = RED;
 							n = n->_parent->_parent;
 						} else {
@@ -403,15 +415,14 @@ class RedBlackTree {
 							if (n == n->_parent->_right) {
 								n = n->_parent;
 								rotateLeft(n);
-							} else {
-								n->_parent->_color = BLACK;
-								n->_parent->_parent->_color = RED;
-								rotateRight(n->_parent->_parent);
 							}
+							n->_parent->_color = BLACK;
+							n->_parent->_parent->_color = RED;
+							rotateRight(n->_parent->_parent);
 						}
 					}
-					_root->_color = BLACK;
 				}
+				_root->_color = BLACK;
 			}
 
 			void	deleteFixup(node *current) {
@@ -473,18 +484,6 @@ class RedBlackTree {
 					}
 				}
 				current->_color = BLACK;
-			}
-
-			// switch two nodes
-			void transplantNode(node *u, node *v) {
-				if (u->_parent == nullptr) {
-					_root = v;
-				} else if (u == u->_parent->_left) {
-					u->_parent->_left = v;
-				} else {
-					u->_parent->_right = v;
-				}
-				v->_parent = u->_parent;
 			}
 
 			node *minimum(node *n) const {

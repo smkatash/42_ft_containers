@@ -1,6 +1,7 @@
-#include "../include/vector.hpp"
+#include "../../include/vector.hpp"
 #include <iostream>
 #include <unistd.h>
+#include <sstream>
 #include <vector>
 using namespace ft;
 
@@ -312,18 +313,31 @@ void utils() {
 
 }
 
+void terminatordiff() {
+	vector<char> v;
+
+	std::istringstream str("1 2 3 4 5 6 7");
+	std::istreambuf_iterator<char> it(str), end;
+	v.assign(it, end);
+
+	for (vector<char>::iterator it = v.begin(); it != v.end(); it++) {
+		std::cout << *it << " ";
+	}
+}
+
 int main() {
 
-	constructors();
-	iterators();
-	assign();
-	allocation();
-	access();
-	access2();
-	modification();
-	allocator();
-	inserter();
-	utils();
+	// constructors();
+	// iterators();
+	// assign();
+	// allocation();
+	// access();
+	// access2();
+	// modification();
+	// allocator();
+	// inserter();
+	// utils();
 	// atexit(checkLeaks);
+	terminatordiff();
 	return 0;
 }

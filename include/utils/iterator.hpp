@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   iterator.hpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: kanykei <kanykei@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 14:41:48 by ktashbae          #+#    #+#             */
-/*   Updated: 2023/01/11 11:30:52 by ktashbae         ###   ########.fr       */
+/*   Updated: 2023/01/16 08:12:44 by kanykei          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ namespace ft {
 		while (first != last) {
 			++first;
 			++n;
-		};
+		}
 		return n;
 	}
 
@@ -143,14 +143,14 @@ namespace ft {
 			}
 
 			iterator		operator++(int)							{
-				iterator	tmp(*this);
-				_it += 1;
+				iterator(tmp) = *this;
+				_it++;
 				return tmp;
 			}
 
 			iterator		operator--(int)							{
-				iterator	tmp(*this);
-				_it -= 1;
+				iterator(tmp) = *this;
+				_it--;
 				return tmp;
 			}
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vector.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: kanykei <kanykei@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 14:42:56 by ktashbae          #+#    #+#             */
-/*   Updated: 2023/01/13 15:52:35 by ktashbae         ###   ########.fr       */
+/*   Updated: 2023/01/16 08:02:13 by kanykei          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,20 +114,20 @@ namespace ft {
 		template <class InputIterator> 
 		vector(InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type(), \
 			typename ft::enable_if<!ft::is_integral<InputIterator>::value>::type* = nullptr) :
-				_alloc(alloc), _elem(NULL), _size(0), _capacity(0) {
+				_alloc(alloc), _elem(NULL), _capacity(0), _size(0) {
 					insert(begin(), first, last);
 		}
 			
 		
 		// (4) copy constructor : constructs a container with a copy of each of the elements in x, in the same order.
-		vector(const vector& x): _alloc(x._alloc), _capacity(x._capacity), \
-			_elem(_alloc.allocate(x._capacity)), _size(x._size) {
+		vector(const vector& x): _alloc(x._alloc), _elem(_alloc.allocate(x._capacity)), _capacity(x._capacity), _size(x._size) {
 				assign(x.begin(), x.end());
 		}
 	
 		~vector()													{
 			clear();
-			_alloc.deallocate(_elem, _capacity);
+			if (_elem)
+				_alloc.deallocate(_elem, _capacity);
 		}
 
 		vector&	operator=(const vector& x)							{
@@ -148,8 +148,7 @@ namespace ft {
 			if (n > _capacity)
 				reserve(n);
 			for (size_type i = 0; i < n; i++) {
-				_alloc.construct(_elem + i, *first);
-				first++;
+				_alloc.construct(_elem + i, *first++);
 			}
 			_size = n;
 		}
@@ -279,7 +278,8 @@ namespace ft {
 				_alloc.construct(&new_vector[i], _elem[i]);
 				_alloc.destroy(&_elem[i]);
 			}
-			_alloc.deallocate(_elem, _capacity);
+			if (_elem)
+				_alloc.deallocate(_elem, _capacity);
 			_elem = new_vector;
 			_capacity = n;
 		}
@@ -287,8 +287,8 @@ namespace ft {
 		iterator	erase(iterator position)				{
 			size_type	n = position - begin();
 
-			_alloc.destroy(&_elem[n]);
 			_size--;
+			_alloc.destroy(&_elem[n]);
 			for (size_type i = n; i < _size; i++) {
 				_alloc.construct(&_elem[i], _elem[i + 1]);
 				_alloc.destroy(&_elem[i + 1]);
@@ -299,10 +299,8 @@ namespace ft {
 		//!! index of iterator is iterator + n
 		iterator erase (iterator first, iterator last)		{
 			size_type	n = last - first;
-			iterator	n_end = end() - n;
-		
-			_size -= n;
-			while (first != n_end) {
+
+			while (first != end() - n) {
 				*first = first[n];
 				++first;
 			}
@@ -310,6 +308,7 @@ namespace ft {
 				_alloc.destroy(&(*first));
 				++first;
 			}
+			_size -= n;
 			return last - n;
 		}
 
