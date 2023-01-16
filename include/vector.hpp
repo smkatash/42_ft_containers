@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vector.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kanykei <kanykei@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 14:42:56 by ktashbae          #+#    #+#             */
-/*   Updated: 2023/01/16 08:02:13 by kanykei          ###   ########.fr       */
+/*   Updated: 2023/01/16 17:08:27 by ktashbae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,8 +120,8 @@ namespace ft {
 			
 		
 		// (4) copy constructor : constructs a container with a copy of each of the elements in x, in the same order.
-		vector(const vector& x): _alloc(x._alloc), _elem(_alloc.allocate(x._capacity)), _capacity(x._capacity), _size(x._size) {
-				assign(x.begin(), x.end());
+		vector(const vector& x): _alloc(x._alloc), _elem(NULL), _capacity(0), _size(0) {
+				*this = x;
 		}
 	
 		~vector()													{
@@ -255,7 +255,13 @@ namespace ft {
 		size_type	size() 		const	{ return _size;					}
 		// max_size: maximum number of elements that the vector can hold
 		// allocator : !!! std::numeric_limits<size_type>::max() / sizeof(value_type)
-		size_type	max_size() 	const	{ return _alloc.max_size();		}
+		size_type	max_size() 	const	{	
+				size_type	alloc_max = _alloc.max_size();
+				size_type	numeric_max = std::numeric_limits<size_type>::max() / 2;
+				size_type	_max;
+				alloc_max > numeric_max ? _max = numeric_max : _max = alloc_max;
+				return _max;
+		}
 		size_type	capacity() 	const	{ return _capacity;				}
 		bool		empty()		const	{ return _size == 0;			}
 /**
@@ -354,8 +360,7 @@ namespace ft {
 			size_type		_capacity;
 			size_type		_size;
 			size_type		_new_capacity(size_type size) {
-				size *= 2;
-				return size;
+				return size *= 2;
 			}
 	};
 	// Non-Member Functions ======================================================================//

@@ -325,6 +325,239 @@ void terminatordiff() {
 	}
 }
 
+void	deepcopy() {
+	vector<double> v1;
+
+	for (int i = 1; i <= 10; i++) {
+		v1.push_back(i * 12.3332);
+	}
+
+	vector<double> v2(v1);
+	if (&v1[0]== &v2[0])
+		std::cout << "They are equal";
+	else
+		std::cout << "They are NOT equal";
+	std::cout << &v1[0] << " " << &v2[0] << std::endl;
+
+	std::cout << "------------------" << std::endl;
+
+	std::vector<double> vcopy1;
+
+	for (int i = 1; i <= 10; i++) {
+		vcopy1.push_back(i * 12.3332);
+	}
+
+	std::vector<double> vcopy2(vcopy1);
+	std::cout << vcopy1[0] << " " << vcopy2[0];
+	if (&vcopy1[0] == &vcopy2[0])
+		std::cout << "They are equal";
+	else
+		std::cout << "They are NOT equal";
+	std::cout << &vcopy1[0] << " " << &vcopy2[0] << std::endl;
+}
+
+struct abc {
+    int data[1024];
+    long num;
+};
+
+void	sizes() {
+	std::cout << "---------------My Vector ------------" << std::endl;
+	std::cout << vector<unsigned char>().max_size() << std::endl;
+	std::cout << vector<char>().max_size() << std::endl;
+	std::cout << vector<int>().max_size() << std::endl;
+	std::cout << vector<long>().max_size() << std::endl;
+	std::cout << vector<short>().max_size() << std::endl;
+	std::cout << vector<abc>().max_size() << std::endl;
+	std::cout << vector<float>().max_size() << std::endl;
+	
+	std::cout << "--------------STD Vector-------------" << std::endl;
+
+	std::cout << std::vector<unsigned char>().max_size() << std::endl;
+	std::cout << std::vector<char>().max_size() << std::endl;
+	std::cout << std::vector<int>().max_size() << std::endl;
+	std::cout << std::vector<long>().max_size() << std::endl;
+	std::cout << std::vector<short>().max_size() << std::endl;
+	std::cout << std::vector<abc>().max_size() << std::endl;
+	std::cout << std::vector<float>().max_size() << std::endl;
+
+	std::cout << "---------------Allocator-----------" << std::endl;
+
+	std::cout << std::allocator<unsigned char>().max_size() << std::endl;
+	std::cout << std::allocator<char>().max_size() << std::endl;
+	std::cout << std::allocator<int>().max_size() << std::endl;
+	std::cout << std::allocator<long>().max_size() << std::endl;
+	std::cout << std::allocator<short>().max_size() << std::endl;
+	std::cout << std::allocator<abc>().max_size() << std::endl;
+	std::cout << std::allocator<float>().max_size() << std::endl;
+}
+
+void	check_capacity_print(vector<int>& v) {
+	vector<int>::iterator it = v.begin();
+
+	std::cout << "Size " << v.size() << " capacity: " << v.capacity() << std::endl;
+	for (; it != v.end(); it++) {
+		std::cout << *it << " ";
+	}
+	std::cout << std::endl;
+}
+
+void	std_check_capacity_print(std::vector<int>& v) {
+	std::vector<int>::iterator it = v.begin();
+
+	std::cout << "Size " << v.size() << " capacity: " << v.capacity() << std::endl;
+	for (; it != v.end(); it++) {
+		std::cout << *it << " ";
+	}
+	std::cout << std::endl;
+}
+
+
+void	insert_size() {
+	vector<int> v;
+	v.insert(v.begin(), 0, 64);
+	check_capacity_print(v);
+	v.insert(v.end(), 0, 64);
+	check_capacity_print(v);
+	v.insert(v.end(), 10, 64);
+	check_capacity_print(v);
+	v.insert(v.begin(), 5, -1);
+	check_capacity_print(v);
+	v.insert(v.begin() + 1, 1, -9);
+	check_capacity_print(v);
+	v.insert(v.begin() + 7, 21, 88);
+	check_capacity_print(v);
+	v.insert(v.begin(), 0, 2);
+	check_capacity_print(v);
+	v.insert(v.end(), 0, 4);
+	check_capacity_print(v);
+	v.insert(v.end(), 18, 420);
+	check_capacity_print(v);
+	v.insert(v.end(), 8, 4242);
+	check_capacity_print(v);
+}
+
+void	std_insert_size() {
+	std::vector<int> v;
+	v.insert(v.begin(), 0, 64);
+	std_check_capacity_print(v);
+	v.insert(v.end(), 0, 64);
+	std_check_capacity_print(v);
+	v.insert(v.end(), 10, 64);
+	std_check_capacity_print(v);
+	v.insert(v.begin(), 5, -1);
+	std_check_capacity_print(v);
+	v.insert(v.begin() + 1, 1, -9);
+	std_check_capacity_print(v);
+	v.insert(v.begin() + 7, 21, 88);
+	std_check_capacity_print(v);
+	v.insert(v.begin(), 0, 2);
+	std_check_capacity_print(v);
+	v.insert(v.end(), 0, 4);
+	std_check_capacity_print(v);
+	v.insert(v.end(), 18, 420);
+	std_check_capacity_print(v);
+	v.insert(v.end(), 8, 4242);
+	std_check_capacity_print(v);
+}
+
+
+void	string_check_capacity_print(vector<std::string>& v) {
+	vector<std::string>::iterator it = v.begin();
+
+	std::cout << "Size " << v.size() << " capacity: " << v.capacity() << std::endl;
+	for (; it != v.end(); it++) {
+		std::cout << *it << " ";
+	}
+	std::cout << std::endl;
+}
+
+std::string b_string[64] = {                                                                   \
+        "uvg6KqtcgduR31n3ajsv", "wbiAcjgojb9JOagZwyMn", "ATZKCzaPOqgkhPjwuGlf",                    \
+        "MOhaJs56yjOw8f6nLPRA", "0gyB2Tr42v6awMw2nK7J", "e6GsiLFUuoDpVFEhJKZ1",                    \
+        "z0jXAhiV9keBsaLOY0Xf", "P68p2ZAosHJdmoZh1C7N", "Pu3EuZVeY0TCO3ojdK0t",                    \
+        "z7jCHMooHCS73M8GygKB", "uT4KoK83JrZxZjkul7ty", "g8gfrZoY5XwfzRusvHvv",                    \
+        "7PGmkM0OSRnYREt9mFIP", "q1od7mBIpPEsCtpF9kdw", "XQo0LWId5TdZnLnpUNOb",                    \
+        "U0m1R0kFFhAFyS6hmHHw", "K0lPKfxJxIOnE8QB90xn", "cZ5xyQifMJhrKxqBK9A7",                    \
+        "cFBiwjfYw7Js6qEGy5Kt", "1tW0KWfXxeFO69tByqcE", "3Fvq9NxBrhPXHe0IlIVx",                    \
+        "MSRDjdFRvHAhFGhiMtDe", "zGm2joMh71jQkYzg5L4V", "Mq4RRaeLvSAO0z2ibp8Q",                    \
+        "WnLFYnQKP8TNJkqVVbUg", "E98UphbbVSzrW5Mzurmg", "F8HRxeEcaTZDkFPkioij",                    \
+        "jmUVl4Q8X5BwVNzXN219", "n7Xp4w4FwzGKit7AI4SO", "4MxXYr6rKOcXLt9UkVd2",                    \
+        "4RVTDsADtRyboaai9d29", "XaSqsrrtdhAfFoJIc5KK", "9Z9jdVCrTT09bg348ceb",                    \
+        "I6uqLG9dO5mfNdSMwOYm", "UwMTzJPlbnhgwbHpDi6w", "DebjMP9afncYE6GhhO00",                    \
+        "YGPuscYDiGfAjY1UWST0", "K6gbvgGjVZgEFUDlkdSk", "8xCBPI0w6TpC0RA62c2W",                    \
+        "fYMxkNwmKg3moP8KvD9v", "QpPdhwhEYjIugg3OPcPH", "qQBXjSn43I3EMP54SyxZ",                    \
+        "7qvdKwoW1CQEZTWPvuSC", "rCT212rdYO0zTGHXesKg", "dBHvlHsBwcR9MkkenYYG",                    \
+        "NQiSlergqR8fVbOeivLj", "xYVqsV147UIe7jVBVwXo", "tcxayO4DdEJ885TbqUMy",                    \
+        "9TGSMTD8U8ksRpHqq0cL", "TIJ16jCv9BSUiWvhbF9T", "BM9GL2ig1hePkA6lM6Ck",                    \
+        "TfJTYB9JQMU6CGcYg20Q", "Fg6e5YT2FQbpTZNTDqdo", "LI5q6ml40MeE9H1dPb93",                    \
+        "OaxJUSm3nYN9Y8Ela7sS", "BgBeODAwXz7xJo50Rwqd", "xdkgKj1dEoJ6zuVhkvvo",                    \
+        "olIewtUEvXJgs1lB9bCn", "dTsPDS0x2uXtcgOIJHb8", "DYvJ2phLppGNZKboTBrd",                    \
+        "DjNFMtt9PxkzqvWBHI6j", "1Z3YkeTFlPniKnzFhzgu", "76XqQg6hqMf5IXxKPOEs",                    \
+        "gzaapTWW7i9EZjjzLeK6"                                                                     \
+    };                         
+
+
+void	resize() {
+			vector<std::string> v;
+
+			v.resize(14, "HelloWorld");
+
+			string_check_capacity_print(v);
+
+			v.resize(6, "ABC");
+
+			string_check_capacity_print(v);
+
+			v.resize(14, b_string[18]);
+
+			string_check_capacity_print(v);
+
+			v.resize(15, b_string[57]);
+
+			string_check_capacity_print(v);
+
+			v.resize(64, "I-like-vectors");
+
+			string_check_capacity_print(v);
+}
+
+void	std_string_check_capacity_print(std::vector<std::string>& v) {
+	std::vector<std::string>::iterator it = v.begin();
+
+	std::cout << "Size " << v.size() << " capacity: " << v.capacity() << std::endl;
+	for (; it != v.end(); it++) {
+		std::cout << *it << " ";
+	}
+	std::cout << std::endl;
+}
+
+
+void	std_resize() {
+			std::vector<std::string> v;
+
+			v.resize(14, "HelloWorld");
+
+			std_string_check_capacity_print(v);
+
+			v.resize(6, "ABC");
+
+			std_string_check_capacity_print(v);
+
+			v.resize(14, b_string[18]);
+
+			std_string_check_capacity_print(v);
+
+			v.resize(15, b_string[57]);
+
+			std_string_check_capacity_print(v);
+
+			v.resize(64, "I-like-vectors");
+
+			std_string_check_capacity_print(v);
+}
+
+
 int main() {
 
 	// constructors();
@@ -338,6 +571,12 @@ int main() {
 	// inserter();
 	// utils();
 	// atexit(checkLeaks);
-	terminatordiff();
+	// terminatordiff();
+	// deepcopy();
+	// sizes();
+	//insert_size();
+	//std_insert_size();
+	resize();
+	std_resize();
 	return 0;
 }
