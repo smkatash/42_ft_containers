@@ -6,7 +6,7 @@
 /*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 14:42:56 by ktashbae          #+#    #+#             */
-/*   Updated: 2023/01/16 17:08:27 by ktashbae         ###   ########.fr       */
+/*   Updated: 2023/01/17 13:08:54 by ktashbae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -278,7 +278,8 @@ namespace ft {
 			try {
 				new_vector = _alloc.allocate(n);
 			}	catch (const std::bad_alloc& e) {
-				std::cerr << "Allocation failed: " << e.what() << std::endl;
+				std::cerr << "ft::vector: " << e.what() << std::endl;
+				std::terminate();
 			}
 			for (size_type i = 0; i < _size; i++) {
 				_alloc.construct(&new_vector[i], _elem[i]);

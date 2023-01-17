@@ -6,7 +6,7 @@
 /*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 14:41:48 by ktashbae          #+#    #+#             */
-/*   Updated: 2023/01/16 16:16:48 by ktashbae         ###   ########.fr       */
+/*   Updated: 2023/01/17 16:16:55 by ktashbae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,11 +70,11 @@ namespace ft {
  * Input iterator tag only is used, forward and bidirectional iterator 
  * are also be in this bucket, because they inherit from InputIterator.
  */
-	template<typename InputIterator>
-	typename iterator_traits<InputIterator>::difference_type distance(InputIterator first, InputIterator last, \
-	typename ft::enable_if<!ft::is_integral<InputIterator>::value>::type* = nullptr)
+	template<typename Iterator>
+	typename iterator_traits<Iterator>::difference_type distance(Iterator first, Iterator last, \
+	typename ft::enable_if<!ft::is_integral<Iterator>::value>::type* = nullptr)
 	{
-		typename iterator_traits<InputIterator>::difference_type n = 0;
+		typename iterator_traits<Iterator>::difference_type n = 0;
 		while (first != last) {
 			++first;
 			++n;
@@ -182,7 +182,7 @@ namespace ft {
 			}
 
 			/** Const Iterator */
-			operator		const_iterator () const					{
+			operator		const_iterator (void) const					{
 				return const_iterator(_it);
 			}
 
@@ -199,14 +199,12 @@ namespace ft {
 	};
 	/** Non-member functions */
 	template<class Iter>
-	iterator<Iter>	operator+(typename iterator<Iter>::difference_type n, \
-					const iterator<Iter>& it) {
+	iterator<Iter>	operator+(typename iterator<Iter>::difference_type n, const iterator<Iter>& it) {
 		return it + n;
 	}
 
 	template<class Iter1, class Iter2>
-	typename iterator<Iter1>::difference_type	operator-(const iterator<Iter1>& lhs, \
-												const iterator<Iter2>& rhs) {
+	typename iterator<Iter1>::difference_type	operator-(const iterator<Iter1>& lhs, const iterator<Iter2>& rhs) {
 		return lhs.base() - rhs.base();
 	}
 

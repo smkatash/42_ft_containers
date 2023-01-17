@@ -71,7 +71,13 @@ class RedBlackTree {
 			}
 
 			node	*nilNode(void) {
-				node	*new_node = _alloc_node.allocate(1);
+				node *new_node;
+				try {
+					new_node = _alloc_node.allocate(1);
+				} catch (const std::bad_alloc& e) {
+					std::cerr << "ft::rbtree: " << e.what() << std::endl;
+					std::terminate();
+				}
 				new_node->_left = _nil;
 				new_node->_right = _nil;
 				new_node->_parent = nullptr;
@@ -97,7 +103,7 @@ class RedBlackTree {
 						current = current->_right;
 					else
 						return ft::make_pair(iterator(current), false);
-						// duplicate are not allowed in map
+						// duplicate are not allowed in rbtree
 						// tree is not balanced, did not reach insertFixup
 				}
 				current = newNode(val, parent, 1);
@@ -290,18 +296,14 @@ class RedBlackTree {
  */
 		private:
 
-			void inorder(node* n)
-			{
-				if (n != _nil)
-				{
-					inorder(n->_left);
-					std::cout << n->_value.second << " ";
-					inorder(n->_right);          
-				}
-			}
-
 			node	*newNode(const value_type& val, node *parent, std::size_t cnt) {
-				node *new_node = _alloc_node.allocate(1);
+				node *new_node;
+				try {
+					new_node = _alloc_node.allocate(1);
+				} catch (const std::bad_alloc& e) {
+					std::cerr << "ft::rbtree: " << e.what() << std::endl;
+					std::terminate();
+				}
 				_alloc.construct(&(new_node->_value), val);
 				new_node->_parent = parent;
 				new_node->_left = _nil;
@@ -320,6 +322,16 @@ class RedBlackTree {
 			void destroyNode(node *n) {
 				_alloc.destroy(&(n->_value));
 				freeNode(n);
+			}
+
+			void inorder(node* n)
+			{
+				if (n != _nil)
+				{
+					inorder(n->_left);
+					std::cout << n->_value.second << " ";
+					inorder(n->_right);          
+				}
 			}
 
 			// All the rotation operation are performed

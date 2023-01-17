@@ -307,5 +307,3 @@ Arithmetic Operators: Just like relational operators, arithmetic operators can b
 random access iterators.
 Offset dereference operator: The offset dereference operator ([]) is supported by the random access iterators. 
 You can use the offset operator to dereference a random-access iterator.
-
-

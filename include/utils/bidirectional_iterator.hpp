@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bidirectional_iterator.hpp                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kanykei <kanykei@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 14:21:50 by ktashbae          #+#    #+#             */
-/*   Updated: 2023/01/15 13:16:33 by kanykei          ###   ########.fr       */
+/*   Updated: 2023/01/17 12:19:42 by ktashbae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,8 +139,8 @@ class bidirectionalIterator {
 			bool	operator==(bidirectionalIterator const& it) 		{	return  _current == it._current;	}
 			bool	operator!=(bidirectionalIterator const& it)			{	return  _current != it._current;	}
 			bool	operator>(bidirectionalIterator const& it) 			{	return  _current > it._current;		}
-			bool	operator<=(bidirectionalIterator const& it) 		{	return  _current <= it._current;	}
 			bool	operator<(bidirectionalIterator const& it) 			{	return  _current < it._current;		}
+			bool	operator<=(bidirectionalIterator const& it) 		{	return  _current <= it._current;	}
 			bool	operator>=(bidirectionalIterator const& it) 		{	return  _current >= it._current;	}
 
 		private:

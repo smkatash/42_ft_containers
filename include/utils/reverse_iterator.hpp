@@ -6,7 +6,7 @@
 /*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 14:42:01 by ktashbae          #+#    #+#             */
-/*   Updated: 2023/01/11 11:30:24 by ktashbae         ###   ########.fr       */
+/*   Updated: 2023/01/17 16:23:10 by ktashbae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,18 +23,26 @@ namespace ft {
  * bidirectional iterator.
  * src: https://www.enseignement.polytechnique.fr/informatique/INF478/docs/Cpp/en/cpp/iterator/reverse_iterator.html#:~:text=std%3A%3Areverse_iterator%20is%20an,by%20the%20underlying%20bidirectional%20iterator.
  */
-	template <class Iterator>
+	template <class iterator>
 	class reverse_iterator
 	{
 		public:
 			/** Member types */
-			typedef Iterator												iterator_type;
-			typedef typename iterator_traits<Iterator>::iterator_category	iterator_category;
-			typedef typename iterator_traits<Iterator>::value_type			value_type;
-			typedef typename iterator_traits<Iterator>::difference_type		difference_type;
-			typedef typename iterator_traits<Iterator>::pointer				pointer;
-			typedef typename iterator_traits<Iterator>::reference			reference;
+			typedef iterator												iterator_type;
+			typedef typename iterator_traits<iterator>::iterator_category	iterator_category;
+			typedef typename iterator_traits<iterator>::value_type			value_type;
+			typedef typename iterator_traits<iterator>::difference_type		difference_type;
+			typedef typename iterator_traits<iterator>::pointer				pointer;
+			typedef typename iterator_traits<iterator>::reference			reference;
 
+		/**
+ 		* The fundamental relation between a reverse iterator and its corresponding iterator i is established by the identity: 
+ 		* &*(reverse_iterator(i)) == &*(i - 1);
+ 		*/
+		private:
+			iterator	_it;
+		
+		public:
 			reverse_iterator(void) :					_it()							{};
 			reverse_iterator(iterator_type it) :		_it(it)							{};
 			/** copy / type-cast constructor */
@@ -49,56 +57,56 @@ namespace ft {
 			/** Assignment operators */
 			template<class Iter>
 			reverse_iterator& operator=(const reverse_iterator<Iter>& other)			{
-				this->_it =  other.base();
+				_it =  other.base();
 				return *this;
 			};
 
 			reverse_iterator&	operator+=(difference_type n)							{
-				this->_it -= n;
+				_it -= n;
 				return *this;
 			};
 
 			reverse_iterator&	operator-=(difference_type n)							{
-				this->_it += n;
+				_it += n;
 				return *this;
 			};
 
 			/** Arithmetic operators */
 			reverse_iterator	operator+(difference_type n) const						{
-				return reverse_iterator(this->_it - n);
+				return reverse_iterator(_it - n);
 			};
 
 			reverse_iterator	operator-(difference_type n) const						{
-				return reverse_iterator(this->_it + n);
+				return reverse_iterator(_it + n);
 			};
 
 			/** Increment and Decrement operators */
 			reverse_iterator&		operator++()										{
-				this->_it -= 1;
+				--_it;
 				return *this;
 			};
 
 			reverse_iterator&		operator--()										{
-				this->_it += 1;
+				++_it;
 				return *this;
 			};
 
 			reverse_iterator		operator++(int)										{
-				reverse_iterator	tmp(*this);
-				this->_it -= 1;
+				reverse_iterator	tmp = *this;
+				--_it;
 				return tmp;
 			};
 
 			reverse_iterator		operator--(int)										{
-				reverse_iterator	tmp(*this);
-				this->_it += 1;
+				reverse_iterator	tmp = *this;
+				++_it;
 				return tmp;
 			};
 
 			/** Dereference operators */
 			/** with iterator alsways end - 1 */
 			reference		operator*() const											{
-				iterator_type	tmp = this->_it;
+				iterator_type	tmp = _it;
 				return *(--tmp);
 			};
 
@@ -107,14 +115,8 @@ namespace ft {
 			};
 
 			reference		operator[] (difference_type n) const						{
-				return this->base()[-n-1];
+				return base()[-n-1];
 			};
-/**
- * The fundamental relation between a reverse iterator and its corresponding iterator i is established by the identity: 
- * &*(reverse_iterator(i)) == &*(i - 1);
- */
-		private:
-			Iterator	_it;
 	};
 
 	// Non-member overloads ===================================================//
@@ -123,53 +125,53 @@ namespace ft {
 	bool	operator==(const reverse_iterator<Iter1>& lhs, \
 						const reverse_iterator<Iter2>& rhs)								{
 		return lhs.base() == rhs.base();
-	};
+	}
 
 	template<class Iter1, class Iter2>
 	bool	operator!=(const reverse_iterator<Iter1>& lhs, \
 						const reverse_iterator<Iter2>& rhs)								{
 		return lhs.base() != rhs.base();
-	};
+	}
 
 	template<class Iter1, class Iter2>
 	bool	operator<(const reverse_iterator<Iter1>& lhs, \
 						const reverse_iterator<Iter2>& rhs)								{
 		return lhs.base() > rhs.base();
 
-	};
+	}
 
 	template<class Iter1, class Iter2>
 	bool	operator>(const reverse_iterator<Iter1>& lhs, \
 						const reverse_iterator<Iter2>& rhs)								{
 		return lhs.base() < rhs.base();
 
-	};
+	}
 
 	template<class Iter1, class Iter2>
 	bool	operator<=(const reverse_iterator<Iter1>& lhs, \
 						const reverse_iterator<Iter2>& rhs)								{
 		return lhs.base() >= rhs.base();
 
-	};
+	}
 
 	template<class Iter1, class Iter2>
 	bool	operator>=(const reverse_iterator<Iter1>& lhs, \
 						const reverse_iterator<Iter2>& rhs)								{
 		return lhs.base() <= rhs.base();
 
-	};
+	}
 
 	template <class Iterator>
 	reverse_iterator<Iterator>	operator+(typename reverse_iterator<Iterator>::difference_type n, \
 											const reverse_iterator<Iterator>& rev_it)	{
 		return rev_it + n;
-	};
+	}
 
-	template <class Iterator>
-	typename reverse_iterator<Iterator>::difference_type	operator-(const reverse_iterator<Iterator>& lhs, \
-											const reverse_iterator<Iterator>& rhs)		{
+	template <class Iter1, class Iter2>
+	typename reverse_iterator<Iter1>::difference_type	operator-(const reverse_iterator<Iter1>& lhs, \
+											const reverse_iterator<Iter2>& rhs)		{
 		return rhs.base() - lhs.base();
-	};
+	}
 
 }; // end of namespace ft
 
