@@ -6,7 +6,7 @@
 /*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 14:42:56 by ktashbae          #+#    #+#             */
-/*   Updated: 2023/01/17 13:08:54 by ktashbae         ###   ########.fr       */
+/*   Updated: 2023/01/18 14:21:50 by ktashbae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -272,8 +272,10 @@ namespace ft {
 		void	reserve(size_type n) 	{
 			if (n <= _capacity) 
 				return ;
-			if (n > max_size())
+			if (n > max_size()) {
 				throw std::length_error("resize failed");
+				std::terminate();
+			}
 			T	*new_vector;
 			try {
 				new_vector = _alloc.allocate(n);

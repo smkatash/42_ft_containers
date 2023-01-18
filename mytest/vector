@@ -1,0 +1,905 @@
+########## TEST: Constructors ############
+default constructor
+size: 0
+capacity: OK
+max_size: 4611686018427387903
+
+Content is:
+ empty
+<-------------------------------------->
+size: 0
+capacity: OK
+max_size: 768614336404564650
+
+Content is:
+ empty
+<-------------------------------------->
+size: 0
+capacity: OK
+max_size: 9223372036854775807
+
+Content is:
+ empty
+<-------------------------------------->
+size: 0
+capacity: OK
+max_size: 2305843009213693951
+
+Content is:
+ empty
+<-------------------------------------->
+size: 0
+capacity: OK
+max_size: 4611686018427387903
+
+Content is:
+ empty
+<-------------------------------------->
+size: 0
+capacity: OK
+max_size: 2305843009213693951
+this is a class
+<-------------------------------------->
+size: 0
+capacity: OK
+max_size: 576460752303423487
+this is a class
+<-------------------------------------->
+fill constructor
+size: 5
+capacity: OK
+max_size: 4611686018427387903
+
+Content is:
+ - 42
+ - 42
+ - 42
+ - 42
+ - 42
+<-------------------------------------->
+size: 0
+capacity: OK
+max_size: 4611686018427387903
+
+Content is:
+ empty
+<-------------------------------------->
+size: 5
+capacity: OK
+max_size: 768614336404564650
+
+Content is:
+ - Hello
+ - Hello
+ - Hello
+ - Hello
+ - Hello
+<-------------------------------------->
+size: 12
+capacity: OK
+max_size: 768614336404564650
+
+Content is:
+ - world
+ - world
+ - world
+ - world
+ - world
+ - world
+ - world
+ - world
+ - world
+ - world
+ - world
+ - world
+<-------------------------------------->
+size: 5
+capacity: OK
+max_size: 9223372036854775807
+
+Content is:
+ - 0
+ - 0
+ - 0
+ - 0
+ - 0
+<-------------------------------------->
+size: 5
+capacity: OK
+max_size: 2305843009213693951
+
+Content is:
+ - 42.4242
+ - 42.4242
+ - 42.4242
+ - 42.4242
+ - 42.4242
+<-------------------------------------->
+size: 42
+capacity: OK
+max_size: 4611686018427387903
+
+Content is:
+ - 1.2
+ - 1.2
+ - 1.2
+ - 1.2
+ - 1.2
+ - 1.2
+ - 1.2
+ - 1.2
+ - 1.2
+ - 1.2
+ - 1.2
+ - 1.2
+ - 1.2
+ - 1.2
+ - 1.2
+ - 1.2
+ - 1.2
+ - 1.2
+ - 1.2
+ - 1.2
+ - 1.2
+ - 1.2
+ - 1.2
+ - 1.2
+ - 1.2
+ - 1.2
+ - 1.2
+ - 1.2
+ - 1.2
+ - 1.2
+ - 1.2
+ - 1.2
+ - 1.2
+ - 1.2
+ - 1.2
+ - 1.2
+ - 1.2
+ - 1.2
+ - 1.2
+ - 1.2
+ - 1.2
+ - 1.2
+<-------------------------------------->
+size: 5
+capacity: OK
+max_size: 2305843009213693951
+this is a class
+<-------------------------------------->
+size: 5
+capacity: OK
+max_size: 576460752303423487
+this is a class
+<-------------------------------------->
+range constructor
+size: 5
+capacity: OK
+max_size: 4611686018427387903
+
+Content is:
+ - 42
+ - 42
+ - 42
+ - 42
+ - 42
+<-------------------------------------->
+size: 0
+capacity: OK
+max_size: 4611686018427387903
+
+Content is:
+ empty
+<-------------------------------------->
+size: 3
+capacity: OK
+max_size: 768614336404564650
+
+Content is:
+ - Hello
+ - Hello
+ - Hello
+<-------------------------------------->
+size: 12
+capacity: OK
+max_size: 768614336404564650
+
+Content is:
+ - world
+ - world
+ - world
+ - world
+ - world
+ - world
+ - world
+ - world
+ - world
+ - world
+ - world
+ - world
+<-------------------------------------->
+size: 3
+capacity: OK
+max_size: 9223372036854775807
+
+Content is:
+ - 0
+ - 0
+ - 0
+<-------------------------------------->
+size: 5
+capacity: OK
+max_size: 2305843009213693951
+
+Content is:
+ - 42.4242
+ - 42.4242
+ - 42.4242
+ - 42.4242
+ - 42.4242
+<-------------------------------------->
+size: 30
+capacity: OK
+max_size: 4611686018427387903
+
+Content is:
+ - 1.2
+ - 1.2
+ - 1.2
+ - 1.2
+ - 1.2
+ - 1.2
+ - 1.2
+ - 1.2
+ - 1.2
+ - 1.2
+ - 1.2
+ - 1.2
+ - 1.2
+ - 1.2
+ - 1.2
+ - 1.2
+ - 1.2
+ - 1.2
+ - 1.2
+ - 1.2
+ - 1.2
+ - 1.2
+ - 1.2
+ - 1.2
+ - 1.2
+ - 1.2
+ - 1.2
+ - 1.2
+ - 1.2
+ - 1.2
+<-------------------------------------->
+size: 1
+capacity: OK
+max_size: 2305843009213693951
+this is a class
+<-------------------------------------->
+size: 3
+capacity: OK
+max_size: 576460752303423487
+this is a class
+<-------------------------------------->
+copy constructor
+size: 5
+capacity: OK
+max_size: 4611686018427387903
+
+Content is:
+ - 42
+ - 42
+ - 42
+ - 42
+ - 42
+<-------------------------------------->
+size: 0
+capacity: OK
+max_size: 4611686018427387903
+
+Content is:
+ empty
+<-------------------------------------->
+size: 3
+capacity: OK
+max_size: 768614336404564650
+
+Content is:
+ - Hello
+ - Hello
+ - Hello
+<-------------------------------------->
+size: 12
+capacity: OK
+max_size: 768614336404564650
+
+Content is:
+ - world
+ - world
+ - world
+ - world
+ - world
+ - world
+ - world
+ - world
+ - world
+ - world
+ - world
+ - world
+<-------------------------------------->
+size: 3
+capacity: OK
+max_size: 9223372036854775807
+
+Content is:
+ - 0
+ - 0
+ - 0
+<-------------------------------------->
+size: 5
+capacity: OK
+max_size: 2305843009213693951
+
+Content is:
+ - 42.4242
+ - 42.4242
+ - 42.4242
+ - 42.4242
+ - 42.4242
+<-------------------------------------->
+size: 30
+capacity: OK
+max_size: 4611686018427387903
+
+Content is:
+ - 1.2
+ - 1.2
+ - 1.2
+ - 1.2
+ - 1.2
+ - 1.2
+ - 1.2
+ - 1.2
+ - 1.2
+ - 1.2
+ - 1.2
+ - 1.2
+ - 1.2
+ - 1.2
+ - 1.2
+ - 1.2
+ - 1.2
+ - 1.2
+ - 1.2
+ - 1.2
+ - 1.2
+ - 1.2
+ - 1.2
+ - 1.2
+ - 1.2
+ - 1.2
+ - 1.2
+ - 1.2
+ - 1.2
+ - 1.2
+<-------------------------------------->
+size: 5
+capacity: OK
+max_size: 2305843009213693951
+this is a class
+<-------------------------------------->
+size: 5
+capacity: OK
+max_size: 576460752303423487
+this is a class
+<-------------------------------------->
+Assignment operator
+size: 4
+capacity: OK
+max_size: 4611686018427387903
+
+Content is:
+ - 16
+ - 2
+ - 77
+ - 29
+<-------------------------------------->
+size: 4
+capacity: OK
+max_size: 4611686018427387903
+
+Content is:
+ - 16
+ - 2
+ - 77
+ - 29
+<-------------------------------------->
+size: 4
+capacity: OK
+max_size: 768614336404564650
+
+Content is:
+ - snow
+ - rain
+ - sun
+ - fog
+<-------------------------------------->
+size: 4
+capacity: OK
+max_size: 768614336404564650
+
+Content is:
+ - snow
+ - rain
+ - sun
+ - fog
+<-------------------------------------->
+########## TEST: Iterators ############
+vector contains: 
+ 2 4 6 8 10
+reverse vector contains: 
+ 10 8 6 4 2
+<-------------------------------------->
+vector contains: 
+ 1. Ich bin Kanykei. 2. Ich bin Kanykei. 3. Ich bin Kanykei. 4. Ich bin Kanykei. 5. Ich bin Kanykei.
+vector front is 1. Ich bin Kanykei.
+vector back is 5. Ich bin Kanykei.
+vector iter begins at 1. Ich bin Kanykei.
+vector iter ends at 5. Ich bin Kanykei.
+vector iter reverse begins at 5. Ich bin Kanykei.
+vector iter reverse ends at 1. Ich bin Kanykei.
+<-------------------------------------->
+const_iterator and const_reverse_iterator: 
+4.24242 8.48484 12.7273 16.9697 21.2121 25.4545 29.6969 33.9394 38.1818 42.4242 
+42.4242 38.1818 33.9394 29.6969 25.4545 21.2121 16.9697 12.7273 8.48484 4.24242 ########## TEST: Modifiers ############
+Assign
+size: 20
+capacity: OK
+max_size: 4611686018427387903
+
+Content is:
+ - 94
+ - 94
+ - 94
+ - 94
+ - 94
+ - 94
+ - 94
+ - 94
+ - 94
+ - 94
+ - 94
+ - 94
+ - 94
+ - 94
+ - 94
+ - 94
+ - 94
+ - 94
+ - 94
+ - 94
+<-------------------------------------->
+size: 21
+capacity: OK
+max_size: 768614336404564650
+
+Content is:
+ - container
+ - container
+ - container
+ - container
+ - container
+ - container
+ - container
+ - container
+ - container
+ - container
+ - container
+ - container
+ - container
+ - container
+ - container
+ - container
+ - container
+ - container
+ - container
+ - container
+ - container
+<-------------------------------------->
+size: 22
+capacity: OK
+max_size: 4611686018427387903
+
+Content is:
+ - 0.3
+ - 0.3
+ - 0.3
+ - 0.3
+ - 0.3
+ - 0.3
+ - 0.3
+ - 0.3
+ - 0.3
+ - 0.3
+ - 0.3
+ - 0.3
+ - 0.3
+ - 0.3
+ - 0.3
+ - 0.3
+ - 0.3
+ - 0.3
+ - 0.3
+ - 0.3
+ - 0.3
+ - 0.3
+<-------------------------------------->
+size: 0
+capacity: OK
+max_size: 2305843009213693951
+
+Content is:
+ empty
+<-------------------------------------->
+Assign range
+size: 14
+capacity: OK
+max_size: 4611686018427387903
+
+Content is:
+ - 94
+ - 94
+ - 94
+ - 94
+ - 94
+ - 94
+ - 94
+ - 94
+ - 94
+ - 94
+ - 94
+ - 94
+ - 94
+ - 94
+<-------------------------------------->
+size: 18
+capacity: OK
+max_size: 768614336404564650
+
+Content is:
+ - container
+ - container
+ - container
+ - container
+ - container
+ - container
+ - container
+ - container
+ - container
+ - 
+ - container
+ - container
+ - container
+ - container
+ - container
+ - container
+ - container
+ - container
+<-------------------------------------->
+size: 17
+capacity: OK
+max_size: 4611686018427387903
+
+Content is:
+ - 0.3
+ - 0.3
+ - 0.3
+ - 0.3
+ - 0.3
+ - 0.3
+ - 0.3
+ - 0.3
+ - 0.3
+ - 0.3
+ - 0.3
+ - 0.3
+ - 0.3
+ - 0.3
+ - 0.3
+ - 0.3
+ - 0.3
+<-------------------------------------->
+<-------------------------------------->
+Pop & push
+size: 13
+capacity: OK
+max_size: 4611686018427387903
+
+Content is:
+ - 94
+ - 94
+ - 94
+ - 94
+ - 94
+ - 94
+ - 94
+ - 94
+ - 94
+ - 94
+ - 94
+ - 94
+ - 94
+<-------------------------------------->
+size: 17
+capacity: OK
+max_size: 768614336404564650
+
+Content is:
+ - container
+ - container
+ - container
+ - container
+ - container
+ - container
+ - container
+ - container
+ - container
+ - 
+ - container
+ - container
+ - container
+ - container
+ - container
+ - container
+ - container
+<-------------------------------------->
+size: 16
+capacity: OK
+max_size: 4611686018427387903
+
+Content is:
+ - 0.3
+ - 0.3
+ - 0.3
+ - 0.3
+ - 0.3
+ - 0.3
+ - 0.3
+ - 0.3
+ - 0.3
+ - 0.3
+ - 0.3
+ - 0.3
+ - 0.3
+ - 0.3
+ - 0.3
+ - 0.3
+<-------------------------------------->
+<-------------------------------------->
+Erase, empty & clear
+size: 12
+capacity: OK
+max_size: 4611686018427387903
+
+Content is:
+ - 94
+ - 94
+ - 94
+ - 94
+ - 94
+ - 94
+ - 94
+ - 94
+ - 94
+ - 94
+ - 94
+ - 5
+<-------------------------------------->
+size: 15
+capacity: OK
+max_size: 768614336404564650
+
+Content is:
+ - container
+ - container
+ - container
+ - container
+ - container
+ - container
+ - 
+ - container
+ - container
+ - container
+ - container
+ - container
+ - container
+ - container
+ - hello
+<-------------------------------------->
+size: 13
+capacity: OK
+max_size: 4611686018427387903
+
+Content is:
+ - 0.3
+ - 0.3
+ - 0.3
+ - 0.3
+ - 0.3
+ - 0.3
+ - 0.3
+ - 0.3
+ - 0.3
+ - 0.3
+ - 0.3
+ - 0.3
+ - 2.33
+<-------------------------------------->
+<-------------------------------------->
+vector<int> empty: false
+vector<std::string> empty: false
+vector<float> empty: false
+size: 0
+capacity: OK
+max_size: 4611686018427387903
+
+Content is:
+ empty
+<-------------------------------------->
+size: 0
+capacity: OK
+max_size: 768614336404564650
+
+Content is:
+ empty
+<-------------------------------------->
+size: 0
+capacity: OK
+max_size: 4611686018427387903
+
+Content is:
+ empty
+<-------------------------------------->
+vector<int> empty: true
+vector<std::string> empty: true
+vector<float> empty: true
+myvector contains: 25 26 27 28 29 30 31 32 33 34
+<-------------------------------------->
+vstr contains: hey hey hey hey hey hey hey hey hey hey hey hey hey hey hey hey hey hey hey hey
+size: 11
+capacity: OK
+max_size: 768614336404564650
+
+Content is:
+ - 42
+ - 42
+ - 42
+ - 42
+ - 42
+ - 42
+ - 42
+ - 42
+ - 42
+ - 42
+ - 42
+<-------------------------------------->
+size: 11
+capacity: OK
+max_size: 768614336404564650
+
+Content is:
+ - 42
+ - 42
+ - 42
+ - 42
+ - 42
+ - 42
+ - 42
+ - 42
+ - 42
+ - 42
+ - 42
+<-------------------------------------->
+<-------------------------------------->
+size: 15
+capacity: OK
+max_size: 768614336404564650
+
+Content is:
+ - 42
+ - 42
+ - 42
+ - 42
+ - 42
+ - 24
+ - 24
+ - 24
+ - 
+ - 
+ - 
+ - 
+ - 
+ - 
+ - 
+<-------------------------------------->
+The allocated array contains: 0 1 2 3 4
+vector empty: trueThis is 42
+size: 11
+capacity: OK
+max_size: 768614336404564650
+
+Content is:
+ - 42
+ - 42
+ - 42
+ - 42
+ - 42
+ - 42
+ - 42
+ - 42
+ - 42
+ - 42
+ - 42
+<-------------------------------------->
+This is 24
+size: 11
+capacity: OK
+max_size: 768614336404564650
+
+Content is:
+ - 24
+ - 24
+ - 24
+ - 24
+ - 24
+ - 24
+ - 24
+ - 24
+ - 24
+ - 24
+ - 24
+<-------------------------------------->
+...swap
+This is 42
+size: 11
+capacity: OK
+max_size: 768614336404564650
+
+Content is:
+ - 24
+ - 24
+ - 24
+ - 24
+ - 24
+ - 24
+ - 24
+ - 24
+ - 24
+ - 24
+ - 24
+<-------------------------------------->
+This is 24
+size: 11
+capacity: OK
+max_size: 768614336404564650
+
+Content is:
+ - 42
+ - 42
+ - 42
+ - 42
+ - 42
+ - 42
+ - 42
+ - 42
+ - 42
+ - 42
+ - 42
+<-------------------------------------->
+foo and bar are not equal
+foo is less than bar
+foo is less than or equal to bar
