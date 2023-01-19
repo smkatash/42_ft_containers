@@ -2,12 +2,11 @@
 
 void	map() {
 	mconstructors();
-	// miterators();
-	// mmodifiers();
-	// maccess();
-	// mmemory();
-	// mothers();
-	// mrelational_operators();
+	miterators();
+	maccess();
+	mmemory();
+	mothers();
+	mrelational_operators();
 }
 
 void	vector() {

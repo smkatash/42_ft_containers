@@ -4,15 +4,16 @@
 # include "../../include/vector.hpp"
 # include "../../include/map.hpp"
 # include <vector>
+# include <map>
 # include <iostream>
 # include <string>
 
-
-# if !defined(USING_STD)
 #  define NAMESPACE ft
-# else
-#  define NAMESPACE std
-# endif /* !defined(STD) */
+// # if !defined(USING_STD)
+// #  define NAMESPACE ft
+// # else
+// #  define NAMESPACE std
+// # endif /* !defined(STD) */
 
 #define T_SIZE_TYPE typename NAMESPACE::vector<T>::size_type
 
@@ -25,12 +26,11 @@ void	vothers();
 void	vrelational_operators();
 
 void	mconstructors();
-// void	miterators();
-// void	mmodifiers();
-// void	maccess();
-// void	mmemory();
-// void	mothers();
-// void	mrelational_operators();
+void	miterators();
+void	maccess();
+void	mothers();
+void	mmemory();
+void	mrelational_operators();
 
 
 template <typename T>

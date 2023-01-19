@@ -275,6 +275,16 @@ class RedBlackTree {
 				}
 				_root = _nil;
 			}
+
+			void inorder(node* n)
+			{
+				if (n != _nil)
+				{
+					inorder(n->_left);
+					std::cout << n->_value.second << " ";
+					inorder(n->_right);          
+				}
+			}
 /**
  * @brief General rules of RBTree
  * 1. Every node is Black / Red
@@ -322,16 +332,6 @@ class RedBlackTree {
 			void destroyNode(node *n) {
 				_alloc.destroy(&(n->_value));
 				freeNode(n);
-			}
-
-			void inorder(node* n)
-			{
-				if (n != _nil)
-				{
-					inorder(n->_left);
-					std::cout << n->_value.second << " ";
-					inorder(n->_right);          
-				}
 			}
 
 			// All the rotation operation are performed

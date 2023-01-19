@@ -6,7 +6,7 @@
 /*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 12:50:14 by kanykei           #+#    #+#             */
-/*   Updated: 2023/01/17 09:53:14 by ktashbae         ###   ########.fr       */
+/*   Updated: 2023/01/19 17:15:52 by ktashbae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,7 @@ namespace ft {
 			const_reverse_iterator	rend() const			{	return _tree.rend();							}
 		
 			void	clear()									{	_tree.clear(_tree.get_root());					}
+			void	debug()									{	this->inorder();										}
 	/**
 	 * Searches the container for elements with a key equivalent to k and returns the 
 	 * number of matches. Because all elements in a map container are unique, 
@@ -139,7 +140,7 @@ namespace ft {
 			iterator upper_bound(key_type const& k) const	{	return _tree.upper_bound(get_type(k));			}
 
 			void erase(iterator position)					{	_tree.erase(position.base());					}
-			size_type erase(const key_type& k)				{	return _tree.erase(get_type(k));						}
+			size_type erase(const key_type& k)				{	return _tree.erase(get_type(k));				}
 			void erase(iterator first, iterator last)		{	_tree.erase(first, last);						}
 
 			iterator find(const key_type& k)				{	return _tree.find(get_type(k));					}
@@ -165,7 +166,6 @@ namespace ft {
 			void swap(map& m)								{	_tree.swap(m._tree);							}
 	};
 	// Non-Member Functions ======================================================================//
-			// BUG not sure if all kys are necessay
 			template <class T, class Alloc>
 			bool operator==(const map<T,Alloc>& lhs, const map<T,Alloc>& rhs)	{
 				if (lhs.size() != rhs.size())

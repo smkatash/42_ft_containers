@@ -1,5 +1,4 @@
 # include "base.hpp"
-// # define USING_STD std
 
 template <typename T>
 static void	print_content(NAMESPACE::vector<T> const &vct, bool print_content = true) {
@@ -82,7 +81,6 @@ void	vmemory() {
 	NAMESPACE::vector<std::string>	v;
 
 	vres.reserve(10);
-	NAMESPACE::vector<std::string>::iterator it = vres.begin();
 	for (int i = 0; i <= 10; i++) {
 		vres.push_back("42");
 	}

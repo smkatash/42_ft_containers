@@ -3,22 +3,48 @@
 #include <utility>
 using namespace std;
 
-typedef std::pair<std::string, std::string> mypair;
+template <typename T>
+std::string	printPair(const T &iterator, bool nl = true, std::ostream &o = std::cout)
+{
+	o << "key: " << iterator->first << " | value: " << iterator->second;
+	if (nl)
+		o << std::endl;
+	return ("");
+}
+
+template <typename T1, typename T2>
+static void	print_content(map<T1, T2> const &mp, bool print_content = true)
+{
+	std::cout << "size: " << mp.size() << std::endl;
+	std::cout << "max_size: " << mp.max_size() << std::endl;
+	if (print_content)
+	{
+		typename map<T1, T2>::const_iterator itB = mp.begin(), itE = mp.end();
+		std::cout << std::endl << "Content is:" << std::endl;
+		if (mp.empty()) {
+			std::cout << " empty" << std::endl;
+		} else {
+			for (; itB != itE; ++itB)
+				std::cout << "- " << printPair(itB, false) << std::endl;
+		}
+	} else {
+			std::cout << "this is a class" << std::endl;
+	std::cout << "<-------------------------------------->" << std::endl;
+	}
+}
+
 
 int main() {
-	std::map<char,int> first;
-	first['a'] = 10;
-	first['b'] = 30;
-	first['c'] = 50;
-	first['d'] = 70;
-
-	std::map<char,int> second(first.begin(),first.end());
-	std::map<char,int> third(second);
-
-	std::string names[10] = {"Kany", "Makany", "George", "Bush", "Trump", "Obama", "Putin", "Merkel", "42", "Paris"};
-	std::map<int, mypair> fourth;
-	for (int i = 0; i < 5; i++) {
-		fourth.insert(std::make_pair(i + 1, std::make_pair(names[i], names[i + 1])));
+	std::cout << "<-------------------------------------->" << std::endl;
+	map<char, int> second;
+	for (int i = 1, c = 97; c <= 122; i++, c++) {
+		second[c] = i;
 	}
+	print_content(second);
+	map<char, int>::iterator todel = second.find('k');
+	second.erase(todel, second.end());
+	print_content(second);
+	second.erase('a');
+	print_content(second);
 
 }
