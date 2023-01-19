@@ -5,7 +5,7 @@ CC		=	c++
 CFLAGS	=	-std=c++98 -Wall -Wextra -Werror -fsanitize=address
 
 NAME	=	tester
-SRC		=	main.cpp vector.cpp
+SRC		=	main.cpp vector.cpp map.cpp
 OBJ		=	$(addprefix obj/,$(notdir $(SRC:.cpp=.o)))
 INC		=	-I include
 

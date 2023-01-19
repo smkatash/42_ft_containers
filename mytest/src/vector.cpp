@@ -2,7 +2,7 @@
 // # define USING_STD std
 
 template <typename T>
-void	print_content(NAMESPACE::vector<T> const &vct, bool print_content = true) {
+static void	print_content(NAMESPACE::vector<T> const &vct, bool print_content = true) {
 	const T_SIZE_TYPE size = vct.size();
 	const T_SIZE_TYPE capacity = vct.capacity();
 	const std::string isCapacityOk = (capacity >= size) ? "OK" : "KO";
@@ -26,7 +26,7 @@ void	print_content(NAMESPACE::vector<T> const &vct, bool print_content = true) {
 	std::cout << "<-------------------------------------->" << std::endl;
 }
 
-void	relational_operators() {
+void	vrelational_operators() {
 	NAMESPACE::vector<int> foo (3,100);   // three ints with a value of 100
 	NAMESPACE::vector<int> bar (2,200);   // two ints with a value of 200
 
@@ -38,7 +38,7 @@ void	relational_operators() {
 	if (foo>=bar) std::cout << "foo is greater than or equal to bar\n";
 }
 
-void	others() {
+void	vothers() {
 	NAMESPACE::vector<int> myvector;
 	int * p;
 	unsigned int i;
@@ -77,7 +77,7 @@ void	others() {
 	print_content(v24);
 }
 
-void	memory() {
+void	vmemory() {
 	NAMESPACE::vector<std::string>	vres;
 	NAMESPACE::vector<std::string>	v;
 
@@ -101,7 +101,7 @@ void	memory() {
 
 
 
-void	access(){
+void	vaccess(){
 	NAMESPACE::vector<int> myvector(10);
 
 	for (unsigned i=0; i < myvector.size(); i++)
@@ -121,7 +121,7 @@ void	access(){
 	std::cout << std::endl;
 }
 
-void	modifiers() {
+void	vmodifiers() {
 	std::cout << "########## TEST: Modifiers ############" << std::endl;
 	std::cout << "Assign" << std::endl;
 	NAMESPACE::vector<int>				vect;
@@ -179,7 +179,7 @@ void	modifiers() {
 
 }
 
-void	iterators() {
+void	viterators() {
 	std::cout << "########## TEST: Iterators ############" << std::endl;
 	NAMESPACE::vector<int> vect;
 	for (int i=1; i <= 5; i++)
@@ -228,8 +228,7 @@ void	iterators() {
 	}
 }
 
-
-void	constructors() {
+void	vconstructors() {
 	std::cout << "########## TEST: Constructors ############" << std::endl;
 	std::cout << "default constructor" << std::endl;
 	NAMESPACE::vector<int>						v_int;

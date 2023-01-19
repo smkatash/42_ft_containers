@@ -2,6 +2,7 @@
 #define BASE_HPP
 
 # include "../../include/vector.hpp"
+# include "../../include/map.hpp"
 # include <vector>
 # include <iostream>
 # include <string>
@@ -15,13 +16,21 @@
 
 #define T_SIZE_TYPE typename NAMESPACE::vector<T>::size_type
 
-void	constructors();
-void	iterators();
-void	modifiers();
-void	access();
-void	memory();
-void	others();
-void	relational_operators();
+void	vconstructors();
+void	viterators();
+void	vmodifiers();
+void	vaccess();
+void	vmemory();
+void	vothers();
+void	vrelational_operators();
+
+void	mconstructors();
+// void	miterators();
+// void	mmodifiers();
+// void	maccess();
+// void	mmemory();
+// void	mothers();
+// void	mrelational_operators();
 
 
 template <typename T>

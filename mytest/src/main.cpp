@@ -1,20 +1,29 @@
 # include "base.hpp"
 
+void	map() {
+	mconstructors();
+	// miterators();
+	// mmodifiers();
+	// maccess();
+	// mmemory();
+	// mothers();
+	// mrelational_operators();
+}
+
 void	vector() {
-	constructors();
-	iterators();
-	modifiers();
-	access();
-	memory();
-	others();
-	relational_operators();
+	vconstructors();
+	viterators();
+	vmodifiers();
+	vaccess();
+	vmemory();
+	vothers();
+	vrelational_operators();
 }
 
 int main() {
 	
-	vector();
-	//myvector();
-	// map();
+	//vector();
+	map();
 	// stack();
 	return 0;
 }
