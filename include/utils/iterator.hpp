@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   iterator.hpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: kanykei <kanykei@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 14:41:48 by ktashbae          #+#    #+#             */
-/*   Updated: 2023/01/17 16:16:55 by ktashbae         ###   ########.fr       */
+/*   Updated: 2023/01/20 20:52:53 by kanykei          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -186,7 +186,9 @@ namespace ft {
 				return const_iterator(_it);
 			}
 
-			// FIXME is it non-member for sure ?????
+/**
+ * A friend function is a function that isn't a member of a class but has access to the class's private and protected member
+ */
 			friend bool		operator ==(const iterator& lhs, const iterator& rhs)		{	return  lhs.base() == rhs.base();	}
 			friend bool		operator !=(const iterator& lhs, const iterator& rhs)		{	return  lhs.base() != rhs.base();	}
 			friend bool		operator >(const iterator& lhs, const iterator& rhs)		{	return  lhs.base() > rhs.base();	}

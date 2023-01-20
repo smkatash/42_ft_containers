@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   enable_if.hpp                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: kanykei <kanykei@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 14:41:54 by ktashbae          #+#    #+#             */
-/*   Updated: 2023/01/11 11:31:02 by ktashbae         ###   ########.fr       */
+/*   Updated: 2023/01/20 18:50:16 by kanykei          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,13 +46,13 @@ namespace ft {
 * False type when enabling undefined typename for std
 */
 	template <class T>
-	struct is_integral : public false_type							{};
+	struct is_integral : public false_type								{};
 
 /**
 * Specialization for typenames
 */
 	template <class T> 
-	struct is_integral<const T> : public is_integral<T>				{};
+	struct is_integral<const T> : public is_integral<T>					{};
 	
 	template <class T> 
 	struct is_integral<volatile const T>	:	public is_integral<T>	{};

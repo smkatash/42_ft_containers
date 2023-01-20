@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bidirectional_iterator.hpp                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: kanykei <kanykei@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 14:21:50 by ktashbae          #+#    #+#             */
-/*   Updated: 2023/01/17 12:19:42 by ktashbae         ###   ########.fr       */
+/*   Updated: 2023/01/20 20:54:07 by kanykei          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,12 +75,12 @@ class bidirectionalIterator {
 			}
 
 
-			node	*base() const										{	return _current;					}
+			node	*base() const										{	return _current;						}
 			operator			const_iterator() const					{	return const_iterator(reinterpret_cast<const_node *>(_current));	}
 			reference			operator*()								{	return _current->_value;				}
 			const_reference		operator*() const						{	return _current->_value;				}
-			pointer				operator->()							{	return &_current->_value;			}
-			const_pointer		operator->() const						{	return &_current->_value;			}
+			pointer				operator->()							{	return &_current->_value;				}
+			const_pointer		operator->() const						{	return &_current->_value;				}
 			
 			bidirectionalIterator& operator++(void)	{
 				if (_current->_cnt) {

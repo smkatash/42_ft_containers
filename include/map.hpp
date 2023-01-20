@@ -6,7 +6,7 @@
 /*   By: kanykei <kanykei@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 12:50:14 by kanykei           #+#    #+#             */
-/*   Updated: 2023/01/20 13:13:44 by kanykei          ###   ########.fr       */
+/*   Updated: 2023/01/20 18:47:08 by kanykei          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ namespace ft {
 			key_compare														_comp;
 			allocator_type													_alloc;
 			value_type	get_type(const key_type& k) const	{	return ft::make_pair(k, mapped_type());		}
-			// void inorder() 									{	_tree.inorder(_tree.get_root());		}
+			//void inorder() 									{	_tree.inorder(_tree.get_root());		}
 
 		public:
 			typedef typename rbtree::iterator								iterator;
@@ -113,7 +113,7 @@ namespace ft {
 			const_reverse_iterator	rend() const			{	return _tree.rend();							}
 		
 			void	clear()									{	_tree.clear(_tree.get_root());					}
-			// void	debug()									{	this->inorder();								}
+			//void	debug()									{	this->inorder();								}
 	/**
 	 * Searches the container for elements with a key equivalent to k and returns the 
 	 * number of matches. Because all elements in a map container are unique, 
@@ -153,12 +153,12 @@ namespace ft {
 			ft::pair<iterator,bool> insert(const value_type& val)		{	
 				return _tree.insert(val);					}
 	
-			iterator insert(iterator position, const value_type& val)	{	return _tree.insert(position, val);		}
+			iterator insert(iterator position, const value_type& val)	{	return _tree.insert(position, val);	}
 			
 			template <class InputIterator>
 			void insert(InputIterator first, InputIterator last)		{	_tree.insert(first, last);			}
 
-			allocator_type	get_allocator() const			{	return _tree.get_allocator();							}
+			allocator_type	get_allocator() const			{	return _tree.get_allocator();					}
 
 			key_compare key_comp() const					{	return _comp;									}
 			value_compare value_comp() const				{	return value_compare(_comp);					}
