@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map.hpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: kanykei <kanykei@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 12:50:14 by kanykei           #+#    #+#             */
-/*   Updated: 2023/01/19 17:15:52 by ktashbae         ###   ########.fr       */
+/*   Updated: 2023/01/20 13:13:44 by kanykei          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ namespace ft {
 			typedef typename allocator_type::const_reference				const_reference;
 			typedef typename allocator_type::pointer						pointer;
 			typedef typename allocator_type::const_pointer					const_pointer;
+			typedef typename allocator_type::size_type						size_type;
 			// *** Member Class ***
 			class	value_compare {
 				friend class map;
@@ -51,8 +52,8 @@ namespace ft {
 			rbtree															_tree;
 			key_compare														_comp;
 			allocator_type													_alloc;
-			void inorder() 									{	_tree.inorder(_tree.get_root());			}
 			value_type	get_type(const key_type& k) const	{	return ft::make_pair(k, mapped_type());		}
+			// void inorder() 									{	_tree.inorder(_tree.get_root());		}
 
 		public:
 			typedef typename rbtree::iterator								iterator;
@@ -60,7 +61,6 @@ namespace ft {
 			typedef ft::reverse_iterator<iterator>							reverse_iterator;
 			typedef ft::reverse_iterator<const_iterator>					const_reverse_iterator;
 			typedef typename iterator_traits<iterator>::difference_type		difference_type;
-			typedef	std::size_t												size_type;
 			typedef	Node<value_type>										node_type;
 
 		// Member Functions ============================================================//
@@ -113,7 +113,7 @@ namespace ft {
 			const_reverse_iterator	rend() const			{	return _tree.rend();							}
 		
 			void	clear()									{	_tree.clear(_tree.get_root());					}
-			void	debug()									{	this->inorder();										}
+			// void	debug()									{	this->inorder();								}
 	/**
 	 * Searches the container for elements with a key equivalent to k and returns the 
 	 * number of matches. Because all elements in a map container are unique, 

@@ -1,57 +1,5 @@
 # include "base.hpp"
 
-// template <typename T>
-// class foo {
-// 	public:
-// 		typedef T	value_type;
-
-// 		foo(void) : value(), _verbose(false) { };
-// 		foo(value_type src, const bool verbose = false) : value(src), _verbose(verbose) { };
-// 		foo(foo const &src, const bool verbose = false) : value(src.value), _verbose(verbose) { };
-// 		~foo(void) { if (this->_verbose) std::cout << "~foo::foo()" << std::endl; };
-// 		void m(void) { std::cout << "foo::m called [" << this->value << "]" << std::endl; };
-// 		void m(void) const { std::cout << "foo::m const called [" << this->value << "]" << std::endl; };
-// 		foo &operator=(value_type src) { this->value = src; return *this; };
-// 		foo &operator=(foo const &src) {
-// 			if (this->_verbose || src._verbose)
-// 				std::cout << "foo::operator=(foo) CALLED" << std::endl;
-// 			this->value = src.value;
-// 			return *this;
-// 		};
-// 		value_type	getValue(void) const { return this->value; };
-// 		void		switchVerbose(void) { this->_verbose = !(this->_verbose); };
-
-// 		operator value_type(void) const {
-// 			return value_type(this->value);
-// 		}
-// 	private:
-// 		value_type	value;
-// 		bool		_verbose;
-// };
-
-// template <typename T>
-// std::ostream	&operator<<(std::ostream &o, foo<T> const &bar) {
-// 	o << bar.getValue();
-// 	return o;
-// }
-// // --- End of class foo
-
-// template <typename T>
-// T	inc(T it, int n)
-// {
-// 	while (n-- > 0)
-// 		++it;
-// 	return (it);
-// }
-
-// template <typename T>
-// T	dec(T it, int n)
-// {
-// 	while (n-- > 0)
-// 		--it;
-// 	return (it);
-// }
-
 template <typename T>
 std::string	printPair(const T &iterator, bool nl = true, std::ostream &o = std::cout)
 {
@@ -141,6 +89,15 @@ void mconstructors()
 
 	NAMESPACE::map<int, mypair> fifth = fourth;
 	print_content_pair(fifth);
+
+
+	NAMESPACE::map<int, TestClass<std::string> > cl;
+	print_content(cl);
+	cl[1] = "42Heilbronn";
+	cl[2] = "42Wolfsburg";
+	cl[3] = "42Berlin";
+	cl[4] = "42Deutschland";
+	print_content(cl);
 }
 
 void	miterators() {
@@ -217,6 +174,7 @@ void	miterators() {
 	std::cout << "upper bound points to: ";
 	// garbage memory
 	//std::cout << ret.second->first << " => " << ret.second->second << '\n';
+	std::cout << std::endl;
 }
 
 
@@ -347,21 +305,15 @@ void	mmemory() {
 		second[c] = i;
 	}
 	print_content(second);
-	NAMESPACE::map<char, int>::iterator todel = second.find('b');
-	// second.erase(todel, second.end());
-	// print_content(second);
 	second.erase('a');
-	second.erase(todel);
 	print_content(second);
-	// its = second.find('a');
-	// second.erase(its);
-	// print_content(second);
-	// TODO
-	// NAMESPACE::map<char, int>::iterator alldel = second.begin();
-	// NAMESPACE::map<char, int>::iterator endell = second.end();
-	// print_content(second);
-	// for (; alldel != endell; ++alldel)
-	// 	second.erase(alldel);
+	NAMESPACE::map<char, int>::iterator todel = second.find('k');
+	second.erase(todel, second.end());
+	print_content(second);
+	NAMESPACE::map<char, int>::iterator alldel = second.begin();
+	for (int i = 0; i < 3; i++)
+		second.erase(alldel++);
+	print_content(second);
 	std::cout << "Empty : " << std::boolalpha << second.empty() << std::endl;
 	second.clear();
 	std::cout << "Empty : " << std::boolalpha << second.empty() << std::endl;

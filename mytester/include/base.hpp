@@ -1,21 +1,22 @@
 #ifndef BASE_HPP
 #define BASE_HPP
-
-# include "../../include/vector.hpp"
-# include "../../include/map.hpp"
-# include <vector>
-# include <map>
 # include <iostream>
 # include <string>
+# include <cstdlib>
+# include <sys/time.h>
+// my STL 
+# include "../../include/vector.hpp"
+# include "../../include/map.hpp"
+# include "../../include/stack.hpp"
+// std::STL 
+# include <vector>
+# include <map>
+# include <stack>
+# define T_SIZE_TYPE typename NAMESPACE::vector<T>::size_type
 
-#  define NAMESPACE ft
-// # if !defined(USING_STD)
-// #  define NAMESPACE ft
-// # else
-// #  define NAMESPACE std
-// # endif /* !defined(STD) */
+// CHANGE HERE [std or ft]
+# define NAMESPACE std
 
-#define T_SIZE_TYPE typename NAMESPACE::vector<T>::size_type
 
 void	vconstructors();
 void	viterators();
@@ -31,6 +32,10 @@ void	maccess();
 void	mothers();
 void	mmemory();
 void	mrelational_operators();
+
+void	sconstructors();
+void	smodifiers();
+void	srelational_operators();
 
 
 template <typename T>

@@ -5,7 +5,7 @@ CC		=	c++
 CFLAGS	=	-std=c++98 -Wall -Wextra -Werror -fsanitize=address
 
 NAME	=	tester
-SRC		=	main.cpp vector.cpp map.cpp
+SRC		=	main.cpp vector.cpp map.cpp stack.cpp
 OBJ		=	$(addprefix obj/,$(notdir $(SRC:.cpp=.o)))
 INC		=	-I include
 
@@ -32,7 +32,10 @@ re : clean all
 .PHONY : all clean fclean re
 
 # Run tests ===========================
-check: ./$(NAME)
-	./$(NAME) 
+my: ./$(NAME)
+	./$(NAME) > ft_containers
+
+stl: ./$(NAME)
+	./$(NAME) > stl_containers
 # Run tests ===========================
 

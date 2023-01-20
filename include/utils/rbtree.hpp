@@ -16,11 +16,11 @@ class RedBlackTree {
 			typedef typename allocator_type::const_pointer					const_pointer;
 			typedef typename allocator_type::reference						reference;
 			typedef typename allocator_type::const_reference				const_reference;
+			typedef typename allocator_type::size_type						size_type;
 			typedef bidirectionalIterator<T>								iterator;
 			typedef bidirectionalIterator<const T>							const_iterator;
 			typedef ft::reverse_iterator<iterator>							reverse_iterator;
 			typedef ft::reverse_iterator<const_iterator>					const_reverse_iterator;
-			typedef	std::size_t												size_type;
 			typedef	Node<value_type>										node;
 			// The rebind member allows a container to construct an allocator for some arbitrary type out of the allocator type provided as a template parameter. 
 			typedef typename Allocator::template rebind<node>::other		allocator_node;
@@ -35,13 +35,13 @@ class RedBlackTree {
 			// Member Functions ==================================================================//
 		public:
 			// !!! debugging
-			void getfullNode(void) {
-					std::cout << "value f " << this->_root->_value.first << " ";
-					std::cout << "value s " << this->_root->_value.second << " ";
-					std::cout << "root " << this->_root->_color << " ";
-					std::cout << "nil " << this->_nil->_color << " ";
-					std::cout << this->_size << " ";
-			}
+			// void getfullNode(void) {
+			// 		std::cout << "value f " << this->_root->_value.first << " ";
+			// 		std::cout << "value s " << this->_root->_value.second << " ";
+			// 		std::cout << "root " << this->_root->_color << " ";
+			// 		std::cout << "nil " << this->_nil->_color << " ";
+			// 		std::cout << this->_size << " ";
+			// }
 
 			explicit RedBlackTree(const value_compare& comp, const allocator_type& alloc): _nil(nilNode()),
 																					_comp(comp), \
@@ -222,7 +222,7 @@ class RedBlackTree {
 
 			size_type	erase(const value_type& val) {
 				node	*n = search(_root, val);
-				if (n != nullptr) {
+				if (n) {
 					erase(n);
 					return 1;
 				}
@@ -262,8 +262,7 @@ class RedBlackTree {
 
 			void 	erase(iterator first, iterator last) {
 				while (first != last) {
-					erase(*first);
-					first++;
+					erase(*first++);
 				}
 			}
 
@@ -509,39 +508,6 @@ class RedBlackTree {
 					n = n->_right;
 				return n;
 			}
-
-			// node	*replaceNode(node *n) {
-			// 	if (!n || (!n->_left && !n->_right))
-			// 		return nullptr;
-			// 	if (n->_left && n->_right)
-			// 		return successor(n);
-			// 	if (n->_right)
-			// 		return n->_left;
-			// 	return n->_right;
-			// }
-
-			// node *successor(node *x) {
-			// 	if (x->_right != _nil)
-			// 		return minimum(x->_right);
-			// 	node *y = x->_parent;
-			// 	while (y != _nil && x == y->_right) {
-			// 		x = y;
-			// 		y = y->_parent;
-			// 	}
-			// 	return y;
-			// }
-
-			// node *predecessor(node *x) {
-			// 	if (x->_left != _nil)
-			// 		return maximum(x->_left);
-			// 	node *y = x->_parent;
-			// 	while (y != _nil && x == y->_left) {
-			// 		x = y;
-			// 		y = y->_parent;
-			// 	}
-			// 	return y;
-			// }
-
 }; // namespace RBT
 
 

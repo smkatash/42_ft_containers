@@ -20,7 +20,7 @@ static void	print_content(NAMESPACE::vector<T> const &vct, bool print_content = 
 				std::cout << " - " << *itB << std::endl;
 		}
 	} else {
-			std::cout << "this is a class" << std::endl;
+			std::cout << "No Print" << std::endl;
 	}
 	std::cout << "<-------------------------------------->" << std::endl;
 }
@@ -84,7 +84,6 @@ void	vmemory() {
 	for (int i = 0; i <= 10; i++) {
 		vres.push_back("42");
 	}
-	// TODO check the time difference
 	for (int i = 0; i <= 10; i++) {
 		v.push_back("42");
 	}
@@ -241,8 +240,8 @@ void	vconstructors() {
 	print_content(v_bool);
 	print_content(v_double);
 	print_content(v_float);
-	print_content(v_intClass, false);
-	print_content(v_stringClass, false);
+	print_content(v_intClass);
+	print_content(v_stringClass);
 
 	std::cout << "fill constructor" << std::endl;
 	NAMESPACE::vector<int>						v_int_fill(5, 42);
@@ -265,8 +264,8 @@ void	vconstructors() {
 	print_content(v_bool_fill);
 	print_content(v_double_fill);
 	print_content(v_float_fill);
-	print_content(v_intClass_fill, false);
-	print_content(v_stringClass_fill, false);
+	print_content(v_intClass_fill);
+	print_content(v_stringClass_fill);
 	std::cout << "range constructor" << std::endl;
 	NAMESPACE::vector<int>						v_int_range(v_int_fill.begin(), v_int_fill.end());
 	NAMESPACE::vector<int>						v_int_range2(v_int_fill2.begin(), v_int_fill2.end());
@@ -284,8 +283,8 @@ void	vconstructors() {
 	print_content(v_bool_range);
 	print_content(v_double_range);
 	print_content(v_float_range);
-	print_content(v_intClass_range, false);
-	print_content(v_stringClass_range, false);
+	print_content(v_intClass_range);
+	print_content(v_stringClass_range);
 	std::cout << "copy constructor" << std::endl;
 	NAMESPACE::vector<int>						v_int_copy(v_int_range);
 	NAMESPACE::vector<int>						v_int_copy2(v_int_range2);
@@ -303,8 +302,8 @@ void	vconstructors() {
 	print_content(v_bool_copy);
 	print_content(v_double_copy);
 	print_content(v_float_copy);
-	print_content(v_intClass_copy, false);
-	print_content(v_stringClass_copy, false);
+	print_content(v_intClass_copy);
+	print_content(v_stringClass_copy);
 
 
 	std::cout << "Assignment operator" << std::endl;
