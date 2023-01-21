@@ -6,7 +6,6 @@ void	stack() {
 	srelational_operators();
 }
 
-
 void	map() {
 	mconstructors();
 	miterators();
@@ -26,11 +25,17 @@ void	vector() {
 	vrelational_operators();
 }
 
+void	checkleaks()
+{
+	system("leaks tester");
+}
+
 int main() {
 	struct timeval start, end;
 	long seconds;
 	long microseconds;
 
+	//atexit(checkleaks);
 	std::cout << "!!!!!!!!!            START OF VECTOR TEST            !!!!!!!" << std::endl << std::endl;
 	gettimeofday(&start, NULL);
 	vector();
@@ -39,6 +44,7 @@ int main() {
 	seconds = (end.tv_sec - start.tv_sec);
 	microseconds = ((seconds * 1000000) + end.tv_usec) - (start.tv_usec);
 	std::cout << std::endl << "VECTOR took: " << (microseconds / 1000000) << "," << (microseconds % 1000000) << " seconds" << std::endl;
+	std::cout << std::endl;
 	std::cout << "!!!!!!!!!            START OF MAP TEST               !!!!!!!" << std::endl << std::endl;
 	gettimeofday(&start, NULL);
 	map();
@@ -47,6 +53,7 @@ int main() {
 	seconds = (end.tv_sec - start.tv_sec);
 	microseconds = ((seconds * 1000000) + end.tv_usec) - (start.tv_usec);
 	std::cout << std::endl << "MAP took: " << (microseconds / 1000000) << "," << (microseconds % 1000000) << " seconds" << std::endl;
+	std::cout << std::endl;
 	std::cout << "!!!!!!!!!            START OF STACK TEST             !!!!!!!" << std::endl << std::endl;
 	gettimeofday(&start, NULL);
 	stack();
@@ -55,5 +62,6 @@ int main() {
 	seconds = (end.tv_sec - start.tv_sec);
 	microseconds = ((seconds * 1000000) + end.tv_usec) - (start.tv_usec);
 	std::cout << std::endl << "STACK took: " << (microseconds / 1000000) << "," << (microseconds % 1000000) << " seconds" << std::endl;
+	std::cout << std::endl;
 	return 0;
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   enable_if.hpp                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kanykei <kanykei@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 14:41:54 by ktashbae          #+#    #+#             */
-/*   Updated: 2023/01/20 18:50:16 by kanykei          ###   ########.fr       */
+/*   Updated: 2023/01/21 09:35:09 by ktashbae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ namespace ft {
 		T	tmp = x;
 		x = y;
 		y = tmp;
-	};
+	}
 }; // end of namespace ft
 
 #endif

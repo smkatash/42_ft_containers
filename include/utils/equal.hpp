@@ -6,7 +6,7 @@
 /*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 14:41:51 by ktashbae          #+#    #+#             */
-/*   Updated: 2023/01/11 11:30:56 by ktashbae         ###   ########.fr       */
+/*   Updated: 2023/01/21 09:35:18 by ktashbae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ namespace ft {
 				return false;
 		}
 		return true;
-	};
+	}
 
 	/** Predicate*/
 	template <class InputIterator1, class InputIterator2, class BinaryPredicate>
@@ -43,7 +43,7 @@ namespace ft {
 				return false;
 		}
 		return true;
-	};
+	}
 
 	// Lexicographical comparison ===========================//
 /**
@@ -65,7 +65,7 @@ namespace ft {
 				return true;
 		}
 		return (first2 != last2);
-	};
+	}
 
 /**
  * Binary function that accepts two arguments of the types pointed by the iterators,

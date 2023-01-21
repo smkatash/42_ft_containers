@@ -2,7 +2,7 @@
 VPATH	= src
 
 CC		=	c++
-CFLAGS	=	-std=c++98 -Wall -Wextra -Werror -fsanitize=address
+CFLAGS	=	-std=c++98 -Wall -Wextra -Werror
 
 NAME	=	tester
 SRC		=	main.cpp vector.cpp map.cpp stack.cpp
@@ -16,7 +16,7 @@ $(NAME) : $(OBJ)
 	@echo "tester is compiled"
 
 obj/%.o : %.cpp | obj
-	@$(CC) $(CFLAGS) $(INC) -c $< -o $@
+	@$(CC) $(CFLAGS) $(INC) -c $< -o $@ 
 
 obj :
 	@mkdir obj
@@ -32,7 +32,7 @@ re : clean all
 .PHONY : all clean fclean re
 
 # Run tests ===========================
-my: ./$(NAME)
+ft: ./$(NAME)
 	./$(NAME) > ft_containers
 
 stl: ./$(NAME)

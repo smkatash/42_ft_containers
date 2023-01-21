@@ -15,10 +15,10 @@
 # define T_SIZE_TYPE typename NAMESPACE::vector<T>::size_type
 
 // CHANGE HERE [std or ft]
-# define NAMESPACE std
+# define NAMESPACE ft
 
 
-void	vconstructors();
+void	 vconstructors();
 void	viterators();
 void	vmodifiers();
 void	vaccess();

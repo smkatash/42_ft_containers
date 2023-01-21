@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   iterator.hpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kanykei <kanykei@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 14:41:48 by ktashbae          #+#    #+#             */
-/*   Updated: 2023/01/20 20:52:53 by kanykei          ###   ########.fr       */
+/*   Updated: 2023/01/21 09:36:27 by ktashbae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,10 +97,10 @@ namespace ft {
 			typedef const T&							const_reference;
 			typedef iterator <const T>					const_iterator;
 
-			iterator(void) : 					_it()				{};
-			iterator(pointer it) : 				_it(it)				{};
-			iterator(const iterator& other) : 	_it(other._it)		{};
-			~iterator(void)											{};
+			iterator(void) : 					_it()				{}
+			iterator(pointer it) : 				_it(it)				{}
+			iterator(const iterator& other) : 	_it(other._it)		{}
+			~iterator(void)											{}
 
 			pointer	base() const {
 				return _it;

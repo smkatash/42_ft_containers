@@ -6,7 +6,7 @@
 /*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/02 14:42:01 by ktashbae          #+#    #+#             */
-/*   Updated: 2023/01/17 16:23:10 by ktashbae         ###   ########.fr       */
+/*   Updated: 2023/01/21 09:33:54 by ktashbae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,33 +43,33 @@ namespace ft {
 			iterator	_it;
 		
 		public:
-			reverse_iterator(void) :					_it()							{};
-			reverse_iterator(iterator_type it) :		_it(it)							{};
+			reverse_iterator(void) :					_it()							{}
+			reverse_iterator(iterator_type it) :		_it(it)							{}
 			/** copy / type-cast constructor */
 			template<class Iter>
-			reverse_iterator(const reverse_iterator<Iter>& other): _it(other.base())	{};
-			~reverse_iterator(void)														{};
+			reverse_iterator(const reverse_iterator<Iter>& other): _it(other.base())	{}
+			~reverse_iterator(void)														{}
 
 			iterator_type	base() const  {
 				return _it;
-			};
+			}
 
 			/** Assignment operators */
 			template<class Iter>
 			reverse_iterator& operator=(const reverse_iterator<Iter>& other)			{
 				_it =  other.base();
 				return *this;
-			};
+			}
 
 			reverse_iterator&	operator+=(difference_type n)							{
 				_it -= n;
 				return *this;
-			};
+			}
 
 			reverse_iterator&	operator-=(difference_type n)							{
 				_it += n;
 				return *this;
-			};
+			}
 
 			/** Arithmetic operators */
 			reverse_iterator	operator+(difference_type n) const						{
@@ -78,45 +78,45 @@ namespace ft {
 
 			reverse_iterator	operator-(difference_type n) const						{
 				return reverse_iterator(_it + n);
-			};
+			}
 
 			/** Increment and Decrement operators */
 			reverse_iterator&		operator++()										{
 				--_it;
 				return *this;
-			};
+			}
 
 			reverse_iterator&		operator--()										{
 				++_it;
 				return *this;
-			};
+			}
 
 			reverse_iterator		operator++(int)										{
 				reverse_iterator	tmp = *this;
 				--_it;
 				return tmp;
-			};
+			}
 
 			reverse_iterator		operator--(int)										{
 				reverse_iterator	tmp = *this;
 				++_it;
 				return tmp;
-			};
+			}
 
 			/** Dereference operators */
 			/** with iterator alsways end - 1 */
 			reference		operator*() const											{
 				iterator_type	tmp = _it;
 				return *(--tmp);
-			};
+			}
 
 			pointer			operator->() const											{
 				return &(operator*());
-			};
+			}
 
 			reference		operator[] (difference_type n) const						{
 				return base()[-n-1];
-			};
+			}
 	};
 
 	// Non-member overloads ===================================================//

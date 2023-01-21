@@ -136,7 +136,7 @@ void	vmodifiers() {
 	print_content(vdb);
 	std::cout << "Assign range" << std::endl;
 	vect.assign(vect.begin() + 5, vect.end() - 1);
-	vstr.assign(vstr.rbegin() + 2, vstr.rend() - 1);
+	vstr.assign(vstr.begin() + 2, vstr.end() - 1);
 	vfl.assign(vfl.begin(), vfl.end() - 5);
 	print_content(vect);
 	print_content(vstr);
@@ -173,7 +173,6 @@ void	vmodifiers() {
 	std::cout << "vector<int> empty: " << std::boolalpha << vect.empty() << std::endl;
 	std::cout << "vector<std::string> empty: " << std::boolalpha << vstr.empty() << std::endl; 
 	std::cout << "vector<float> empty: " << std::boolalpha <<  vfl.empty() << std::endl;
-
 }
 
 void	viterators() {
